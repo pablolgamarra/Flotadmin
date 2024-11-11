@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "flotadmin-client-side-solution",
+    "id": "06503cc0-dee7-408b-b0d6-ff32575a7ef6",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Flotadmin description"
+      },
+      "longDescription": {
+        "default": "Flotadmin description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "flotadmin Feature",
+        "description": "The feature that activates elements of the flotadmin solution.",
+        "id": "a67544a0-3579-4da2-8230-cecce89b6ffe",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/flotadmin.sppkg"
+  }
+}
