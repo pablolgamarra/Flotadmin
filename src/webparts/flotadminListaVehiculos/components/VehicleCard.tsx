@@ -12,18 +12,18 @@ import {
 } from '@fluentui/react-components';
 
 export interface VehicleCardProps {
-	Vehicle: Vehicle;
+	vehicle: Vehicle;
 }
 
 const VehicleCard: React.FC<VehicleCardProps> = (props) => {
-	const { Vehicle } = props;
+	const { vehicle } = props;
 
 	return (
 		<Card>
 			<CardHeader
 				header={
 					<Body1Strong>
-						#{Vehicle.Id} - {Vehicle.Model} - {Vehicle.Plate}
+						#{vehicle.Id} - {vehicle.Model} - {vehicle.Plate}
 					</Body1Strong>
 				}
 				description={
@@ -35,14 +35,14 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 				}
 			/>
 			<Body2>
-				<b>Monto de Flota Asignado:</b> {Vehicle.FleetCard.AsignedValue}{' '}
+				<b>Monto de Flota Asignado:</b> {vehicle.FleetCard.AsignedValue}{' '}
 				Gs
 			</Body2>
 			<Body2>
-				<b>Monto de Flota Asignado:</b> {Vehicle.FleetCard.CardNumber}
+				<b>Monto de Flota Asignado:</b> {vehicle.FleetCard.CardNumber}
 			</Body2>
 			<Body2>
-				<b>Usuario:</b> {Vehicle.User} Gs
+				<b>Usuario:</b> {vehicle.User} Gs
 			</Body2>
 		</Card>
 	);
