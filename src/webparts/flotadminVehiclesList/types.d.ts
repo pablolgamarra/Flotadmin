@@ -1,4 +1,4 @@
-enum Currency {
+export enum Currency {
 	Dolar = 'Dolar',
 	Guaranies = 'Guaranies',
 }
@@ -17,7 +17,7 @@ export interface Vehicle {
 	ModelYear: string;
 	BuyDate: Date;
 	Cost: number;
-	CostCurrency: Currency;
+	CostCurrency: string;
 	User: string;
 	FleetCard: FleetCard;
 }

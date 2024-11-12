@@ -1,24 +1,24 @@
 {
-  "@microsoft/generator-sharepoint": {
-    "whichFolder": "subdir",
-    "solutionName": "Flotadmin",
-    "componentType": "webpart",
-    "template": "react",
-    "componentName": "flotadmin-listaVehiculos",
-    "plusBeta": false,
-    "isCreatingSolution": true,
-    "nodeVersion": "18.17.1",
-    "sdksVersions": {
-      "@microsoft/microsoft-graph-client": "3.0.2",
-      "@microsoft/teams-js": "2.12.0"
-    },
-    "version": "1.18.2",
-    "libraryName": "flotadmin",
-    "libraryId": "06503cc0-dee7-408b-b0d6-ff32575a7ef6",
-    "environment": "spo",
-    "packageManager": "npm",
-    "solutionShortDescription": "Flotadmin description",
-    "skipFeatureDeployment": true,
-    "isDomainIsolated": false
-  }
+	"@microsoft/generator-sharepoint": {
+		"whichFolder": "subdir",
+		"solutionName": "Flotadmin",
+		"componentType": "webpart",
+		"template": "react",
+		"componentName": "flotadmin-vehiclesList",
+		"plusBeta": false,
+		"isCreatingSolution": true,
+		"nodeVersion": "18.17.1",
+		"sdksVersions": {
+			"@microsoft/microsoft-graph-client": "3.0.2",
+			"@microsoft/teams-js": "2.12.0"
+		},
+		"version": "1.18.2",
+		"libraryName": "flotadmin",
+		"libraryId": "06503cc0-dee7-408b-b0d6-ff32575a7ef6",
+		"environment": "spo",
+		"packageManager": "npm",
+		"solutionShortDescription": "Flotadmin description",
+		"skipFeatureDeployment": true,
+		"isDomainIsolated": false
+	}
 }
