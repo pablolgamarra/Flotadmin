@@ -8,13 +8,15 @@ import {
 	Button,
 	Title1,
 	Field,
-	FluentProvider,
 	IdPrefixProvider,
 	SearchBox,
 	useId,
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 import VehicleCard from '@vehiclesList/components/VehicleCard';
+
+//Styles
+import '../../../../assets/dist/tailwind.css';
 
 //TODO: Agregar queries a DB
 
@@ -28,24 +30,33 @@ export const App: React.FC<AppProps> = (props) => {
 
 	return (
 		<IdPrefixProvider value='Flotadmin'>
-			<FluentProvider>
-				<Title1>Todos los Vehículos</Title1>
-				<Field>
-					<SearchBox placeholder='Buscar Vehículos' />
-				</Field>
-				<Button
-					appearance='primary'
-					icon={<AddCircle28Regular />}
-				>
-					Nuevo Vehiculo
-				</Button>
-				{vehicles.map((item: Vehicle) => (
-					<VehicleCard
-						key={`${id}-${item.Plate}`}
-						vehicle={item}
+			<div className='flex flex-col w-10/12 mx-auto'>
+				<Title1 className='mt-8 self-center'>
+					Todos los Vehículos
+				</Title1>
+				<Field className='flex mt-6'>
+					<SearchBox
+						className='max-w-none w-10/12 mr-4'
+						placeholder='Buscar Vehículos'
 					/>
-				))}
-			</FluentProvider>
+					<Button
+						className='w-2/12'
+						appearance='primary'
+						icon={<AddCircle28Regular />}
+					>
+						Nuevo Vehiculo
+					</Button>
+				</Field>
+				<div className='grid grid-cols-3 grid-flow-col gap-2'>
+					{vehicles.map((item: Vehicle) => (
+						<VehicleCard
+							key={`${id}-${item.Plate}`}
+							vehicle={item}
+							className='w-fit'
+						/>
+					))}
+				</div>
+			</div>
 		</IdPrefixProvider>
 	);
 };

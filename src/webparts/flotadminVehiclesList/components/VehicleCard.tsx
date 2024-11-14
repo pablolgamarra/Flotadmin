@@ -14,15 +14,22 @@ import {
 } from '@fluentui/react-components';
 import { Open28Filled, WindowWrench28Regular } from '@fluentui/react-icons';
 
+//Styles
+import '../../../../assets/dist/tailwind.css';
+
 export interface VehicleCardProps {
 	vehicle: Vehicle;
+	className: string;
 }
 
 const VehicleCard: React.FC<VehicleCardProps> = (props) => {
-	const { vehicle } = props;
+	const { vehicle, className } = props;
 
 	return (
-		<Card size='medium'>
+		<Card
+			className={className}
+			size='medium'
+		>
 			<CardHeader
 				header={
 					<Title3>
