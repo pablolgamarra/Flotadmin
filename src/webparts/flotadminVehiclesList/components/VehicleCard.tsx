@@ -43,6 +43,7 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 						Km Último Mantenimiento: 10.000 Km
 					</Body2>
 				}
+				className='tw-mb-4'
 			/>
 			<Body2>
 				<b>Monto de Flota Asignado:</b> {vehicle.FleetCard.AsignedValue}{' '}
@@ -54,7 +55,7 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 			<Body2>
 				<b>Usuario:</b> {vehicle.User}
 			</Body2>
-			<CardFooter>
+			<CardFooter className='tw-mt-8'>
 				<Button
 					appearance='primary'
 					icon={<Open28Filled />}
