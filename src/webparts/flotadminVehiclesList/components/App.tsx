@@ -30,26 +30,28 @@ export const App: React.FC<AppProps> = (props) => {
 
 	return (
 		<IdPrefixProvider value='Flotadmin'>
-			<div className='tw-flex tw-flex-col tw-w-10/12 tw-mx-auto'>
-				<Title1 className='tw-mt-8 tw-self-center'>
-					Todos los Vehículos
-				</Title1>
-				<Field className='tw-flex tw-mt-6'>
-					<SearchBox
-						className='tw-max-w-none tw-w-10/12 tw-mr-4'
-						placeholder='Buscar Vehículos'
-					/>
-					<Button
-						className='tw-w-2/12'
-						appearance='primary'
-						icon={<AddCircle28Regular />}
-					>
-						Nuevo Vehiculo
-					</Button>
-				</Field>
+			<div className='tw-flex tw-flex-col tw-w-8/12 tw-mx-auto'>
+				<section className='tw-mb-2'>
+					<Title1 className='tw-mt-8 tw-self-center'>
+						Todos los Vehículos
+					</Title1>
+					<Field className='tw-flex tw-mt-6'>
+						<SearchBox
+							className='tw-max-w-none tw-w-10/12 tw-mr-4'
+							placeholder='Buscar Vehículos'
+						/>
+						<Button
+							className='tw-w-2/12'
+							appearance='primary'
+							icon={<AddCircle28Regular />}
+						>
+							Nuevo Vehiculo
+						</Button>
+					</Field>
+				</section>
 				<div
 					id='cards-container'
-					className='tw-grid tw-grid-cols-3 tw-grid-flow-col tw-gap-8 tw-justify-between tw-justify-items-center tw-mt-8 tw-bg'
+					className='tw-grid tw-grid-cols-3 tw-grid-flow-col tw-justify-around tw-justify-items-center tw-mt-6 tw-bg-gray-400 tw-py-4'
 				>
 					{vehicles.map((item: Vehicle) => (
 						<VehicleCard
