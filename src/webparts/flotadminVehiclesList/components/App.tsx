@@ -30,9 +30,13 @@ export const App: React.FC<AppProps> = (props) => {
 
 	return (
 		<IdPrefixProvider value='Flotadmin'>
-			<div className='tw-flex tw-flex-col tw-w-8/12 tw-mx-auto'>
-				<section className='tw-mb-2'>
-					<Title1 className='tw-mt-8 tw-self-center'>
+			<div className='tw-w-8/12 tw-mx-auto'>
+				<section className='tw-flex tw-flex-col tw-w-full tw-mb-2'>
+					<Title1
+						as='h2'
+						align='center'
+						className='tw-mt-8'
+					>
 						Todos los Vehículos
 					</Title1>
 					<Field className='tw-flex tw-mt-6'>
@@ -51,13 +55,13 @@ export const App: React.FC<AppProps> = (props) => {
 				</section>
 				<div
 					id='cards-container'
-					className='tw-grid tw-grid-cols-3 tw-grid-flow-col tw-justify-around tw-justify-items-center tw-mt-6 tw-bg-gray-400 tw-py-4'
+					className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-h-screen tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-gap-4'
 				>
 					{vehicles.map((item: Vehicle) => (
 						<VehicleCard
 							key={`${id}-${item.Plate}`}
 							vehicle={item}
-							className='tw-w-fit'
+							className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
 						/>
 					))}
 				</div>
