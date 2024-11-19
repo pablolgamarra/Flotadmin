@@ -1,19 +1,10 @@
-declare interface IFlotadminListaVehiculosWebPartStrings {
-  PropertyPaneDescription: string;
-  BasicGroupName: string;
-  DescriptionFieldLabel: string;
-  AppLocalEnvironmentSharePoint: string;
-  AppLocalEnvironmentTeams: string;
-  AppLocalEnvironmentOffice: string;
-  AppLocalEnvironmentOutlook: string;
-  AppSharePointEnvironment: string;
-  AppTeamsTabEnvironment: string;
-  AppOfficeEnvironment: string;
-  AppOutlookEnvironment: string;
-  UnknownEnvironment: string;
+declare interface IFlotadminVehiclesListWebPartStrings {
+	PropertyPaneDescription: string;
+	ListsSettingsGroupName: string;
+	DescriptionFieldLabel: string;
 }
 
-declare module 'FlotadminListaVehiculosWebPartStrings' {
-  const strings: IFlotadminListaVehiculosWebPartStrings;
-  export = strings;
+declare module 'FlotadminVehiclesListWebPartStrings' {
+	const strings: IFlotadminVehiclesListWebPartStrings;
+	export = strings;
 }
