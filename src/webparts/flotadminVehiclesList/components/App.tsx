@@ -14,6 +14,7 @@ import {
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 import VehicleCard from '@vehiclesList/components/VehicleCard';
+import { VehicleRegister } from '@vehiclesList/components/VehicleRegister';
 
 //Styles
 import '../../../../assets/dist/tailwind.css';
@@ -27,6 +28,8 @@ export interface AppProps {
 export const App: React.FC<AppProps> = (props) => {
 	const id = useId('App');
 	const { vehicles } = props;
+
+	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
 	return (
 		<IdPrefixProvider value='Flotadmin'>
@@ -44,13 +47,22 @@ export const App: React.FC<AppProps> = (props) => {
 							className='tw-max-w-none tw-w-10/12 tw-mr-4'
 							placeholder='Buscar Vehículos'
 						/>
-						<Button
-							className='tw-w-2/12'
-							appearance='primary'
-							icon={<AddCircle28Regular />}
-						>
-							Nuevo Vehiculo
-						</Button>
+						<VehicleRegister
+							open={dialogOpen}
+							setOpen={setDialogOpen}
+							triggerButton={
+								<Button
+									className='tw-w-2/12'
+									appearance='primary'
+									icon={<AddCircle28Regular />}
+									onClick={() => {
+										setDialogOpen(!dialogOpen);
+									}}
+								>
+									Nuevo Vehiculo
+								</Button>
+							}
+						/>
 					</Field>
 				</section>
 				<div
