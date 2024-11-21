@@ -5,9 +5,11 @@ import {
 	Dropdown,
 	Field,
 	Input,
+	Radio,
 	RadioGroup,
 } from '@fluentui/react-components';
 import { DatePicker } from '@fluentui/react';
+
 export interface VehicleRegisterFormProps {}
 
 export const VehicleRegisterForm: React.FC<VehicleRegisterFormProps> = (
@@ -19,43 +21,54 @@ export const VehicleRegisterForm: React.FC<VehicleRegisterFormProps> = (
 				label={'Chapa'}
 				required
 			>
-				<Input />
+				<Input placeholder='Insertar Número de Chapa' />
 			</Field>
 			<Field
 				label={'Marca'}
 				required
 			>
-				<Input />
+				<Input placeholder='Insertar Marca del Vehículo' />
 			</Field>
 			<Field
 				label={'Modelo'}
 				required
 			>
-				<Input />
+				<Input placeholder='Insertar Modelo del Vehículo' />
 			</Field>
 			<Field
 				label={'Año'}
 				required
 			>
-				<Input />
+				<Input placeholder='Insertar Año de Fabricación del Vehículo' />
 			</Field>
 			<Field label={'Fecha de Adquisición'}>
-				<DatePicker />
+				<DatePicker placeholder='Insertar Fecha de Adquisición del Vehículo' />
 			</Field>
 			<Field label={'Costo de Adquisición'}>
-				<Input />
+				<Input placeholder='Insertar Costo de Adquisición del Vehículo' />
 			</Field>
 			<Field label={'Moneda de Adquisición'}>
+				<RadioGroup />
+				<Radio
+					key='a-c-local-radio-group'
+					value='Guaraní'
+					label='Guaraní'
+				/>
+				<Radio
+					key='a-c-exchange-radio-group'
+					value='Dólar'
+					label='Dólar'
+				/>
 				<RadioGroup />
 			</Field>
 			<Field
 				label={'Usuario'}
 				required
 			>
-				<Combobox />
+				<Combobox placeholder='Inserte o Seleccione...' />
 			</Field>
 			<Field label={'Tarjeta Flota'}>
-				<Dropdown />
+				<Dropdown placeholder='Inserte o Seleccione...' />
 			</Field>
 		</>
 	);

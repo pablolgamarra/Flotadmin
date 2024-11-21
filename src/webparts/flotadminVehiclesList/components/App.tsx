@@ -13,8 +13,8 @@ import {
 	useId,
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
-import VehicleCard from '@vehiclesList/components/VehicleCard';
-import { VehicleRegister } from '@vehiclesList/components/VehicleRegister';
+import VehicleCard from '@vehiclesList/components/vehicles/VehicleCard';
+import { VehicleRegister } from '@vehiclesList/components/vehicles/VehicleRegister';
 
 //Styles
 import '../../../../assets/dist/tailwind.css';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { VehicleRegisterForm } from '@vehiclesList/components/VehicleRegisterForm';
-import { VehiclesDialog } from './VehiclesDialog';
+import { VehicleRegisterForm } from '@vehiclesList/components/vehicles/VehicleRegisterForm';
+import { CustomDialog } from '../common/CustomDialog';
 
 export interface VehicleRegisterProps {
 	open: boolean;
@@ -17,7 +17,7 @@ export const VehicleRegister: React.FC<
 	return (
 		<>
 			{triggerButton}
-			<VehiclesDialog
+			<CustomDialog
 				open={open}
 				setOpen={setOpen}
 				title='Insertar Nuevo Vehículo'
@@ -26,7 +26,7 @@ export const VehicleRegister: React.FC<
 				trigger={children as HTMLButtonElement}
 			>
 				<VehicleRegisterForm />
-			</VehiclesDialog>
+			</CustomDialog>
 		</>
 	);
 };
