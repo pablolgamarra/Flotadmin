@@ -28,7 +28,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 1,
 			CardNumber: '1597538426',
-			AsignedValue: '3000000',
+			AssignedValue: 3000000,
 		},
 		Model: 'S 10 C/D',
 		ModelYear: '2024',
@@ -44,7 +44,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 2,
 			CardNumber: '147258369',
-			AsignedValue: '6000000',
+			AssignedValue: 6000000,
 		},
 		Model: 'SORENTO',
 		ModelYear: '2019',
@@ -60,7 +60,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 3,
 			CardNumber: '1597538427',
-			AsignedValue: '8000000',
+			AssignedValue: 8000000,
 		},
 		Model: 'S 10 C/S',
 		ModelYear: '2021',
@@ -76,7 +76,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 4,
 			CardNumber: '7539514862',
-			AsignedValue: '2500000',
+			AssignedValue: 2500000,
 		},
 		Model: 'Hilux SR',
 		ModelYear: '2023',
@@ -92,7 +92,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 5,
 			CardNumber: '1234567890',
-			AsignedValue: '4000000',
+			AssignedValue: 4000000,
 		},
 		Model: 'Ranger XLT',
 		ModelYear: '2022',
@@ -108,7 +108,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 6,
 			CardNumber: '6543219875',
-			AsignedValue: '2000000',
+			AssignedValue: 2000000,
 		},
 		Model: 'Frontier LE',
 		ModelYear: '2021',
@@ -124,7 +124,7 @@ const vehiclesList: Vehicle[] = [
 		FleetCard: {
 			Id: 7,
 			CardNumber: '9876543210',
-			AsignedValue: '1800000',
+			AssignedValue: 1800000,
 		},
 		Model: 'Amarok V6',
 		ModelYear: '2020',
