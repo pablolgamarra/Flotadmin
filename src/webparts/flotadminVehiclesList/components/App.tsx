@@ -14,7 +14,7 @@ import {
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 import VehicleCard from '@vehiclesList/components/vehicles/VehicleCard';
-import { VehicleRegister } from '@vehiclesList/components/vehicles/VehicleRegister';
+import { VehicleDialog } from '@vehiclesList/components/vehicles/VehicleDialog';
 
 //Styles
 import '../../../../assets/dist/tailwind.css';
@@ -47,7 +47,7 @@ export const App: React.FC<AppProps> = (props) => {
 							className='tw-max-w-none tw-w-10/12 tw-mr-4'
 							placeholder='Buscar Vehículos'
 						/>
-						<VehicleRegister
+						<VehicleDialog
 							open={dialogOpen}
 							setOpen={setDialogOpen}
 							triggerButton={
