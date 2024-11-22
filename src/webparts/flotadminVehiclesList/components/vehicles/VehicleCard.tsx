@@ -16,6 +16,7 @@ import { Open28Filled, WindowWrench28Regular } from '@fluentui/react-icons';
 
 //Styles
 import '../../../../../assets/dist/tailwind.css';
+import { InteractionDialog } from '../interactions/InteractionDialog';
 
 export interface VehicleCardProps {
 	vehicle: Vehicle;
@@ -24,6 +25,8 @@ export interface VehicleCardProps {
 
 const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 	const { vehicle, className } = props;
+
+	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
 	return (
 		<Card
@@ -61,15 +64,22 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 					icon={<Open28Filled />}
 					iconPosition='before'
 				>
-					Editar
+					Ver
 				</Button>
-				<Button
-					appearance='outline'
-					icon={<WindowWrench28Regular />}
-					iconPosition='before'
-				>
-					Registrar Interacción
-				</Button>
+				<InteractionDialog
+					open={dialogOpen}
+					setOpen={setDialogOpen}
+					triggerButton={
+						<Button
+							appearance='outline'
+							icon={<WindowWrench28Regular />}
+							iconPosition='before'
+							onClick={() => setDialogOpen(!dialogOpen)}
+						>
+							Registrar Interacción
+						</Button>
+					}
+				/>
 			</CardFooter>
 		</Card>
 	);
