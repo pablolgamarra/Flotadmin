@@ -6,7 +6,7 @@ export enum Currency {
 export interface FleetCard {
 	Id: number;
 	CardNumber: string;
-	AsignedValue: string;
+	AssignedValue: number;
 }
 
 export interface Vehicle {
@@ -35,4 +35,43 @@ export interface Intervention {
 	IntervationType: IntervationType;
 	Cost: number;
 	CostCurrency: Currency;
+}
+
+export interface VehiclesResponse {
+	Id: number;
+	Title: string;
+	Marca: string;
+	Modelo: string;
+	AnhoModelo: string;
+	FechaAdquisicion: Date;
+	CostoAdquisicion: number;
+	MonedaAdquisicion: string;
+	Usuario: string;
+	TarjetaFlotaId: number;
+	ID: number;
+	Modified: Date;
+	Created: Date;
+	AuthorId: number;
+	EditorId: number;
+}
+
+export interface InterventionTypesResponse {
+	Id: number;
+	Title: string;
+	ID: number;
+	Modified: Date;
+	Created: Date;
+	AuthorId: number;
+	EditorId: number;
+}
+
+export interface FleetCardsResponse {
+	Id: number;
+	Title: string;
+	MontoAsignado: number;
+	ID: number;
+	Modified: Date;
+	Created: Date;
+	AuthorId: number;
+	EditorId: number;
 }
