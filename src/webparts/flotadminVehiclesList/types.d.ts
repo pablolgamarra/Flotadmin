@@ -19,7 +19,7 @@ export interface Vehicle {
 	Cost: number;
 	CostCurrency: string;
 	User: string;
-	FleetCard: FleetCard;
+	FleetCard?: FleetCard;
 }
 
 export interface InterventionType {
@@ -74,4 +74,15 @@ export interface FleetCardsResponse {
 	Created: Date;
 	AuthorId: number;
 	EditorId: number;
+}
+
+export interface InterventionsResponse {
+	Id: number;
+	Title: string;
+	VehiculoId: number;
+	FechaIntervencion: Date;
+	TipoIntervencionId: number;
+	CostoIntervencion: number;
+	MonedaIntervencion: string;
+	Descripcion: string;
 }
