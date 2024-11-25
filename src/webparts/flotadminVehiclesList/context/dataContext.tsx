@@ -9,7 +9,7 @@ import * as React from 'react';
 //Types
 
 interface DataProviderProps {
-	fleedCardList: FleetCard[];
+	fleetCardList: FleetCard[];
 	interventionsList: Intervention[];
 	interventionTypesList: InterventionType[];
 	vehiclesList: Vehicle[];
@@ -22,14 +22,14 @@ export const DataContext = React.createContext<DataProviderProps>(
 export const DataProvider: React.FunctionComponent<DataProviderProps> = ({
 	children,
 	vehiclesList,
-	fleedCardList,
+	fleetCardList,
 	interventionsList,
 	interventionTypesList,
 }: React.PropsWithChildren<DataProviderProps>) => {
 	return (
 		<DataContext.Provider
 			value={{
-				fleedCardList: fleedCardList,
+				fleetCardList: fleetCardList,
 				interventionsList: interventionsList,
 				interventionTypesList: interventionTypesList,
 				vehiclesList: vehiclesList,
