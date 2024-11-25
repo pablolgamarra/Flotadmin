@@ -2,12 +2,12 @@ import { HttpClientResponse, SPHttpClient } from '@microsoft/sp-http';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import { FleetCard, FleetCardsResponse } from '@vehiclesList/types';
 
-export const getAllCards = (
+export const getAllCards = async (
 	context: WebPartContext,
-): Promise<FleetCard[] | undefined | Error> => {
+): Promise<FleetCard[]> => {
 	const url = `${context.pageContext.web.absoluteUrl}/_api/web/lists/getByTitle('TarjetasFlota)/items?$select=Id,Title,MontoAsignado&$top=5000`;
 
-	context.spHttpClient
+	return context.spHttpClient
 		.get(url, SPHttpClient.configurations.v1, {
 			headers: { Accept: 'application/json;odata=nometadata' },
 		})
@@ -29,6 +29,6 @@ export const getAllCards = (
 			return card;
 		})
 		.catch((e) => {
-			throw Error('Error on HTTP GET Vehicles');
+			throw Error('Error on HTTP GET Cards');
 		});
 };
