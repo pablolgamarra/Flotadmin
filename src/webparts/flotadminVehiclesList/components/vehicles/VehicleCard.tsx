@@ -50,10 +50,10 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 			/>
 			<Body2>
 				<b>Monto de Flota Asignado:</b>{' '}
-				{vehicle.FleetCard.AssignedValue} Gs
+				{vehicle.FleetCard?.AssignedValue} Gs
 			</Body2>
 			<Body2>
-				<b>Numero de Tarjeta Flota:</b> {vehicle.FleetCard.CardNumber}{' '}
+				<b>Numero de Tarjeta Flota:</b> {vehicle.FleetCard?.CardNumber}{' '}
 			</Body2>
 			<Body2>
 				<b>Usuario:</b> {vehicle.User}
