@@ -1,16 +1,16 @@
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { WebPartContext } from '@microsoft/sp-webpart-base';
 import { Vehicle, VehiclesResponse } from '@vehiclesList/types';
-import { getAllCards } from './FleetCards';
+import { getAllFleetCards } from './FleetCards';
 
 export const getAllVehicles = async (
 	context: WebPartContext,
 ): Promise<Vehicle[]> => {
-	const url = `${context.pageContext.web.absoluteUrl}/_api/web/lists/getByTitle('Vehiculos')/items?$select=Id,Title,Marca,Modelo,AnhoModelo,FechaAdquisicion,CostoAdquisicion,MonedaAdquisicion,Usuario,TarjetaFlotaId`;
+	const url = `${context.pageContext.web.absoluteUrl}/_api/web/lists/getByTitle('Vehiculos')/items?$select=Id,Title,Marca,Modelo,AnhoModelo,FechaAdquisicion,CostoAdquisicion,MonedaAquisicion,Usuario,TarjetaFlotaId`;
 
 	return context.spHttpClient
 		.get(url, SPHttpClient.configurations.v1, {
-			headers: { Accept: 'application/json; odata=nometadata' },
+			headers: { Accept: 'application/json' },
 		})
 		.then((response: SPHttpClientResponse) => {
 			if (!response.ok) {
@@ -18,11 +18,11 @@ export const getAllVehicles = async (
 			}
 			return response.json();
 		})
-		.then(async (data: VehiclesResponse[]) => {
-			const fleetCards = await getAllCards(context);
+		.then(async (data: { value: VehiclesResponse[] }) => {
+			const fleetCards = await getAllFleetCards(context);
 
-			const vehicles: Vehicle[] = await Promise.all(
-				data.map((item: VehiclesResponse) => {
+			const vehicles: Vehicle[] = data.value.map(
+				(item: VehiclesResponse) => {
 					return {
 						Id: item.Id,
 						Plate: item.Title,
@@ -37,7 +37,7 @@ export const getAllVehicles = async (
 							(card) => card.Id === item.TarjetaFlotaId,
 						),
 					};
-				}),
+				},
 			);
 
 			return vehicles;

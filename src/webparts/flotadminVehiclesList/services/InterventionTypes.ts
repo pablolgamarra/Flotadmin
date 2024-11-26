@@ -8,11 +8,11 @@ import {
 export const getAllInterventionTypes = async (
 	context: WebPartContext,
 ): Promise<InterventionType[]> => {
-	const url = `${context.pageContext.web.absoluteUrl}/Apps/flotadmin/_api/web/lists/getByTitle('TiposIntervencion')/items?$select=Id, Title`;
+	const url = `${context.pageContext.web.absoluteUrl}/_api/web/lists/getByTitle('TiposIntervencion')/items?$select=Id, Title`;
 
 	return context.spHttpClient
 		.get(url, SPHttpClient.configurations.v1, {
-			headers: { Accept: 'application/json;odata=nometadata' },
+			headers: { Accept: 'application/json' },
 		})
 		.then((response: SPHttpClientResponse) => {
 			if (!response.ok) {
@@ -20,8 +20,8 @@ export const getAllInterventionTypes = async (
 			}
 			return response.json();
 		})
-		.then((data: InterventionTypesResponse[]) => {
-			const interventionTypes: InterventionType[] = data.map(
+		.then((data: { value: InterventionTypesResponse[] }) => {
+			const interventionTypes: InterventionType[] = data.value.map(
 				(item: InterventionTypesResponse) => {
 					return {
 						Id: item.Id,

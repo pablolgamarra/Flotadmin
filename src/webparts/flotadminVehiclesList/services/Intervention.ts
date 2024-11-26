@@ -13,7 +13,7 @@ import { getAllVehicles } from './Vehicles';
 export const getAllIntervention = async (
 	context: WebPartContext,
 ): Promise<Intervention[]> => {
-	const url = `${context.pageContext.web.absoluteUrl}/flotadmin/_api/getListByTitle('Intervenciones)/items?select=Id,Title,TipoIntervencionId,VehiculoId,MonedaIntervencion,Descripcion`;
+	const url = `${context.pageContext.web.absoluteUrl}/_api/web/lists/getByTitle('Intervenciones')/items?select=Id,Title,TipoIntervencionId,VehiculoId,MonedaIntervencion,Descripcion`;
 
 	return context.spHttpClient
 		.get(url, SPHttpClient.configurations.v1, {
@@ -25,7 +25,7 @@ export const getAllIntervention = async (
 			}
 			return response.json();
 		})
-		.then(async (data: InterventionsResponse[]) => {
+		.then(async (data: { value: InterventionsResponse[] }) => {
 			let interventionTypes: InterventionType[];
 			let vehicles: Vehicle[];
 			try {
@@ -35,7 +35,7 @@ export const getAllIntervention = async (
 				console.log(`Error obteniendo datos de relleno: ${e}`);
 			}
 
-			const interventions: Intervention[] = data.map(
+			const interventions: Intervention[] = data.value.map(
 				(item: InterventionsResponse) => {
 					return {
 						Id: item.Id,
