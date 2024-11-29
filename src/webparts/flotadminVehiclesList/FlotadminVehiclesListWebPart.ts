@@ -10,11 +10,11 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'FlotadminVehiclesListWebPartStrings';
 import { App } from '@vehiclesList/components/App';
-import { getAllInterventionTypes } from '@/services/InterventionTypes';
-import { getAllIntervention } from '@/services/Intervention';
-import { getAllFleetCards } from '@/services/FleetCards';
-import { getAllVehicles } from '@/services/Vehicles';
 import { ErrorVisualizer } from '@/controls/ErrorVisualizer';
+import { getAllVehicles } from '@/services/core/spService/Vehicles';
+import { getAllFleetCards } from '@/services/core/spService/FleetCards';
+import { getAllIntervention } from '@/services/core/spService/Intervention';
+import { getAllInterventionTypes } from '@/services/core/spService/InterventionTypes';
 
 export interface IFlotadminVehiclesListWebPartProps {
 	description: string;
