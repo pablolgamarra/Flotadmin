@@ -27,6 +27,11 @@ addFastServe(build);
 
 build.configureWebpack.mergeConfig({
 	additionalConfiguration: (generatedConfiguration) => {
+		generatedConfiguration.resolve.alias['@'] = path.resolve(
+			__dirname,
+			'lib/',
+		);
+
 		generatedConfiguration.resolve.alias['@vehiclesList'] = path.resolve(
 			__dirname,
 			'lib/webparts/flotadminVehiclesList/',

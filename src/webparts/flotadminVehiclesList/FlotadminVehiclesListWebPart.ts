@@ -9,12 +9,12 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 //import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'FlotadminVehiclesListWebPartStrings';
-import { App } from '@vehiclesList/components/App';
-import { getAllInterventionTypes } from './services/InterventionTypes';
-import { getAllIntervention } from './services/Intervention';
-import { getAllFleetCards } from './services/FleetCards';
-import { getAllVehicles } from './services/Vehicles';
-import { ErrorVisualizer } from './components/ErrorVisualizer';
+import { App } from '@/components/App';
+import { getAllInterventionTypes } from '@/services/InterventionTypes';
+import { getAllIntervention } from '@/services/Intervention';
+import { getAllFleetCards } from '@/services/FleetCards';
+import { getAllVehicles } from '@/services/Vehicles';
+import { ErrorVisualizer } from '@/components/ErrorVisualizer';
 
 export interface IFlotadminVehiclesListWebPartProps {
 	description: string;

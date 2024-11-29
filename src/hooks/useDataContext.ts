@@ -1,4 +1,4 @@
-import { DataContext } from '@vehiclesList/context/dataContext';
+import { DataContext } from '@/context/dataContext';
 import {
 	FleetCard,
 	Intervention,

@@ -22,6 +22,7 @@
 		"lib": ["ES6", "dom", "es2015.collection", "es2015.promise"],
 		"baseUrl": ".",
 		"paths": {
+			"@/*": ["src/*"],
 			"@vehiclesList/*": ["src/webparts/flotadminVehiclesList/*"]
 		}
 	},

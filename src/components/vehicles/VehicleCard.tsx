@@ -15,7 +15,7 @@ import {
 import { Open28Filled, WindowWrench28Regular } from '@fluentui/react-icons';
 
 //Styles
-import '../../../../../assets/dist/tailwind.css';
+import '../../../assets/dist/tailwind.css';
 import { InteractionDialog } from '../interactions/InteractionDialog';
 
 export interface VehicleCardProps {
