@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { VehicleDataForm } from '@/components/vehicles/VehicleDataForm';
-import { CustomDialog } from '@/components/common/CustomDialog';
+import { VehicleDataForm } from '@/controls/vehicles/VehicleDataForm';
+import { CustomDialog } from '@/controls/CustomDialog';
 
 export interface VehicleDialogProps {
 	open: boolean;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { CustomDialog } from '../common/CustomDialog';
+import { CustomDialog } from '../CustomDialog';
 import { InteractionDataForm } from './InteractionDataForm';
 
 export interface InteractionDialogProps {

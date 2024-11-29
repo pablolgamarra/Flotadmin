@@ -18,11 +18,11 @@ import {
 	useId,
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
-import VehicleCard from '@/components/vehicles/VehicleCard';
-import { VehicleDialog } from '@/components/vehicles/VehicleDialog';
+import VehicleCard from '@/controls/vehicles/VehicleCard';
+import { VehicleDialog } from '@/controls/vehicles/VehicleDialog';
 
 //Styles
-import '../../assets/dist/tailwind.css';
+import '../../../../assets/dist/tailwind.css';
 import { DataProvider } from '@/context/dataContext';
 
 export interface AppProps {

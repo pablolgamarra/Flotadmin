@@ -12,7 +12,7 @@ import {
 	webLightTheme,
 } from '@fluentui/react-components';
 
-import '../../../assets/dist/tailwind.css';
+import '../../assets/dist/tailwind.css';
 
 export interface CustomDialogProps {
 	open: boolean;
