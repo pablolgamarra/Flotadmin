@@ -20,9 +20,14 @@ export class SPService implements ISPService {
 	}
 
 	public async getListItems(listName: string): Promise<any[]> {
-		const queryResult = await this._sp.web.lists
-			.getByTitle(listName)
-			.items();
-		return queryResult;
+		let queryResult;
+
+		try {
+			queryResult = await this._sp.web.lists.getByTitle(listName).items();
+			return queryResult;
+		} catch (e) {
+			console.log(e);
+		}
+		return [];
 	}
 }
