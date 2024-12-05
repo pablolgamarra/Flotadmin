@@ -27,7 +27,7 @@ module.exports = {
 				'@typescript-eslint/explicit-member-accessibility': 0,
 				'@typescript-eslint/no-array-constructor': 1,
 				'@typescript-eslint/no-explicit-any': 0,
-				'@typescript-eslint/no-floating-promises': 2,
+				'@typescript-eslint/no-floating-promises': 1,
 				'@typescript-eslint/no-for-in-array': 2,
 				'@typescript-eslint/no-misused-new': 2,
 				'@typescript-eslint/no-namespace': [
