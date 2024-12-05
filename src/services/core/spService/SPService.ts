@@ -26,8 +26,7 @@ export class SPService implements ISPService {
 			queryResult = await this._sp.web.lists.getByTitle(listName).items();
 			return queryResult;
 		} catch (e) {
-			console.log(e);
+			throw Error(`${e}`);
 		}
-		return [];
 	}
 }

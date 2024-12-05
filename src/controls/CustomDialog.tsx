@@ -9,6 +9,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 	FluentProvider,
+	Slot,
 	webLightTheme,
 } from '@fluentui/react-components';
 
@@ -18,6 +19,7 @@ export interface CustomDialogProps {
 	open: boolean;
 	setOpen(arg0: boolean): void;
 	title: string;
+	action?: Slot<'div'>;
 	trigger: HTMLButtonElement;
 	secondaryButtonText: string;
 	primaryButtonText: string;
@@ -31,6 +33,7 @@ export const CustomDialog: React.FC<
 		open,
 		setOpen,
 		title,
+		action,
 		secondaryButtonText,
 		primaryButtonText,
 	} = props;
@@ -39,11 +42,12 @@ export const CustomDialog: React.FC<
 		<Dialog
 			open={open}
 			onOpenChange={(event, data) => setOpen(data.open)}
+			modalType='alert'
 		>
 			<FluentProvider theme={webLightTheme}>
 				<DialogSurface className='tw-bg-slate-50'>
 					<DialogBody>
-						<DialogTitle>{title}</DialogTitle>
+						<DialogTitle action={action}>{title}</DialogTitle>
 						<DialogContent>{children}</DialogContent>
 						<DialogActions>
 							<DialogTrigger>

@@ -12,11 +12,18 @@ import {
 	Button,
 	Title3,
 } from '@fluentui/react-components';
-import { Open28Filled, WindowWrench28Regular } from '@fluentui/react-icons';
+import {
+	Dismiss24Regular,
+	Edit24Regular,
+	Open28Filled,
+	WindowWrench28Regular,
+} from '@fluentui/react-icons';
 
 //Styles
 import '../../../assets/dist/tailwind.css';
 import { InteractionDialog } from '../interactions/InteractionDialog';
+import { VehicleDialog } from './VehicleDialog';
+import { DialogMode } from '@/common/DialogMode';
 
 export interface VehicleCardProps {
 	vehicle: Vehicle;
@@ -26,8 +33,14 @@ export interface VehicleCardProps {
 const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 	const { vehicle, className } = props;
 
-	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
+	const [interactionDialogOpen, setInteractionDialogOpen] =
+		React.useState<boolean>(false);
 
+	const [vehicleDialogOpen, setVehicleDialogOpen] =
+		React.useState<boolean>(false);
+	const [dialogMode, setDialogMode] = React.useState<DialogMode>(
+		DialogMode.Show,
+	);
 	return (
 		<Card
 			className={className}
@@ -59,22 +72,51 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 				<b>Usuario:</b> {vehicle.User}
 			</Body2>
 			<CardFooter className='tw-mt-8'>
-				<Button
-					appearance='primary'
-					icon={<Open28Filled />}
-					iconPosition='before'
-				>
-					Ver
-				</Button>
+				<VehicleDialog
+					title={`#${vehicle.Id} - ${vehicle.Model} ${vehicle.Plate}`}
+					mode={dialogMode}
+					open={vehicleDialogOpen}
+					setOpen={setVehicleDialogOpen}
+					action={
+						dialogMode === DialogMode.Show ? (
+							<Edit24Regular
+								onClick={() => {
+									setDialogMode(DialogMode.Edit);
+								}}
+							/>
+						) : (
+							<Dismiss24Regular
+								onClick={() => {
+									setDialogMode(DialogMode.Show);
+								}}
+							/>
+						)
+					}
+					triggerButton={
+						<Button
+							appearance='primary'
+							icon={<Open28Filled />}
+							iconPosition='before'
+							onClick={() => {
+								setVehicleDialogOpen(!vehicleDialogOpen);
+							}}
+						>
+							Ver
+						</Button>
+					}
+					vehicle={vehicle}
+				/>
 				<InteractionDialog
-					open={dialogOpen}
-					setOpen={setDialogOpen}
+					open={interactionDialogOpen}
+					setOpen={setInteractionDialogOpen}
 					triggerButton={
 						<Button
 							appearance='outline'
 							icon={<WindowWrench28Regular />}
 							iconPosition='before'
-							onClick={() => setDialogOpen(!dialogOpen)}
+							onClick={() =>
+								setInteractionDialogOpen(!interactionDialogOpen)
+							}
 						>
 							Registrar Interacción
 						</Button>

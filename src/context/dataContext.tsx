@@ -1,18 +1,16 @@
-import {
-	FleetCard,
-	Intervention,
-	InterventionType,
-	Vehicle,
-} from '@vehiclesList/types';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
 import * as React from 'react';
 
 //Types
 
 interface DataProviderProps {
-	fleetCardList: FleetCard[];
-	interventionsList: Intervention[];
-	interventionTypesList: InterventionType[];
-	vehiclesList: Vehicle[];
+	fleetCardService: IFleetCardService;
+	interventionsService: IInterventionService;
+	interventionTypesService: IInterventionTypeService;
+	vehiclesService: IVehicleService;
 }
 
 export const DataContext = React.createContext<DataProviderProps>(
@@ -21,18 +19,18 @@ export const DataContext = React.createContext<DataProviderProps>(
 
 export const DataProvider: React.FunctionComponent<DataProviderProps> = ({
 	children,
-	vehiclesList,
-	fleetCardList,
-	interventionsList,
-	interventionTypesList,
+	fleetCardService,
+	interventionsService,
+	interventionTypesService,
+	vehiclesService,
 }: React.PropsWithChildren<DataProviderProps>) => {
 	return (
 		<DataContext.Provider
 			value={{
-				fleetCardList: fleetCardList,
-				interventionsList: interventionsList,
-				interventionTypesList: interventionTypesList,
-				vehiclesList: vehiclesList,
+				fleetCardService: fleetCardService,
+				interventionsService: interventionsService,
+				interventionTypesService: interventionTypesService,
+				vehiclesService: vehiclesService,
 			}}
 		>
 			{children}

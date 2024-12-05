@@ -16,7 +16,9 @@ export class VehicleService implements IVehicleService {
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {
 			this._SPService = serviceScope.consume(SPService.servicekey);
-			this._fleetCardService = new FleetCardService(serviceScope);
+			this._fleetCardService = serviceScope.consume(
+				FleetCardService.serviceKey,
+			);
 		});
 	}
 

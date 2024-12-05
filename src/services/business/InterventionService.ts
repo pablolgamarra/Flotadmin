@@ -22,9 +22,11 @@ export class InterventionService implements IInterventionService {
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {
 			this._SPService = serviceScope.consume(SPService.servicekey);
-			this._VehicleService = new VehicleService(serviceScope);
-			this._InterventionTypeService = new InterventionTypeService(
-				serviceScope,
+			this._VehicleService = serviceScope.consume(
+				VehicleService.serviceKey,
+			);
+			this._InterventionTypeService = serviceScope.consume(
+				InterventionTypeService.serviceKey,
 			);
 		});
 	}

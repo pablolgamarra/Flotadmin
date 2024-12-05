@@ -6,15 +6,22 @@ import {
 	PropertyPaneTextField,
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-//import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'FlotadminVehiclesListWebPartStrings';
 import { App } from '@vehiclesList/components/App';
 import { ErrorVisualizer } from '@/controls/ErrorVisualizer';
-import { getAllVehicles } from '@/services/core/spService/Vehicles';
-import { getAllFleetCards } from '@/services/core/spService/FleetCards';
-import { getAllIntervention } from '@/services/core/spService/Intervention';
-import { getAllInterventionTypes } from '@/services/core/spService/InterventionTypes';
+import { MockVehicleService } from '@/services/business/MockVehicleService';
+import { MockInterventionService } from '@/services/business/MockInterventionService';
+import { MockFleetCardService } from '@/services/business/MockFleetCardService';
+import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+// import { InterventionTypeService } from '@/services/business/InterventionTypeService';
+// import { FleetCardService } from '@/services/business/FleetCardService';
+// import { InterventionService } from '@/services/business/InterventionService';
+// import { VehicleService } from '@/services/business/VehicleService';
 
 export interface IFlotadminVehiclesListWebPartProps {
 	description: string;
@@ -137,48 +144,48 @@ export interface IFlotadminVehiclesListWebPartProps {
 // ];
 
 export default class FlotadminVehiclesListWebPart extends BaseClientSideWebPart<IFlotadminVehiclesListWebPartProps> {
-	public async render(): Promise<void> {
-		let vehiclesList;
-		let fleetCardList;
-		let interventionsList;
-		let interventionTypesList;
-		let element;
+	private vehicleService!: IVehicleService;
+	private interventionService!: IInterventionService;
+	private fleetCardService!: IFleetCardService;
+	private interventionTypeService!: IInterventionTypeService;
+	private element!: React.ReactElement;
+
+	public async onInit(): Promise<void> {
+		await super.onInit();
 
 		try {
-			vehiclesList = await getAllVehicles(this.context);
-			fleetCardList = await getAllFleetCards(this.context);
-			interventionsList = await getAllIntervention(this.context);
-			interventionTypesList = await getAllInterventionTypes(this.context);
-			element = React.createElement(App, {
-				vehiclesList,
-				fleetCardList,
-				interventionsList,
-				interventionTypesList,
-			});
+			this.vehicleService = this.context.serviceScope.consume(
+				MockVehicleService.serviceKey,
+			);
+			this.interventionService = this.context.serviceScope.consume(
+				MockInterventionService.serviceKey,
+			);
+			this.fleetCardService = this.context.serviceScope.consume(
+				MockFleetCardService.serviceKey,
+			);
+			this.interventionTypeService = this.context.serviceScope.consume(
+				MockInterventionTypeService.serviceKey,
+			);
 		} catch (e) {
-			console.log(e);
-			element = React.createElement(ErrorVisualizer);
+			console.error('Error inicializando los servicios:', e);
 		}
-
-		ReactDom.render(element, this.domElement);
 	}
 
-	//   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
-	//     if (!currentTheme) {
-	//       return;
-	//     }
+	public async render(): Promise<void> {
+		try {
+			this.element = React.createElement(App, {
+				vehiclesService: this.vehicleService,
+				fleetCardService: this.fleetCardService,
+				interventionsService: this.interventionService,
+				interventionTypesService: this.interventionTypeService,
+			});
+		} catch (e) {
+			console.error(`Error al renderizar el componente principal: ${e}`);
+			this.element = React.createElement(ErrorVisualizer);
+		}
 
-	//     this._isDarkTheme = !!currentTheme.isInverted;
-	//     const {
-	//       semanticColors
-	//     } = currentTheme;
-
-	//     if (semanticColors) {
-	//       this.domElement.style.setProperty('--bodyText', semanticColors.bodyText || null);
-	//       this.domElement.style.setProperty('--link', semanticColors.link || null);
-	//       this.domElement.style.setProperty('--linkHovered', semanticColors.linkHovered || null);
-	//     }
-	//   }
+		ReactDom.render(this.element, this.domElement);
+	}
 
 	protected onDispose(): void {
 		ReactDom.unmountComponentAtNode(this.domElement);

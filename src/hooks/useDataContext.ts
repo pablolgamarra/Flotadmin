@@ -1,17 +1,15 @@
 import { DataContext } from '@/context/dataContext';
-import {
-	FleetCard,
-	Intervention,
-	InterventionType,
-	Vehicle,
-} from '@vehiclesList/types';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
 import { useContext } from 'react';
 
 export const useDataContext = (): {
-	fleetCardList: FleetCard[];
-	interventionsList: Intervention[];
-	interventionTypesList: InterventionType[];
-	vehiclesList: Vehicle[];
+	fleetCardService: IFleetCardService;
+	interventionsService: IInterventionService;
+	interventionTypesService: IInterventionTypeService;
+	vehiclesService: IVehicleService;
 } => {
 	const context = useContext(DataContext);
 
