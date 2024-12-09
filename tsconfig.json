@@ -23,7 +23,8 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["src/*"],
-			"@vehiclesList/*": ["src/webparts/flotadminVehiclesList/*"]
+			"@vehiclesList/*": ["src/webparts/flotadminVehiclesList/*"],
+			"@fleetCardsList/*": ["src/webparts/flotadminFleetCardList/*"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"]

@@ -9,11 +9,20 @@
 					"manifest": "./src/webparts/flotadminVehiclesList/FlotadminVehiclesListWebPart.manifest.json"
 				}
 			]
+		},
+		"flotadmin-fleet-card-list-web-part": {
+			"components": [
+				{
+					"entrypoint": "./lib/webparts/flotadminFleetCardList/FlotadminFleetCardListWebPart.js",
+					"manifest": "./src/webparts/flotadminFleetCardList/FlotadminFleetCardListWebPart.manifest.json"
+				}
+			]
 		}
 	},
 	"externals": {},
 	"localizedResources": {
 		"FlotadminVehiclesListWebPartStrings": "lib/webparts/flotadminVehiclesList/loc/{locale}.js",
+		"FlotadminFleetCardWebPartStrings": "lib/webparts/flotadminFleetCardList/loc/{locale}.js",
 		"PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
 	}
 }

@@ -4,10 +4,10 @@
     "solutionName": "Flotadmin",
     "componentType": "webpart",
     "template": "react",
-    "componentName": "flotadminVehiclesRegister",
+    "componentName": "flotadminFleetCardList",
     "plusBeta": false,
     "isCreatingSolution": false,
-    "nodeVersion": "18.17.1",
+    "nodeVersion": "18.20.5",
     "sdksVersions": {
       "@microsoft/microsoft-graph-client": "3.0.2",
       "@microsoft/teams-js": "2.24.0"
