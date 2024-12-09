@@ -17,12 +17,21 @@
 					"manifest": "./src/webparts/flotadminFleetCardList/FlotadminFleetCardListWebPart.manifest.json"
 				}
 			]
+		},
+		"flotadmin-intervention-types-list-web-part": {
+			"components": [
+				{
+					"entrypoint": "./lib/webparts/flotadminInterventionTypesList/FlotadminInterventionTypesListWebPart.js",
+					"manifest": "./src/webparts/flotadminInterventionTypesList/FlotadminInterventionTypesListWebPart.manifest.json"
+				}
+			]
 		}
 	},
 	"externals": {},
 	"localizedResources": {
 		"FlotadminVehiclesListWebPartStrings": "lib/webparts/flotadminVehiclesList/loc/{locale}.js",
 		"FlotadminFleetCardWebPartStrings": "lib/webparts/flotadminFleetCardList/loc/{locale}.js",
+		"FlotadminInterventionTypesListWebPartStrings": "lib/webparts/flotadminInterventionTypesList/loc/{locale}.js",
 		"PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
 	}
 }

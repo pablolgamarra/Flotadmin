@@ -42,6 +42,12 @@ build.configureWebpack.mergeConfig({
 			'lib/webparts/flotadminFleetCardList/',
 		);
 
+		generatedConfiguration.resolve.alias['@interventionTypesList'] =
+			path.resolve(
+				__dirname,
+				'lib/webparts/flotadminInterventionTypesList',
+			);
+
 		return generatedConfiguration;
 	},
 });

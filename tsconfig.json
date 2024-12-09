@@ -24,7 +24,10 @@
 		"paths": {
 			"@/*": ["src/*"],
 			"@vehiclesList/*": ["src/webparts/flotadminVehiclesList/*"],
-			"@fleetCardsList/*": ["src/webparts/flotadminFleetCardList/*"]
+			"@fleetCardsList/*": ["src/webparts/flotadminFleetCardList/*"],
+			"@interventionTypesList/*": [
+				"src/webparts/flotadminInterventionTypesList/*"
+			]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"]
