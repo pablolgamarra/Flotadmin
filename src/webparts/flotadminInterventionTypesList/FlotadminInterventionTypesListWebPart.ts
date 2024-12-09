@@ -5,13 +5,13 @@ import { IVehicleService } from '@/services/business/IVehicleService';
 import { IInterventionService } from '@/services/business/IInterventionService';
 import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
-import { App, AppProps } from '@fleetCardsList/components/App';
+import { App, AppProps } from '@interventionTypesList/components/App';
 import { MockVehicleService } from '@/services/business/MockVehicleService';
 import { MockInterventionService } from '@/services/business/MockInterventionService';
 import { MockFleetCardService } from '@/services/business/MockFleetCardService';
 import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';
 
-import * as strings from 'FlotadminFleetCardWebPartStrings';
+import * as strings from 'FlotadminInterventionTypesListWebPartStrings';
 
 export interface IFlotadminInterventionTypesListWebPartProps {
 	description: string;

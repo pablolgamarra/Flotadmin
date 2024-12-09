@@ -28,7 +28,7 @@ export const InterventionTypeCard: React.FC<InterventionTypeCardProps> = (
 ) => {
 	const { interventionType, className } = props;
 
-	const [interventionTypeDialogOpen, setInterventionTypeDialog] =
+	const [interventionTypeDialogOpen, setInterventionTypeDialogOpen] =
 		React.useState<boolean>(false);
 	const [dialogMode, setDialogMode] = React.useState<DialogMode>(
 		DialogMode.Show,
@@ -67,14 +67,14 @@ export const InterventionTypeCard: React.FC<InterventionTypeCardProps> = (
 							/>
 						)
 					}
-					setOpen={setInterventionTypeDialog}
+					setOpen={setInterventionTypeDialogOpen}
 					triggerButton={
 						<Button
 							appearance='primary'
 							icon={<Open28Filled />}
 							iconPosition='before'
 							onClick={() => {
-								setInterventionTypeDialog(
+								setInterventionTypeDialogOpen(
 									!interventionTypeDialogOpen,
 								);
 							}}

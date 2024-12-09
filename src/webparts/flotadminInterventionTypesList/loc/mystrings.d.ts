@@ -17,7 +17,7 @@ declare interface IInterventionTypesWebPartStrings {
 	};
 }
 
-declare module 'FlotadminInterventionTypesWebPartStrings' {
+declare module 'FlotadminInterventionTypesListWebPartStrings' {
 	const strings = IInterventionTypesWebPartStrings;
 	export = strings;
 }

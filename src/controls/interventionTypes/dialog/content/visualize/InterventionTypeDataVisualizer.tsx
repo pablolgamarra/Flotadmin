@@ -1,21 +1,20 @@
 import * as React from 'react';
 
 import { InterventionType } from '@/models/InterventionType';
+import { InterventionTypeDataFields } from './InterventionTypeDataFields';
 
-export interface IInterventionTypeDataVisualizerProps {
+export interface InterventionTypeDataVisualizerProps {
 	interventionType?: InterventionType;
 }
 
 export const InterventionTypeDataVisualizer: React.FC<
-	IInterventionTypeDataVisualizerProps
+	InterventionTypeDataVisualizerProps
 > = (props) => {
 	const { interventionType } = props;
 
 	return (
 		<>
-			<InterventionTypeDataVisualizer
-				interventionType={interventionType}
-			/>
+			<InterventionTypeDataFields interventionType={interventionType} />
 		</>
 	);
 };

@@ -29,4 +29,13 @@ export class SPService implements ISPService {
 			throw Error(`${e}`);
 		}
 	}
+
+	public async insertItem(listName: string, item: object): Promise<boolean> {
+		try {
+			await this._sp.web.lists.getByTitle(listName).items.add(item);
+			return true;
+		} catch (e) {
+			throw Error(`${e}`);
+		}
+	}
 }

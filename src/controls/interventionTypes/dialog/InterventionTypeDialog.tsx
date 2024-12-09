@@ -7,7 +7,7 @@ import { InterventionTypeRegisterForm } from './content/register/InterventionTyp
 import { InterventionType } from '@/models/InterventionType';
 import { InterventionTypeDataVisualizer } from './content/visualize/InterventionTypeDataVisualizer';
 
-export interface InterventionTypeProps {
+export interface InterventionTypeDialogProps {
 	open: boolean;
 	setOpen(arg0: boolean): void;
 	triggerButton: React.ReactElement;
@@ -18,8 +18,8 @@ export interface InterventionTypeProps {
 }
 
 export const InterventionTypeDialog: React.FC<
-	React.PropsWithChildren<InterventionTypeProps>
-> = (props: React.PropsWithChildren<InterventionTypeProps>) => {
+	React.PropsWithChildren<InterventionTypeDialogProps>
+> = (props: React.PropsWithChildren<InterventionTypeDialogProps>) => {
 	const {
 		open,
 		setOpen,

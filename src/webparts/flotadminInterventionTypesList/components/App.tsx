@@ -19,11 +19,11 @@ import { IInterventionTypeService } from '@/services/business/IInterventionTypeS
 import { IInterventionService } from '@/services/business/IInterventionService';
 import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { DialogMode } from '@/common/DialogMode';
-import { FleetCardDialog } from '@/controls/fleetCards/dialog/FleetCardDialog';
 
-import * as strings from 'FlotadminInterventionTypesWebPartStrings';
+import * as strings from 'FlotadminInterventionTypesListWebPartStrings';
 import { InterventionType } from '@/models/InterventionType';
 import { InterventionTypeCard } from '@/controls/interventionTypes/card/InterventionTypesCard';
+import { InterventionTypeDialog } from '@/controls/interventionTypes/dialog/InterventionTypeDialog';
 
 export interface AppProps {
 	fleetCardService: IFleetCardService;
@@ -48,7 +48,7 @@ export const App: React.FC<AppProps> = (props) => {
 	>([]);
 
 	React.useEffect(() => {
-		const getFleetCards = async () => {
+		const getInterventionTypes = async () => {
 			try {
 				const interventionTypesList =
 					await interventionTypesService.listAll();
@@ -58,7 +58,7 @@ export const App: React.FC<AppProps> = (props) => {
 			}
 		};
 
-		getFleetCards();
+		getInterventionTypes();
 	}, [setInterventionTypes]);
 
 	return (
@@ -85,8 +85,8 @@ export const App: React.FC<AppProps> = (props) => {
 								className='tw-max-w-none tw-w-10/12 tw-mr-4'
 								placeholder='Buscar Tarjetas'
 							/>
-							<FleetCardDialog
-								title='Registrar Nueva Tarjeta'
+							<InterventionTypeDialog
+								title='Registrar Nuevo Tipo de Intervencion'
 								mode={DialogMode.Edit}
 								open={dialogOpen}
 								setOpen={setDialogOpen}
