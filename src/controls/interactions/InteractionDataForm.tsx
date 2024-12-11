@@ -4,23 +4,33 @@ import {
 	Dropdown,
 	Field,
 	Input,
+	Option,
 	Radio,
 	RadioGroup,
 } from '@fluentui/react-components';
 import { DatePicker } from '@fluentui/react';
+import { InterventionType } from '@/models/InterventionType';
 
-export interface InteractionRegisterFormProps {}
+export interface InteractionRegisterFormProps {
+	interactionTypes: InterventionType[];
+}
 
 export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (
 	props,
 ) => {
+	const { interactionTypes } = props;
+
 	return (
 		<>
 			<Field label={'Fecha de Realización'}>
 				<DatePicker placeholder='Insertar Fecha de Realización' />
 			</Field>
 			<Field label={'Tipo de Interacción'}>
-				<Dropdown placeholder='Seleccione...' />
+				<Dropdown placeholder='Seleccione...'>
+					{interactionTypes.map((type) => (
+						<Option key={type.Id}>{type.Description}</Option>
+					))}
+				</Dropdown>
 			</Field>
 			<Field
 				label={'Kilometraje del Vehículo'}
