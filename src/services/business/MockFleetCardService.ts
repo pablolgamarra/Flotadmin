@@ -3,14 +3,16 @@ import { IFleetCardService } from './IFleetCardService';
 import { FleetCard } from '@/models/FleetCard';
 
 export class MockFleetCardService implements IFleetCardService {
-	public static readonly serviceKey: ServiceKey<IFleetCardService> =
-		ServiceKey.create(
-			'Flotadmin.MockFleetCardService',
-			MockFleetCardService,
-		);
+	public static readonly serviceKey: ServiceKey<IFleetCardService> = ServiceKey.create(
+		'Flotadmin.MockFleetCardService',
+		MockFleetCardService,
+	);
 
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {});
+	}
+	delete(arg0: FleetCard): Promise<boolean> {
+		throw new Error('Method not implemented.');
 	}
 
 	public async listAll(): Promise<FleetCard[]> {

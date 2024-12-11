@@ -12,8 +12,10 @@ import { InterventionTypeService } from './InterventionTypeService';
 import { Currency } from '@/common/Currency';
 
 export class InterventionService implements IInterventionService {
-	public static readonly serviceKey: ServiceKey<IInterventionService> =
-		ServiceKey.create('Flotadmin.InterventionService', InterventionService);
+	public static readonly serviceKey: ServiceKey<IInterventionService> = ServiceKey.create(
+		'Flotadmin.InterventionService',
+		InterventionService,
+	);
 
 	private _SPService!: ISPService;
 	private _VehicleService!: IVehicleService;
@@ -22,38 +24,72 @@ export class InterventionService implements IInterventionService {
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {
 			this._SPService = serviceScope.consume(SPService.servicekey);
-			this._VehicleService = serviceScope.consume(
-				VehicleService.serviceKey,
-			);
-			this._InterventionTypeService = serviceScope.consume(
-				InterventionTypeService.serviceKey,
-			);
+			this._VehicleService = serviceScope.consume(VehicleService.serviceKey);
+			this._InterventionTypeService = serviceScope.consume(InterventionTypeService.serviceKey);
 		});
 	}
 
 	public async listAll(): Promise<Intervention[]> {
-		const queryResults = await this._SPService.getListItems(
-			'Intervenciones',
-		);
-		const vehicles = await this._VehicleService.listAll();
-		const interventionTypes = await this._InterventionTypeService.listAll();
+		try {
+			const vehicles = await this._VehicleService.listAll();
+			const interventionTypes = await this._InterventionTypeService.listAll();
 
-		const interventions = this.parseToIntervention(
-			queryResults,
-			vehicles,
-			interventionTypes,
-		);
+			const results = await this._SPService.getListItems('Intervenciones');
 
-		return interventions;
+			const interventions = this.parseToIntervention(results, vehicles, interventionTypes);
+
+			return interventions;
+		} catch (e) {
+			throw Error(`Error retrieving interventions data -> ${e}`);
+		}
 	}
-	listById(): Promise<Intervention> {
-		throw new Error('Method not implemented.');
+
+	public async listById(arg0: number): Promise<Intervention> {
+		try {
+			const vehicles = await this._VehicleService.listAll();
+			const interventionTypes = await this._SPService.getListItems('TiposIntervencion');
+
+			const results = await this._SPService.getListItems('Intervenciones');
+
+			const interventions = this.parseToIntervention(results, vehicles, interventionTypes);
+
+			return interventions[0];
+		} catch (e) {
+			throw Error(`Error retrieving intervention data by Id -> ${e}`);
+		}
 	}
-	create(arg0: Intervention): Promise<boolean> {
-		throw new Error('Method not implemented.');
+	public async create(arg0: Intervention): Promise<boolean> {
+		try {
+			const interventionInsert = this.formatPersistanceData(arg0);
+
+			await this._SPService.insertItem('Intervenciones', interventionInsert);
+
+			return true;
+		} catch (e) {
+			throw Error(`Error saving interventions data -> ${e}`);
+		}
 	}
-	update(arg0: Intervention): Promise<boolean> {
-		throw new Error('Method not implemented.');
+	public async update(arg0: Intervention): Promise<boolean> {
+		try {
+			const interventionUpdate = this.formatPersistanceData(arg0);
+
+			await this._SPService.updateItem('Intervenciones', interventionUpdate);
+
+			return true;
+		} catch (e) {
+			throw Error(`Error updating interventions data -> ${e}`);
+		}
+	}
+	public async delete(arg0: Intervention): Promise<boolean> {
+		try {
+			const interventionDelete = this.formatPersistanceData(arg0);
+
+			await this._SPService.deleteItem('Intervenciones', interventionDelete.Id);
+
+			return true;
+		} catch (e) {
+			throw Error(`Error updating interventions data -> ${e}`);
+		}
 	}
 
 	private parseToIntervention(
@@ -64,18 +100,27 @@ export class InterventionService implements IInterventionService {
 		return data.map((item) => {
 			return {
 				Id: item.Id,
-				Vehicle: vehicles.find(
-					(vehicle: Vehicle) => vehicle.Id === item.VehiculoId,
-				)!,
+				Vehicle: vehicles.find((vehicle: Vehicle) => vehicle.Id === item.VehiculoId)!,
 				Kilometers: item.Title,
 				Date: item.FechaIntervencion,
 				IntervationType: interventionTypes.find(
-					(type: InterventionType) =>
-						type.Id === item.TipoIntervencionId,
+					(type: InterventionType) => type.Id === item.TipoIntervencionId,
 				)!,
 				Cost: item.CostoIntervencion,
 				CostCurrency: item.MonedaIntervencion as Currency,
 			};
 		});
+	}
+
+	private formatPersistanceData(item: Intervention) {
+		return {
+			Id: item.Id,
+			VehiculoId: item.Vehicle?.Id,
+			Title: item.Kilometers,
+			FechaIntervencion: item.Date,
+			TipoIntervencionId: item.IntervationType,
+			CostoIntervencion: item.Cost,
+			MonedaIntervencion: item.CostCurrency,
+		};
 	}
 }

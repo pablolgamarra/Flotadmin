@@ -3,14 +3,16 @@ import { IInterventionTypeService } from './IInterventionTypeService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 
 export class MockInterventionTypeService implements IInterventionTypeService {
-	public static readonly serviceKey: ServiceKey<IInterventionTypeService> =
-		ServiceKey.create(
-			'Flotadmin.MockInterventionTypeService',
-			MockInterventionTypeService,
-		);
+	public static readonly serviceKey: ServiceKey<IInterventionTypeService> = ServiceKey.create(
+		'Flotadmin.MockInterventionTypeService',
+		MockInterventionTypeService,
+	);
 
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {});
+	}
+	delete(arg0: InterventionType): Promise<boolean> {
+		throw new Error('Method not implemented.');
 	}
 
 	public async listAll(): Promise<InterventionType[]> {

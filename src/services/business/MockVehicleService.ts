@@ -6,22 +6,24 @@ import { IFleetCardService } from './IFleetCardService';
 import { MockFleetCardService } from './MockFleetCardService';
 
 export class MockVehicleService implements IVehicleService {
-	public static readonly serviceKey: ServiceKey<IVehicleService> =
-		ServiceKey.create('Flotadmin.MockVehicleService', MockVehicleService);
+	public static readonly serviceKey: ServiceKey<IVehicleService> = ServiceKey.create(
+		'Flotadmin.MockVehicleService',
+		MockVehicleService,
+	);
 
 	private _fleetCardService!: IFleetCardService;
 
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {
-			this._fleetCardService = serviceScope.consume(
-				MockFleetCardService.serviceKey,
-			);
+			this._fleetCardService = serviceScope.consume(MockFleetCardService.serviceKey);
 		});
+	}
+	delete(arg0: Vehicle): Promise<boolean> {
+		throw new Error('Method not implemented.');
 	}
 
 	public async listAll(): Promise<Vehicle[]> {
-		const mockFleetCards: FleetCard[] =
-			await this._fleetCardService.listAll();
+		const mockFleetCards: FleetCard[] = await this._fleetCardService.listAll();
 
 		const vehicles: Vehicle[] = [
 			{

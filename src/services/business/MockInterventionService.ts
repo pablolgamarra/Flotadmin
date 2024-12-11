@@ -8,24 +8,22 @@ import { MockVehicleService } from './MockVehicleService';
 import { Currency } from '@/common/Currency';
 
 export class MockInterventionService implements IInterventionService {
-	public static readonly serviceKey: ServiceKey<IInterventionService> =
-		ServiceKey.create(
-			'Flotadmin.MockInterventionService',
-			MockInterventionService,
-		);
+	public static readonly serviceKey: ServiceKey<IInterventionService> = ServiceKey.create(
+		'Flotadmin.MockInterventionService',
+		MockInterventionService,
+	);
 
 	private _interventionTypeService!: IInterventionTypeService;
 	private _vehicleService!: IVehicleService;
 
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {
-			this._interventionTypeService = serviceScope.consume(
-				MockInterventionTypeService.serviceKey,
-			);
-			this._vehicleService = serviceScope.consume(
-				MockVehicleService.serviceKey,
-			);
+			this._interventionTypeService = serviceScope.consume(MockInterventionTypeService.serviceKey);
+			this._vehicleService = serviceScope.consume(MockVehicleService.serviceKey);
 		});
+	}
+	delete(arg0: Intervention): Promise<boolean> {
+		throw new Error('Method not implemented.');
 	}
 
 	public async listAll(): Promise<Intervention[]> {

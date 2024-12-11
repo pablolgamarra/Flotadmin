@@ -5,11 +5,10 @@ import { SPService } from '@/services/core/spService/SPService';
 import { InterventionType } from '@/models/InterventionType';
 
 export class InterventionTypeService implements IInterventionTypeService {
-	public static readonly serviceKey: ServiceKey<IInterventionTypeService> =
-		ServiceKey.create(
-			'Flotadmin.InterventionTypeService',
-			InterventionTypeService,
-		);
+	public static readonly serviceKey: ServiceKey<IInterventionTypeService> = ServiceKey.create(
+		'Flotadmin.InterventionTypeService',
+		InterventionTypeService,
+	);
 
 	private _SPService!: ISPService;
 
@@ -18,24 +17,65 @@ export class InterventionTypeService implements IInterventionTypeService {
 			this._SPService = serviceScope.consume(SPService.servicekey);
 		});
 	}
-	listById(): Promise<any> {
-		throw new Error('Method not implemented.');
-	}
 
 	public async listAll(): Promise<InterventionType[]> {
-		const queryResults = await this._SPService.getListItems(
-			'TiposIntervencion',
-		);
+		try {
+			const queryResults = await this._SPService.getListItems('TiposIntervencion');
 
-		const interventionTypes = this.parseToInterventionType(queryResults);
+			const interventionTypes = this.parseToInterventionType(queryResults);
 
-		return interventionTypes;
+			return interventionTypes;
+		} catch (e) {
+			throw Error(`Error retrieving intervention types data -> ${e}`);
+		}
 	}
-	public async create(arg0: object): Promise<boolean> {
-		throw new Error('Method not implemented.');
+
+	public async listById(arg0: number): Promise<InterventionType> {
+		try {
+			const queryResults = await this._SPService.getListItem('TiposIntervencion', arg0);
+
+			const interventionTypes = this.parseToInterventionType(queryResults);
+
+			return interventionTypes[0];
+		} catch (e) {
+			throw Error(`Error retrieving intervention types data -> ${e}`);
+		}
 	}
-	public async update(arg0: object): Promise<boolean> {
-		throw new Error('Method not implemented.');
+
+	public async create(arg0: InterventionType): Promise<boolean> {
+		try {
+			const interventionTypeInsert = this.formatPersistanceData(arg0);
+
+			await this._SPService.insertItem('TiposIntervencion', interventionTypeInsert);
+
+			return true;
+		} catch (e) {
+			throw Error(`Error creating intervention types data -> ${e}`);
+		}
+	}
+
+	public async update(arg0: InterventionType): Promise<boolean> {
+		try {
+			const interventionTypeUpdate = this.formatPersistanceData(arg0);
+
+			await this._SPService.updateItem('TiposIntervencion', interventionTypeUpdate);
+
+			return true;
+		} catch (e) {
+			throw Error(`Error creating intervention types data -> ${e}`);
+		}
+	}
+
+	public async delete(arg0: InterventionType): Promise<boolean> {
+		try {
+			const interventionTypeDelete = this.formatPersistanceData(arg0);
+
+			await this._SPService.deleteItem('TiposIntervencion', interventionTypeDelete.Id);
+
+			return true;
+		} catch (e) {
+			throw Error(`Error creating intervention types data -> ${e}`);
+		}
 	}
 
 	private parseToInterventionType(data: any[]): InterventionType[] {
@@ -45,5 +85,12 @@ export class InterventionTypeService implements IInterventionTypeService {
 				Description: item.Title,
 			};
 		});
+	}
+
+	private formatPersistanceData(item: InterventionType) {
+		return {
+			Id: item.Id,
+			Title: item.Description,
+		};
 	}
 }
