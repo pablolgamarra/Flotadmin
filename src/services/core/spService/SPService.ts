@@ -7,32 +7,64 @@ import '@pnp/sp/items';
 import { PageContext } from '@microsoft/sp-page-context';
 
 export class SPService implements ISPService {
-	public static readonly servicekey: ServiceKey<ISPService> =
-		ServiceKey.create('Flotadmin.SPService', SPService);
+	public static readonly servicekey: ServiceKey<ISPService> = ServiceKey.create('Flotadmin.SPService', SPService);
 
 	private _sp!: SPFI;
 
 	constructor(serviceScope: ServiceScope) {
 		serviceScope.whenFinished(() => {
-			const pageContext = serviceScope.consume(PageContext.serviceKey);
-			this._sp = spfi().using(SPFx({ pageContext }));
+			try {
+				const pageContext = serviceScope.consume(PageContext.serviceKey);
+				this._sp = spfi().using(SPFx({ pageContext }));
+			} catch (e) {
+				throw new Error(`Error initializing SPService: ${e}`);
+			}
 		});
 	}
 
-	public async getListItems(listName: string): Promise<any[]> {
+	public async getListItems<T = any>(listName: string): Promise<T[]> {
 		let queryResult;
 
 		try {
 			queryResult = await this._sp.web.lists.getByTitle(listName).items();
-			return queryResult;
+			return queryResult as T[];
 		} catch (e) {
 			throw Error(`${e}`);
 		}
 	}
 
-	public async insertItem(listName: string, item: object): Promise<boolean> {
+	public async getListItem<T = any>(listName: string, id: number): Promise<T> {
+		let queryResult;
+
+		try {
+			queryResult = await this._sp.web.lists.getByTitle(listName).items.getById(id);
+			return queryResult as unknown as T;
+		} catch (e) {
+			throw Error(`${e}`);
+		}
+	}
+
+	public async insertItem<T extends { Id?: number }>(listName: string, item: T): Promise<boolean> {
 		try {
 			await this._sp.web.lists.getByTitle(listName).items.add(item);
+			return true;
+		} catch (e) {
+			throw Error(`${e}`);
+		}
+	}
+
+	public async updateItem<T extends { Id: number }>(listName: string, item: T): Promise<boolean> {
+		try {
+			await this._sp.web.lists.getByTitle(listName).items.getById(item.Id).update(item);
+			return true;
+		} catch (e) {
+			throw Error(`${e}`);
+		}
+	}
+
+	public async deleteItem(listName: string, id: number): Promise<boolean> {
+		try {
+			await this._sp.web.lists.getByTitle(listName).items.getById(id).delete();
 			return true;
 		} catch (e) {
 			throw Error(`${e}`);
