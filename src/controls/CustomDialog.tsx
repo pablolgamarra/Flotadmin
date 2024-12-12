@@ -3,6 +3,7 @@ import {
 	Button,
 	Dialog,
 	DialogActions,
+	DialogActionsProps,
 	DialogBody,
 	DialogContent,
 	DialogSurface,
@@ -23,20 +24,13 @@ export interface CustomDialogProps {
 	trigger: HTMLButtonElement;
 	secondaryButtonText: string;
 	primaryButtonText: string;
+	dialogActions?: DialogActionsProps;
 }
 
-export const CustomDialog: React.FC<
-	React.PropsWithChildren<CustomDialogProps>
-> = (props: React.PropsWithChildren<CustomDialogProps>) => {
-	const {
-		children,
-		open,
-		setOpen,
-		title,
-		action,
-		secondaryButtonText,
-		primaryButtonText,
-	} = props;
+export const CustomDialog: React.FC<React.PropsWithChildren<CustomDialogProps>> = (
+	props: React.PropsWithChildren<CustomDialogProps>,
+) => {
+	const { children, open, setOpen, title, action, secondaryButtonText, primaryButtonText, dialogActions } = props;
 
 	return (
 		<Dialog
@@ -49,18 +43,18 @@ export const CustomDialog: React.FC<
 					<DialogBody>
 						<DialogTitle action={action}>{title}</DialogTitle>
 						<DialogContent>{children}</DialogContent>
-						<DialogActions>
-							<DialogTrigger>
-								<Button appearance='secondary'>
-									{secondaryButtonText}
-								</Button>
-							</DialogTrigger>
-							<DialogTrigger>
-								<Button appearance='primary'>
-									{primaryButtonText}
-								</Button>
-							</DialogTrigger>
-						</DialogActions>
+						{dialogActions ? (
+							dialogActions
+						) : (
+							<DialogActions>
+								<DialogTrigger>
+									<Button appearance='secondary'>{secondaryButtonText}</Button>
+								</DialogTrigger>
+								<DialogTrigger>
+									<Button appearance='primary'>{primaryButtonText}</Button>
+								</DialogTrigger>
+							</DialogActions>
+						)}
 					</DialogBody>
 				</DialogSurface>
 			</FluentProvider>
