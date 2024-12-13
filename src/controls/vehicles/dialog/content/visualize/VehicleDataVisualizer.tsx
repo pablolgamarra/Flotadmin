@@ -6,20 +6,31 @@ import { VehicleDataInteractions } from './VehicleDataInteractions';
 import { Intervention } from '@/models/Intervention';
 import { useDataContext } from '@/hooks/useDataContext';
 import { VehicleDataFields } from './VehicleDataFields';
+import { Currency } from '@/common/Currency';
+import { FleetCard } from '@/models/FleetCard';
 
 export interface VehicleDataFormProps {
-	vehicle: Vehicle | undefined;
+	vehicle?: Vehicle;
 }
 
-export const VehicleDataVisualizer: React.FC<VehicleDataFormProps> = (
-	props,
-) => {
+export interface FormState {
+	plate: string;
+	brand: string;
+	model: string;
+	modelYear: number;
+	adquisitionDate: Date;
+	adquisitionCost: number;
+	costCurrency: Currency;
+	user: string;
+	fleetCard: FleetCard;
+}
+
+export const VehicleDataVisualizer: React.FC<VehicleDataFormProps> = (props) => {
 	const { vehicle } = props;
+
 	const { interventionsService } = useDataContext();
 
-	const [vehicleInteractions, setVehicleInteractions] = React.useState<
-		Intervention[]
-	>([]);
+	const [vehicleInteractions, setVehicleInteractions] = React.useState<Intervention[]>([]);
 
 	React.useEffect(() => {
 		const getInterventions = async (): Promise<void> => {
@@ -27,8 +38,7 @@ export const VehicleDataVisualizer: React.FC<VehicleDataFormProps> = (
 				const interventions = await interventionsService.listAll();
 
 				const currentVehicleInterventions = interventions.filter(
-					(intervention: Intervention) =>
-						intervention.Vehicle.Id === vehicle?.Id,
+					(intervention: Intervention) => intervention.Vehicle.Id === vehicle?.Id,
 				);
 
 				setVehicleInteractions(currentVehicleInterventions);

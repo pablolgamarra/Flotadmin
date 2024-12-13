@@ -1,17 +1,10 @@
 import * as React from 'react';
 
 //Components
-import {
-	Button,
-	Title1,
-	Field,
-	IdPrefixProvider,
-	SearchBox,
-	useId,
-} from '@fluentui/react-components';
+import { Button, Title1, Field, IdPrefixProvider, SearchBox, useId } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
-import VehicleCard from '@/controls/vehicles/VehicleCard';
-import { VehicleDialog } from '@/controls/vehicles/VehicleDialog';
+import VehicleCard from '@/controls/vehicles/card/VehicleCard';
+import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
 
 //Styles
 import '../../../../assets/dist/tailwind.css';
@@ -32,12 +25,7 @@ export interface AppProps {
 
 export const App: React.FC<AppProps> = (props) => {
 	const id = useId('App');
-	const {
-		fleetCardService,
-		interventionsService,
-		interventionTypesService,
-		vehiclesService,
-	} = props;
+	const { fleetCardService, interventionsService, interventionTypesService, vehiclesService } = props;
 
 	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
