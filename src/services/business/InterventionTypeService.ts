@@ -1,8 +1,8 @@
-import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
+import { InterventionType } from '@/models/InterventionType';
 import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
 import { ISPService } from '@/services/core/spService/ISPService';
 import { SPService } from '@/services/core/spService/SPService';
-import { InterventionType } from '@/models/InterventionType';
+import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 
 export class InterventionTypeService implements IInterventionTypeService {
 	public static readonly serviceKey: ServiceKey<IInterventionTypeService> = ServiceKey.create(

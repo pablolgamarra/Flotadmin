@@ -1,27 +1,20 @@
 import * as React from 'react';
 
 //Components
-import {
-	Button,
-	Title1,
-	Field,
-	IdPrefixProvider,
-	SearchBox,
-	useId,
-} from '@fluentui/react-components';
+import { Button, Field, IdPrefixProvider, SearchBox, Title1, useId } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 
 //Styles
-import '../../../../assets/dist/tailwind.css';
-import { DataProvider } from '@/context/dataContext';
-import { IVehicleService } from '@/services/business/IVehicleService';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
-import { IInterventionService } from '@/services/business/IInterventionService';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { DialogMode } from '@/common/DialogMode';
+import { DataProvider } from '@/context/dataContext';
+import { FleetCardCard } from '@/controls/fleetCards/card/FleetCardCard';
 import { FleetCardDialog } from '@/controls/fleetCards/dialog/FleetCardDialog';
 import { FleetCard } from '@/models/FleetCard';
-import { FleetCardCard } from '@/controls/fleetCards/card/FleetCardCard';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
+import '../../../../assets/dist/tailwind.css';
 
 import * as strings from 'FlotadminFleetCardWebPartStrings';
 
@@ -34,12 +27,7 @@ export interface AppProps {
 
 export const App: React.FC<AppProps> = (props) => {
 	const id = useId('App');
-	const {
-		fleetCardService,
-		interventionsService,
-		interventionTypesService,
-		vehiclesService,
-	} = props;
+	const { fleetCardService, interventionsService, interventionTypesService, vehiclesService } = props;
 
 	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 

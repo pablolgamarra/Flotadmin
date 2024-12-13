@@ -1,15 +1,13 @@
 import * as React from 'react';
 
-import { Field, Input } from '@fluentui/react-components';
 import { FleetCard } from '@/models/FleetCard';
+import { Field, Input } from '@fluentui/react-components';
 
 export interface FleetCardDataFormProps {
 	fleetCard?: FleetCard;
 }
 
-export const FleetCardRegisterForm: React.FC<FleetCardDataFormProps> = (
-	props,
-) => {
+export const FleetCardRegisterForm: React.FC<FleetCardDataFormProps> = (props) => {
 	const { fleetCard } = props;
 
 	return (

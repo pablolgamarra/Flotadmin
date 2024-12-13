@@ -1,8 +1,8 @@
-import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
+import { FleetCard } from '@/models/FleetCard';
 import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { ISPService } from '@/services/core/spService/ISPService';
 import { SPService } from '@/services/core/spService/SPService';
-import { FleetCard } from '@/models/FleetCard';
+import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 
 export class FleetCardService implements IFleetCardService {
 	public static readonly serviceKey: ServiceKey<IFleetCardService> = ServiceKey.create(

@@ -1,29 +1,22 @@
 import * as React from 'react';
 
 //Components
-import {
-	Button,
-	Title1,
-	Field,
-	IdPrefixProvider,
-	SearchBox,
-	useId,
-} from '@fluentui/react-components';
+import { Button, Field, IdPrefixProvider, SearchBox, Title1, useId } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 
 //Styles
-import '../../../../assets/dist/tailwind.css';
-import { DataProvider } from '@/context/dataContext';
-import { IVehicleService } from '@/services/business/IVehicleService';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
-import { IInterventionService } from '@/services/business/IInterventionService';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { DialogMode } from '@/common/DialogMode';
+import { DataProvider } from '@/context/dataContext';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
+import '../../../../assets/dist/tailwind.css';
 
-import * as strings from 'FlotadminInterventionTypesListWebPartStrings';
-import { InterventionType } from '@/models/InterventionType';
 import { InterventionTypeCard } from '@/controls/interventionTypes/card/InterventionTypesCard';
 import { InterventionTypeDialog } from '@/controls/interventionTypes/dialog/InterventionTypeDialog';
+import { InterventionType } from '@/models/InterventionType';
+import * as strings from 'FlotadminInterventionTypesListWebPartStrings';
 
 export interface AppProps {
 	fleetCardService: IFleetCardService;
@@ -34,24 +27,16 @@ export interface AppProps {
 
 export const App: React.FC<AppProps> = (props) => {
 	const id = useId('App');
-	const {
-		fleetCardService,
-		interventionsService,
-		interventionTypesService,
-		vehiclesService,
-	} = props;
+	const { fleetCardService, interventionsService, interventionTypesService, vehiclesService } = props;
 
 	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
-	const [interventionTypes, setInterventionTypes] = React.useState<
-		InterventionType[]
-	>([]);
+	const [interventionTypes, setInterventionTypes] = React.useState<InterventionType[]>([]);
 
 	React.useEffect(() => {
 		const getInterventionTypes = async () => {
 			try {
-				const interventionTypesList =
-					await interventionTypesService.listAll();
+				const interventionTypesList = await interventionTypesService.listAll();
 				setInterventionTypes(interventionTypesList);
 			} catch (e) {
 				console.error(strings.Errors.ErrorQuerying, e);

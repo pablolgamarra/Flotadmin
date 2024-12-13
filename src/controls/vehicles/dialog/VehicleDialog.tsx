@@ -1,5 +1,17 @@
 import * as React from 'react';
 
+import { CrudActions } from '@/common/CrudActions';
+import { Currency } from '@/common/Currency';
+import { DialogMode } from '@/common/DialogMode';
+import { UploadState } from '@/common/UploadState';
+import { DataContext } from '@/context/dataContext';
+import { CustomDialog } from '@/controls/CustomDialog';
+import {
+	VehicleRegisterForm,
+	VehicleRegisterFormState,
+} from '@/controls/vehicles/dialog/content/register/VehicleRegisterForm';
+import { FleetCard } from '@/models/FleetCard';
+import { Vehicle } from '@/models/Vehicle';
 import {
 	Button,
 	DialogActions,
@@ -13,19 +25,7 @@ import {
 	useId,
 	useToastController,
 } from '@fluentui/react-components';
-import {
-	VehicleRegisterForm,
-	VehicleRegisterFormState,
-} from '@/controls/vehicles/dialog/content/register/VehicleRegisterForm';
-import { CustomDialog } from '@/controls/CustomDialog';
-import { DialogMode } from '@/common/DialogMode';
 import { VehicleDataVisualizer } from './content/visualize/VehicleDataVisualizer';
-import { Vehicle } from '@/models/Vehicle';
-import { Currency } from '@/common/Currency';
-import { FleetCard } from '@/models/FleetCard';
-import { CrudActions } from '@/common/CrudActions';
-import { DataContext } from '@/context/dataContext';
-import { UploadState } from '@/common/UploadState';
 
 export interface VehicleDialogProps {
 	open: boolean;

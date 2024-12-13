@@ -4,14 +4,14 @@ import * as React from 'react';
 import { Vehicle } from '@vehiclesList/types';
 
 //Components
-import { Card, CardFooter, CardHeader, Body2, Button, Title3 } from '@fluentui/react-components';
+import { Body2, Button, Card, CardFooter, CardHeader, Title3 } from '@fluentui/react-components';
 import { Dismiss24Regular, Edit24Regular, Open28Filled, WindowWrench28Regular } from '@fluentui/react-icons';
 
 //Styles
-import '../../../../assets/dist/tailwind.css';
+import { DialogMode } from '@/common/DialogMode';
 import { InteractionDialog } from '@/controls/interactions/InteractionDialog';
 import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
-import { DialogMode } from '@/common/DialogMode';
+import '../../../../assets/dist/tailwind.css';
 
 export interface VehicleCardProps {
 	vehicle: Vehicle;

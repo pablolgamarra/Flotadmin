@@ -1,23 +1,14 @@
 import * as React from 'react';
 
-import {
-	Dropdown,
-	Field,
-	Input,
-	Option,
-	Radio,
-	RadioGroup,
-} from '@fluentui/react-components';
-import { DatePicker } from '@fluentui/react';
 import { InterventionType } from '@/models/InterventionType';
+import { DatePicker } from '@fluentui/react';
+import { Dropdown, Field, Input, Option, Radio, RadioGroup } from '@fluentui/react-components';
 
 export interface InteractionRegisterFormProps {
 	interactionTypes: InterventionType[];
 }
 
-export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (
-	props,
-) => {
+export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (props) => {
 	const { interactionTypes } = props;
 
 	return (

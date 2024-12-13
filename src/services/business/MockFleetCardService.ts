@@ -1,6 +1,6 @@
+import { FleetCard } from '@/models/FleetCard';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 import { IFleetCardService } from './IFleetCardService';
-import { FleetCard } from '@/models/FleetCard';
 
 export class MockFleetCardService implements IFleetCardService {
 	public static readonly serviceKey: ServiceKey<IFleetCardService> = ServiceKey.create(

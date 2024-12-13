@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Checkbox, Field, Input } from '@fluentui/react-components';
+
 import { InterventionType } from '@/models/InterventionType';
+import { Checkbox, Field, Input } from '@fluentui/react-components';
 export interface IInterventionTypeDataFields {
 	interventionType?: InterventionType;
 }
 
-export const InterventionTypeDataFields: React.FC<
-	IInterventionTypeDataFields
-> = (props) => {
+export const InterventionTypeDataFields: React.FC<IInterventionTypeDataFields> = (props) => {
 	const { interventionType } = props;
 
 	return (

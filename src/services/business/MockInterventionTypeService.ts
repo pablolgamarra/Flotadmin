@@ -1,6 +1,6 @@
 import { InterventionType } from '@/models/InterventionType';
-import { IInterventionTypeService } from './IInterventionTypeService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
+import { IInterventionTypeService } from './IInterventionTypeService';
 
 export class MockInterventionTypeService implements IInterventionTypeService {
 	public static readonly serviceKey: ServiceKey<IInterventionTypeService> = ServiceKey.create(

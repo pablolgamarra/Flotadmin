@@ -1,10 +1,10 @@
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { ISPService } from './ISPService';
-import { spfi, SPFI, SPFx } from '@pnp/sp';
-import '@pnp/sp/webs';
-import '@pnp/sp/lists';
-import '@pnp/sp/items';
 import { PageContext } from '@microsoft/sp-page-context';
+import { spfi, SPFI, SPFx } from '@pnp/sp';
+import '@pnp/sp/items';
+import '@pnp/sp/lists';
+import '@pnp/sp/webs';
+import { ISPService } from './ISPService';
 
 export class SPService implements ISPService {
 	public static readonly servicekey: ServiceKey<ISPService> = ServiceKey.create('Flotadmin.SPService', SPService);

@@ -1,11 +1,11 @@
-import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { IVehicleService } from './IVehicleService';
+import { FleetCard } from '@/models/FleetCard';
+import { Vehicle } from '@/models/Vehicle';
 import { ISPService } from '@/services/core/spService/ISPService';
 import { SPService } from '@/services/core/spService/SPService';
-import { Vehicle } from '@/models/Vehicle';
-import { FleetCard } from '@/models/FleetCard';
+import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 import { FleetCardService } from './FleetCardService';
 import { IFleetCardService } from './IFleetCardService';
+import { IVehicleService } from './IVehicleService';
 
 export class VehicleService implements IVehicleService {
 	public static readonly serviceKey: ServiceKey<IVehicleService> = ServiceKey.create(

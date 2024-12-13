@@ -7,9 +7,7 @@ export interface InterventionTypeDataVisualizerProps {
 	interventionType?: InterventionType;
 }
 
-export const InterventionTypeDataVisualizer: React.FC<
-	InterventionTypeDataVisualizerProps
-> = (props) => {
+export const InterventionTypeDataVisualizer: React.FC<InterventionTypeDataVisualizerProps> = (props) => {
 	const { interventionType } = props;
 
 	return (

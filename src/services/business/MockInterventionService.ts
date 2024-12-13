@@ -1,11 +1,11 @@
-import { Intervention } from '@/models/Intervention';
-import { IInterventionService } from './IInterventionService';
-import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { IInterventionTypeService } from './IInterventionTypeService';
-import { MockInterventionTypeService } from './MockInterventionTypeService';
-import { IVehicleService } from './IVehicleService';
-import { MockVehicleService } from './MockVehicleService';
 import { Currency } from '@/common/Currency';
+import { Intervention } from '@/models/Intervention';
+import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
+import { IInterventionService } from './IInterventionService';
+import { IInterventionTypeService } from './IInterventionTypeService';
+import { IVehicleService } from './IVehicleService';
+import { MockInterventionTypeService } from './MockInterventionTypeService';
+import { MockVehicleService } from './MockVehicleService';
 
 export class MockInterventionService implements IInterventionService {
 	public static readonly serviceKey: ServiceKey<IInterventionService> = ServiceKey.create(

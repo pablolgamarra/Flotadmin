@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { FleetCard } from '@/models/FleetCard';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { useEffect, useState } from 'react';
 
 export const useFleetCardList = (
 	fleetCardService: IFleetCardService,

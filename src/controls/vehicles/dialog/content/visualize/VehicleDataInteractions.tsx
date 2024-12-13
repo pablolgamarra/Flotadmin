@@ -1,19 +1,13 @@
-import { Intervention } from '@/models/Intervention';
-import {
-	DetailsList,
-	DetailsListLayoutMode,
-	IColumn,
-	SelectionMode,
-} from '@fluentui/react';
 import * as React from 'react';
+
+import { Intervention } from '@/models/Intervention';
+import { DetailsList, DetailsListLayoutMode, IColumn, SelectionMode } from '@fluentui/react';
 
 export interface VehicleDataInteractionsProps {
 	interactions: Intervention[];
 }
 
-export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
-	props,
-) => {
+export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (props) => {
 	const { interactions } = props;
 
 	const columns: IColumn[] = [
@@ -24,8 +18,7 @@ export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
 			minWidth: 100,
 			maxWidth: 150,
 			isResizable: true,
-			onRender: (item: Intervention) =>
-				new Date(item.Date).toLocaleDateString('es-ES'),
+			onRender: (item: Intervention) => new Date(item.Date).toLocaleDateString('es-ES'),
 		},
 		{
 			key: 'columnCost',
@@ -34,8 +27,7 @@ export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
 			minWidth: 100,
 			maxWidth: 150,
 			isResizable: true,
-			onRender: (item: Intervention) =>
-				`${item.Cost.toLocaleString('es-ES')} ${item.CostCurrency}`,
+			onRender: (item: Intervention) => `${item.Cost.toLocaleString('es-ES')} ${item.CostCurrency}`,
 		},
 		{
 			key: 'columnInterventionType',

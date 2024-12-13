@@ -1,6 +1,6 @@
 import { Currency } from '@/common/Currency';
-import { Vehicle } from '@/models/Vehicle';
 import { InterventionType } from '@/models/InterventionType';
+import { Vehicle } from '@/models/Vehicle';
 
 export interface Intervention {
 	Id: number;

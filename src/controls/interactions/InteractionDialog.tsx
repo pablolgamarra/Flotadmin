@@ -1,8 +1,8 @@
+import { DataContext } from '@/context/dataContext';
+import { InterventionType } from '@/models/InterventionType';
 import * as React from 'react';
 import { CustomDialog } from '../CustomDialog';
 import { InteractionDataForm } from './InteractionDataForm';
-import { InterventionType } from '@/models/InterventionType';
-import { DataContext } from '@/context/dataContext';
 
 export interface InteractionDialogProps {
 	open: boolean;
@@ -10,14 +10,10 @@ export interface InteractionDialogProps {
 	triggerButton: React.ReactElement;
 }
 
-export const InteractionDialog: React.FC<
-	React.PropsWithChildren<InteractionDialogProps>
-> = (props) => {
+export const InteractionDialog: React.FC<React.PropsWithChildren<InteractionDialogProps>> = (props) => {
 	const { open, setOpen, triggerButton, children } = props;
 
-	const [interactionTypes, setInteractionTypes] = React.useState<
-		InterventionType[]
-	>([]);
+	const [interactionTypes, setInteractionTypes] = React.useState<InterventionType[]>([]);
 
 	const { interventionTypesService } = React.useContext(DataContext);
 

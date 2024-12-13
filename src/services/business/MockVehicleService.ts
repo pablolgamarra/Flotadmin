@@ -1,8 +1,8 @@
-import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { IVehicleService } from './IVehicleService';
-import { Vehicle } from '@/models/Vehicle';
 import { FleetCard } from '@/models/FleetCard';
+import { Vehicle } from '@/models/Vehicle';
+import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 import { IFleetCardService } from './IFleetCardService';
+import { IVehicleService } from './IVehicleService';
 import { MockFleetCardService } from './MockFleetCardService';
 
 export class MockVehicleService implements IVehicleService {

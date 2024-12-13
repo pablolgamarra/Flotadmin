@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { Slot } from '@fluentui/react-components';
-import { CustomDialog } from '@/controls/CustomDialog';
 import { DialogMode } from '@/common/DialogMode';
+import { CustomDialog } from '@/controls/CustomDialog';
 import { FleetCard } from '@/models/FleetCard';
-import { FleetCardDataVisualizer } from './content/visualize/FleetCardDataVisualizer';
+import { Slot } from '@fluentui/react-components';
 import { FleetCardRegisterForm } from './content/register/FleetCardRegisterForm';
+import { FleetCardDataVisualizer } from './content/visualize/FleetCardDataVisualizer';
 
 export interface FleetCardDialogProps {
 	open: boolean;
@@ -17,19 +17,10 @@ export interface FleetCardDialogProps {
 	action?: Slot<'div'>;
 }
 
-export const FleetCardDialog: React.FC<
-	React.PropsWithChildren<FleetCardDialogProps>
-> = (props: React.PropsWithChildren<FleetCardDialogProps>) => {
-	const {
-		open,
-		setOpen,
-		triggerButton,
-		title,
-		action,
-		mode,
-		fleetCard,
-		children,
-	} = props;
+export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogProps>> = (
+	props: React.PropsWithChildren<FleetCardDialogProps>,
+) => {
+	const { open, setOpen, triggerButton, title, action, mode, fleetCard, children } = props;
 
 	const switchContent = (mode: DialogMode, fleetCard?: FleetCard) => {
 		switch (mode) {

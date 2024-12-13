@@ -1,15 +1,15 @@
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
+import { MockFleetCardService } from '@/services/business/MockFleetCardService';
+import { MockInterventionService } from '@/services/business/MockInterventionService';
+import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';
+import { MockVehicleService } from '@/services/business/MockVehicleService';
+import { App, AppProps } from '@fleetCardsList/components/App';
+import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
-import { IVehicleService } from '@/services/business/IVehicleService';
-import { IInterventionService } from '@/services/business/IInterventionService';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
-import { App, AppProps } from '@fleetCardsList/components/App';
-import { MockVehicleService } from '@/services/business/MockVehicleService';
-import { MockInterventionService } from '@/services/business/MockInterventionService';
-import { MockFleetCardService } from '@/services/business/MockFleetCardService';
-import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';
 
 import * as strings from 'FlotadminFleetCardWebPartStrings';
 
@@ -38,18 +38,10 @@ export default class FlotadminFleetCardListWebPart extends BaseClientSideWebPart
 		await super.onInit();
 
 		try {
-			this.vehicleService = this.context.serviceScope.consume(
-				MockVehicleService.serviceKey,
-			);
-			this.interventionService = this.context.serviceScope.consume(
-				MockInterventionService.serviceKey,
-			);
-			this.fleetCardService = this.context.serviceScope.consume(
-				MockFleetCardService.serviceKey,
-			);
-			this.interventionTypeService = this.context.serviceScope.consume(
-				MockInterventionTypeService.serviceKey,
-			);
+			this.vehicleService = this.context.serviceScope.consume(MockVehicleService.serviceKey);
+			this.interventionService = this.context.serviceScope.consume(MockInterventionService.serviceKey);
+			this.fleetCardService = this.context.serviceScope.consume(MockFleetCardService.serviceKey);
+			this.interventionTypeService = this.context.serviceScope.consume(MockInterventionTypeService.serviceKey);
 		} catch (e) {
 			console.error(strings.Errors.ErrorInitServices, e);
 		}

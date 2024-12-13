@@ -2,15 +2,8 @@ import * as React from 'react';
 
 import { Vehicle } from '@/models/Vehicle';
 
-import {
-	Combobox,
-	Dropdown,
-	Field,
-	Input,
-	Radio,
-	RadioGroup,
-} from '@fluentui/react-components';
 import { DatePicker } from '@fluentui/react';
+import { Combobox, Dropdown, Field, Input, Radio, RadioGroup } from '@fluentui/react-components';
 export interface VehicleDataFieldsProps {
 	vehicle?: Vehicle;
 }
@@ -56,13 +49,7 @@ export const VehicleDataFields: React.FC<VehicleDataFieldsProps> = (props) => {
 				<Combobox value={vehicle?.User} />
 			</Field>
 			<Field label={'Tarjeta Flota'}>
-				<Dropdown
-					value={
-						vehicle?.FleetCard
-							? vehicle?.FleetCard.CardNumber
-							: 'Sin Asignar'
-					}
-				/>
+				<Dropdown value={vehicle?.FleetCard ? vehicle?.FleetCard.CardNumber : 'Sin Asignar'} />
 			</Field>
 		</>
 	);

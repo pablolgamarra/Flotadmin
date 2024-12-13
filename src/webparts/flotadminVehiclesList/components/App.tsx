@@ -1,20 +1,20 @@
 import * as React from 'react';
 
 //Components
-import { Button, Title1, Field, IdPrefixProvider, SearchBox, useId } from '@fluentui/react-components';
-import { AddCircle28Regular } from '@fluentui/react-icons';
 import VehicleCard from '@/controls/vehicles/card/VehicleCard';
 import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
+import { Button, Field, IdPrefixProvider, SearchBox, Title1, useId } from '@fluentui/react-components';
+import { AddCircle28Regular } from '@fluentui/react-icons';
 
 //Styles
-import '../../../../assets/dist/tailwind.css';
-import { DataProvider } from '@/context/dataContext';
-import { IVehicleService } from '@/services/business/IVehicleService';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
-import { IInterventionService } from '@/services/business/IInterventionService';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
-import { Vehicle } from '@/models/Vehicle';
 import { DialogMode } from '@/common/DialogMode';
+import { DataProvider } from '@/context/dataContext';
+import { Vehicle } from '@/models/Vehicle';
+import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/IVehicleService';
+import '../../../../assets/dist/tailwind.css';
 
 export interface AppProps {
 	fleetCardService: IFleetCardService;

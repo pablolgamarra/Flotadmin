@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Slot } from '@fluentui/react-components';
-import { CustomDialog } from '@/controls/CustomDialog';
 import { DialogMode } from '@/common/DialogMode';
-import { InterventionTypeRegisterForm } from './content/register/InterventionTypeRegisterForm';
+import { CustomDialog } from '@/controls/CustomDialog';
 import { InterventionType } from '@/models/InterventionType';
+import { Slot } from '@fluentui/react-components';
+import { InterventionTypeRegisterForm } from './content/register/InterventionTypeRegisterForm';
 import { InterventionTypeDataVisualizer } from './content/visualize/InterventionTypeDataVisualizer';
 
 export interface InterventionTypeDialogProps {
@@ -17,31 +17,15 @@ export interface InterventionTypeDialogProps {
 	action?: Slot<'div'>;
 }
 
-export const InterventionTypeDialog: React.FC<
-	React.PropsWithChildren<InterventionTypeDialogProps>
-> = (props: React.PropsWithChildren<InterventionTypeDialogProps>) => {
-	const {
-		open,
-		setOpen,
-		triggerButton,
-		title,
-		action,
-		mode,
-		interventionType,
-		children,
-	} = props;
+export const InterventionTypeDialog: React.FC<React.PropsWithChildren<InterventionTypeDialogProps>> = (
+	props: React.PropsWithChildren<InterventionTypeDialogProps>,
+) => {
+	const { open, setOpen, triggerButton, title, action, mode, interventionType, children } = props;
 
-	const switchContent = (
-		mode: DialogMode,
-		interventionType?: InterventionType,
-	) => {
+	const switchContent = (mode: DialogMode, interventionType?: InterventionType) => {
 		switch (mode) {
 			case DialogMode.Show:
-				return (
-					<InterventionTypeDataVisualizer
-						interventionType={interventionType}
-					/>
-				);
+				return <InterventionTypeDataVisualizer interventionType={interventionType} />;
 			case DialogMode.Edit:
 				return <InterventionTypeRegisterForm />;
 		}

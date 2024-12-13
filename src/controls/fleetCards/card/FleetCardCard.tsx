@@ -1,23 +1,12 @@
 import * as React from 'react';
 
-import {
-	Card,
-	CardHeader,
-	CardFooter,
-	Title3,
-	Body2,
-	Button,
-} from '@fluentui/react-components';
+import { Body2, Button, Card, CardFooter, CardHeader, Title3 } from '@fluentui/react-components';
 
-import {
-	Dismiss24Regular,
-	Edit24Regular,
-	Open28Filled,
-} from '@fluentui/react-icons';
+import { Dismiss24Regular, Edit24Regular, Open28Filled } from '@fluentui/react-icons';
 
+import { DialogMode } from '@/common/DialogMode';
 import { FleetCard } from '@/models/FleetCard';
 import { FleetCardDialog } from '../dialog/FleetCardDialog';
-import { DialogMode } from '@/common/DialogMode';
 
 export interface FleetCardCardProps {
 	fleetCard: FleetCard;
@@ -28,9 +17,7 @@ export const FleetCardCard: React.FC<FleetCardCardProps> = (props) => {
 	const { fleetCard, className } = props;
 
 	const [cardDialogOpen, setCardDialogOpen] = React.useState<boolean>(false);
-	const [dialogMode, setDialogMode] = React.useState<DialogMode>(
-		DialogMode.Show,
-	);
+	const [dialogMode, setDialogMode] = React.useState<DialogMode>(DialogMode.Show);
 
 	return (
 		<Card
@@ -40,8 +27,7 @@ export const FleetCardCard: React.FC<FleetCardCardProps> = (props) => {
 			<CardHeader
 				header={
 					<Title3>
-						#{fleetCard.Id} - Tarjeta Flota Nro:{' '}
-						{fleetCard.CardNumber}
+						#{fleetCard.Id} - Tarjeta Flota Nro: {fleetCard.CardNumber}
 					</Title3>
 				}
 				className='tw-mb-4'

@@ -13,9 +13,7 @@ interface DataProviderProps {
 	vehiclesService: IVehicleService;
 }
 
-export const DataContext = React.createContext<DataProviderProps>(
-	{} as DataProviderProps,
-);
+export const DataContext = React.createContext<DataProviderProps>({} as DataProviderProps);
 
 export const DataProvider: React.FunctionComponent<DataProviderProps> = ({
 	children,

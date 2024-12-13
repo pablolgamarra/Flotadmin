@@ -1,18 +1,8 @@
 import * as React from 'react';
 
-import {
-	Card,
-	CardHeader,
-	CardFooter,
-	Title3,
-	Button,
-} from '@fluentui/react-components';
+import { Button, Card, CardFooter, CardHeader, Title3 } from '@fluentui/react-components';
 
-import {
-	Dismiss24Regular,
-	Edit24Regular,
-	Open28Filled,
-} from '@fluentui/react-icons';
+import { Dismiss24Regular, Edit24Regular, Open28Filled } from '@fluentui/react-icons';
 
 import { DialogMode } from '@/common/DialogMode';
 import { InterventionType } from '@/models/InterventionType';
@@ -23,16 +13,11 @@ export interface InterventionTypeCardProps {
 	className: string;
 }
 
-export const InterventionTypeCard: React.FC<InterventionTypeCardProps> = (
-	props,
-) => {
+export const InterventionTypeCard: React.FC<InterventionTypeCardProps> = (props) => {
 	const { interventionType, className } = props;
 
-	const [interventionTypeDialogOpen, setInterventionTypeDialogOpen] =
-		React.useState<boolean>(false);
-	const [dialogMode, setDialogMode] = React.useState<DialogMode>(
-		DialogMode.Show,
-	);
+	const [interventionTypeDialogOpen, setInterventionTypeDialogOpen] = React.useState<boolean>(false);
+	const [dialogMode, setDialogMode] = React.useState<DialogMode>(DialogMode.Show);
 
 	return (
 		<Card
@@ -74,9 +59,7 @@ export const InterventionTypeCard: React.FC<InterventionTypeCardProps> = (
 							icon={<Open28Filled />}
 							iconPosition='before'
 							onClick={() => {
-								setInterventionTypeDialogOpen(
-									!interventionTypeDialogOpen,
-								);
+								setInterventionTypeDialogOpen(!interventionTypeDialogOpen);
 							}}
 						>
 							Ver
