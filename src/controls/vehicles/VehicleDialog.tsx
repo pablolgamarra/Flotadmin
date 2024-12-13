@@ -1,11 +1,28 @@
 import * as React from 'react';
 
-import { Slot } from '@fluentui/react-components';
-import { VehicleRegisterForm } from '@/controls/vehicles/VehicleRegisterForm';
+import {
+	Button,
+	DialogActions,
+	DialogTrigger,
+	Slot,
+	Spinner,
+	Toast,
+	ToastBody,
+	Toaster,
+	ToastTitle,
+	useId,
+	useToastController,
+} from '@fluentui/react-components';
+import { VehicleRegisterForm, VehicleRegisterFormState } from '@/controls/vehicles/VehicleRegisterForm';
 import { CustomDialog } from '@/controls/CustomDialog';
 import { DialogMode } from '@/common/DialogMode';
 import { VehicleDataVisualizer } from './VehicleDataVisualizer';
 import { Vehicle } from '@/models/Vehicle';
+import { Currency } from '@/common/Currency';
+import { FleetCard } from '@/models/FleetCard';
+import { CrudActions } from '@/common/CrudActions';
+import { DataContext } from '@/context/dataContext';
+import { UploadState } from '@/common/UploadState';
 
 export interface VehicleDialogProps {
 	open: boolean;
@@ -17,28 +34,185 @@ export interface VehicleDialogProps {
 	action?: Slot<'div'>;
 }
 
-export const VehicleDialog: React.FC<
-	React.PropsWithChildren<VehicleDialogProps>
-> = (props: React.PropsWithChildren<VehicleDialogProps>) => {
-	const {
-		open,
-		setOpen,
-		triggerButton,
-		title,
-		action,
-		mode,
-		vehicle,
-		children,
-	} = props;
+const parseStateToVehicle = (state: VehicleRegisterFormState): Vehicle => {
+	try {
+		const parsedState = {
+			Id: state.id || -1,
+			Plate: state.plate,
+			Brand: state.brand,
+			Model: state.model,
+			ModelYear: state.modelYear?.toString(),
+			BuyDate: state.adquisitionDate,
+			Cost: state.adquisitionCost,
+			CostCurrency: state.costCurrency,
+			User: state.user,
+			FleetCard: state.fleetCard,
+		};
+
+		return parsedState;
+	} catch (e) {
+		throw new Error(`Error parsing state to vehicle object -> ${e}`);
+	}
+};
+
+export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>> = (
+	props: React.PropsWithChildren<VehicleDialogProps>,
+) => {
+	const { open, setOpen, triggerButton, title, action, mode, vehicle, children } = props;
+
+	const { vehiclesService } = React.useContext(DataContext);
+
+	const toasterId = useId('vehicleDialogToaster');
+	const { dispatchToast } = useToastController(toasterId);
+
+	let initialProps;
+
+	//Verificar si se va a editar
+	if (vehicle) {
+		initialProps = {
+			id: vehicle.Id,
+			plate: vehicle.Plate,
+			brand: vehicle.Brand,
+			model: vehicle.Model,
+			modelYear: parseInt(vehicle.ModelYear),
+			adquisitionDate: vehicle.BuyDate,
+			adquisitionCost: vehicle.Cost,
+			costCurrency: vehicle.CostCurrency as Currency,
+			user: vehicle.User,
+			fleetCard: vehicle.FleetCard ? vehicle.FleetCard : ({} as FleetCard),
+		};
+	} else {
+		initialProps = {} as VehicleRegisterFormState;
+	}
+
+	const [formState, setFormState] = React.useState<VehicleRegisterFormState>(initialProps);
+	const [uploadingState, setUploadingState] = React.useState<UploadState>(UploadState.Idle);
+
+	const saveFormData = async (action: CrudActions) => {
+		console.log('Save Form Data Function Called');
+
+		try {
+			const parsedVehicle = parseStateToVehicle(formState);
+			setUploadingState(UploadState.Uploading);
+
+			if (action === CrudActions.Save) {
+				await vehiclesService.create(parsedVehicle);
+			}
+
+			if (action === CrudActions.Update) {
+				await vehiclesService.update(parsedVehicle);
+			}
+
+			setUploadingState(UploadState.Uploaded);
+		} catch (e) {
+			setUploadingState(UploadState.Failed);
+			throw new Error(`Error saving vehicles -> ${e}`);
+		}
+	};
+
+	const switchActions = (mode: DialogMode, vehicle?: Vehicle) => {
+		//Nuevo Registro
+		if (!vehicle) {
+			return (
+				<DialogActions>
+					<DialogTrigger>
+						<Button appearance='secondary'>Descartar</Button>
+					</DialogTrigger>
+					<DialogTrigger>
+						<Button
+							appearance='primary'
+							onClick={() => {
+								saveFormData(CrudActions.Save);
+							}}
+						>
+							Guardar
+						</Button>
+					</DialogTrigger>
+				</DialogActions>
+			);
+		}
+
+		switch (mode) {
+			//Solo visualizacion, si o si tiene vehiculo
+			case DialogMode.Show:
+				return (
+					<DialogActions>
+						<DialogTrigger>
+							<Button appearance='primary'>Cerrar</Button>
+						</DialogTrigger>
+					</DialogActions>
+				);
+			//Modo Edicion despues de haber clickado en visualizar en el componente Card
+			case DialogMode.Edit:
+				return (
+					<DialogActions>
+						<DialogTrigger>
+							<Button appearance='secondary'>Cancelar</Button>
+						</DialogTrigger>
+						<DialogTrigger>
+							<Button
+								appearance='primary'
+								onClick={() => {
+									saveFormData(CrudActions.Update);
+								}}
+							>
+								Guardar
+							</Button>
+						</DialogTrigger>
+					</DialogActions>
+				);
+		}
+	};
 
 	const switchForm = (mode: DialogMode, vehicle?: Vehicle) => {
 		switch (mode) {
 			case DialogMode.Show:
 				return <VehicleDataVisualizer vehicle={vehicle} />;
 			case DialogMode.Edit:
-				return <VehicleRegisterForm vehicle={vehicle} />;
+				return (
+					<VehicleRegisterForm
+						formState={formState}
+						setFormState={setFormState}
+					/>
+				);
 		}
 	};
+
+	React.useEffect(() => {
+		switch (uploadingState) {
+			case UploadState.Uploading:
+				dispatchToast(
+					<Toast>
+						<ToastTitle media={<Spinner size='tiny' />}>Guardando Datos del Vehiculo</ToastTitle>
+						<ToastBody>Enviando datos al servidor...</ToastBody>
+					</Toast>,
+				);
+				break;
+			case UploadState.Uploaded:
+				dispatchToast(
+					<Toast>
+						<ToastTitle>Datos Guardados Correctamente</ToastTitle>
+						<ToastBody>Se registraron los datos del vehiculo</ToastBody>
+					</Toast>,
+					{ intent: 'success' },
+				);
+				setTimeout(() => {
+					window.location.reload();
+				}, 2000);
+				break;
+			case UploadState.Failed:
+				dispatchToast(
+					<Toast>
+						<ToastTitle>Error al Guardar los Datos</ToastTitle>
+						<ToastBody>Por favor, vuelva a intentarlo más tarde</ToastBody>
+					</Toast>,
+					{ intent: 'error' },
+				);
+				break;
+			default:
+				break;
+		}
+	}, [uploadingState, dispatchToast]);
 
 	return (
 		<>
@@ -51,9 +225,12 @@ export const VehicleDialog: React.FC<
 				primaryButtonText='Guardar'
 				secondaryButtonText='Cancelar'
 				trigger={children as HTMLButtonElement}
+				dialogActions={switchActions(mode, vehicle)}
 			>
+				{uploadingState}
 				{switchForm(mode, vehicle)}
 			</CustomDialog>
+			<Toaster toasterId={toasterId} />
 		</>
 	);
 };
