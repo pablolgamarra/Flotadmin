@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { Divider } from '@fluentui/react-components';
-import { Vehicle } from '@/models/Vehicle';
-import { VehicleDataInteractions } from './VehicleDataInteractions';
-import { Intervention } from '@/models/Intervention';
-import { useDataContext } from '@/hooks/useDataContext';
-import { VehicleDataFields } from './VehicleDataFields';
 import { Currency } from '@/common/Currency';
+import { useDataContext } from '@/hooks/useDataContext';
 import { FleetCard } from '@/models/FleetCard';
+import { Intervention } from '@/models/Intervention';
+import { Vehicle } from '@/models/Vehicle';
+import { Divider } from '@fluentui/react-components';
+import { VehicleDataFields } from './VehicleDataFields';
+import { VehicleDataInteractions } from './VehicleDataInteractions';
 
 export interface VehicleDataFormProps {
 	vehicle?: Vehicle;
