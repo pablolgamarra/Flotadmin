@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { Vehicle } from '@/models/Vehicle';
 
-import { DatePicker } from '@fluentui/react';
-import { Combobox, Dropdown, Field, Input, Radio, RadioGroup } from '@fluentui/react-components';
+import { InputField } from '@/controls/InputField';
 export interface VehicleDataFieldsProps {
 	vehicle?: Vehicle;
 }
@@ -13,44 +12,42 @@ export const VehicleDataFields: React.FC<VehicleDataFieldsProps> = (props) => {
 
 	return (
 		<>
-			<Field label={'Chapa'}>
-				<Input value={vehicle?.Plate} />
-			</Field>
-			<Field label={'Marca'}>
-				<Input value={vehicle?.Brand} />
-			</Field>
-			<Field label={'Modelo'}>
-				<Input value={vehicle?.Model} />
-			</Field>
-			<Field label={'Año'}>
-				<Input value={vehicle?.ModelYear} />
-			</Field>
-			<Field label={'Fecha de Adquisición'}>
-				<DatePicker value={vehicle?.BuyDate} />
-			</Field>
-			<Field label={'Costo de Adquisición'}>
-				<Input value={vehicle?.Cost.toString()} />
-			</Field>
-			<Field label={'Moneda de Adquisición'}>
-				<RadioGroup value={vehicle?.CostCurrency} />
-				<Radio
-					key='a-c-local-radio-group'
-					value='Guaranies'
-					label='Guaranies'
-				/>
-				<Radio
-					key='a-c-exchange-radio-group'
-					value='Dólar'
-					label='Dólar'
-				/>
-				<RadioGroup />
-			</Field>
-			<Field label={'Usuario'}>
-				<Combobox value={vehicle?.User} />
-			</Field>
-			<Field label={'Tarjeta Flota'}>
-				<Dropdown value={vehicle?.FleetCard ? vehicle?.FleetCard.CardNumber : 'Sin Asignar'} />
-			</Field>
+			<InputField
+				label={'Chapa'}
+				value={vehicle?.Plate}
+			/>
+			<InputField
+				label={'Marca'}
+				value={vehicle?.Brand}
+			/>
+			<InputField
+				label={'Modelo'}
+				value={vehicle?.Model}
+			/>
+			<InputField
+				label={'Año'}
+				value={vehicle?.ModelYear}
+			/>
+			<InputField
+				label={'Fecha de Adquisición'}
+				value={vehicle?.BuyDate.toDateString()}
+			/>
+			<InputField
+				label={'Costo de Adquisición'}
+				value={vehicle?.Cost.toString()}
+			/>
+			<InputField
+				label={'Moneda de Adquisición'}
+				value={vehicle?.CostCurrency}
+			/>
+			<InputField
+				label={'Usuario'}
+				value={vehicle?.User}
+			/>
+			<InputField
+				label={'Tarjeta Flota'}
+				value={vehicle?.FleetCard ? vehicle?.FleetCard.CardNumber : 'Sin Asignar'}
+			/>
 		</>
 	);
 };
