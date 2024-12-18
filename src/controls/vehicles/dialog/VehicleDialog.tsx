@@ -35,6 +35,7 @@ export interface VehicleDialogProps {
 	mode: DialogMode;
 	vehicle?: Vehicle;
 	action?: Slot<'div'>;
+	setMode?: (arg0: DialogMode) => void;
 }
 
 const parseStateToVehicle = (state: VehicleRegisterFormState): Vehicle => {
@@ -61,7 +62,7 @@ const parseStateToVehicle = (state: VehicleRegisterFormState): Vehicle => {
 export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>> = (
 	props: React.PropsWithChildren<VehicleDialogProps>,
 ) => {
-	const { open, setOpen, triggerButton, title, action, mode, vehicle, children } = props;
+	const { open, setOpen, triggerButton, title, action, mode, setMode, vehicle, children } = props;
 
 	const { vehiclesService, fleetCardService } = React.useContext(DataContext);
 
@@ -119,7 +120,14 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			return (
 				<DialogActions>
 					<DialogTrigger>
-						<Button appearance='secondary'>Descartar</Button>
+						<Button
+							appearance='secondary'
+							onClick={() => {
+								setOpen(false);
+							}}
+						>
+							Descartar
+						</Button>
 					</DialogTrigger>
 					<DialogTrigger>
 						<Button
@@ -141,7 +149,14 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 				return (
 					<DialogActions>
 						<DialogTrigger>
-							<Button appearance='primary'>Cerrar</Button>
+							<Button
+								appearance='primary'
+								onClick={() => {
+									setOpen(false);
+								}}
+							>
+								Cerrar
+							</Button>
 						</DialogTrigger>
 					</DialogActions>
 				);
@@ -150,7 +165,17 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 				return (
 					<DialogActions>
 						<DialogTrigger>
-							<Button appearance='secondary'>Cancelar</Button>
+							<Button
+								appearance='secondary'
+								onClick={(ev) => {
+									ev.preventDefault();
+									if (setMode) {
+										setMode(DialogMode.Show);
+									}
+								}}
+							>
+								Cancelar
+							</Button>
 						</DialogTrigger>
 						<DialogTrigger>
 							<Button

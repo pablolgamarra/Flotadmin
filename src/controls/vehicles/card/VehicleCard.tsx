@@ -60,6 +60,7 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 					mode={dialogMode}
 					open={vehicleDialogOpen}
 					setOpen={setVehicleDialogOpen}
+					setMode={setDialogMode}
 					action={
 						dialogMode === DialogMode.Show ? (
 							<Edit24Regular
