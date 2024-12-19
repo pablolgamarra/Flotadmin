@@ -56,7 +56,7 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 			</Body2>
 			<CardFooter className='tw-mt-8'>
 				<VehicleDialog
-					title={`#${vehicle.Id} - ${vehicle.Model} ${vehicle.Plate}`}
+					title={`Vehiculo #${vehicle.Id} - ${vehicle.Model} ${vehicle.Plate}`}
 					mode={dialogMode}
 					open={vehicleDialogOpen}
 					setOpen={setVehicleDialogOpen}

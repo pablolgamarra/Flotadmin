@@ -118,7 +118,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 		//Nuevo Registro
 		if (!vehicle) {
 			return (
-				<DialogActions>
+				<DialogActions className='tw-sticky tw-bottom-0 tw-bg-white tw-z-10'>
 					<DialogTrigger>
 						<Button
 							appearance='secondary'
@@ -147,7 +147,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			//Solo visualizacion, si o si tiene vehiculo
 			case DialogMode.Show:
 				return (
-					<DialogActions>
+					<DialogActions className='tw-sticky tw-bottom-0 tw-bg-white tw-z-10'>
 						<DialogTrigger>
 							<Button
 								appearance='primary'
@@ -163,7 +163,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			//Modo Edicion despues de haber clickado en visualizar en el componente Card
 			case DialogMode.Edit:
 				return (
-					<DialogActions>
+					<DialogActions className='tw-sticky tw-bottom-0 tw-bg-white tw-z-10'>
 						<DialogTrigger>
 							<Button
 								appearance='secondary'
@@ -256,7 +256,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 				trigger={children as HTMLButtonElement}
 				dialogActions={switchActions(mode, vehicle)}
 			>
-				{switchForm(mode, vehicle)}
+				<div className='tw-dialog-content tw-overflow-y-auto'>{switchForm(mode, vehicle)}</div>
 			</CustomDialog>
 			<Toaster toasterId={toasterId} />
 		</>

@@ -40,14 +40,14 @@ export const CustomDialog: React.FC<React.PropsWithChildren<CustomDialogProps>> 
 			modalType='alert'
 		>
 			<FluentProvider theme={webLightTheme}>
-				<DialogSurface className='tw-bg-slate-50'>
+				<DialogSurface className='tw-bg-slate-50 tw-max-h-[720px] tw-overflow-auto'>
 					<DialogBody>
 						<DialogTitle action={action}>{title}</DialogTitle>
 						<DialogContent>{children}</DialogContent>
 						{dialogActions ? (
 							dialogActions
 						) : (
-							<DialogActions>
+							<DialogActions className='tw-mt-auto'>
 								<DialogTrigger>
 									<Button appearance='secondary'>{secondaryButtonText}</Button>
 								</DialogTrigger>

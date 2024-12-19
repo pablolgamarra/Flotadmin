@@ -47,7 +47,7 @@ export const VehicleDataVisualizer: React.FC<VehicleDataFormProps> = (props) => 
 				/>
 			) : (
 				<>
-					<Title3 className='tw-flex tw-justify-center mt-3'>Intervenciones del Vehiculo</Title3>
+					<Title3 className='tw-flex tw-justify-center mt-5'>Intervenciones del Vehiculo</Title3>
 					<VehicleDataInteractions interactions={interventionList} />
 				</>
 			)}
