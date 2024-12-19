@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import { Currency } from '@/common/Currency';
 import { useDataContext } from '@/hooks/useDataContext';
+import { useInterventionList } from '@/hooks/useInterventionList';
 import { FleetCard } from '@/models/FleetCard';
-import { Intervention } from '@/models/Intervention';
 import { Vehicle } from '@/models/Vehicle';
-import { Divider } from '@fluentui/react-components';
+import { Divider, Spinner, Title3 } from '@fluentui/react-components';
 import { VehicleDataFields } from './VehicleDataFields';
 import { VehicleDataInteractions } from './VehicleDataInteractions';
 
@@ -30,35 +30,27 @@ export const VehicleDataVisualizer: React.FC<VehicleDataFormProps> = (props) => 
 
 	const { interventionsService } = useDataContext();
 
-	const [vehicleInteractions, setVehicleInteractions] = React.useState<Intervention[]>([]);
-
-	React.useEffect(() => {
-		const getInterventions = async (): Promise<void> => {
-			try {
-				const interventions = await interventionsService.listAll();
-
-				const currentVehicleInterventions = interventions.filter(
-					(intervention: Intervention) => intervention.Vehicle.Id === vehicle?.Id,
-				);
-
-				setVehicleInteractions(currentVehicleInterventions);
-			} catch (e) {
-				console.log(`Error listando intervenciones ${e}`);
-			}
-		};
-
-		getInterventions();
-	}, [interventionsService, vehicle, setVehicleInteractions]);
+	const { isLoading, interventionList } = useInterventionList(interventionsService, vehicle?.Id);
 
 	return (
 		<>
 			<VehicleDataFields vehicle={vehicle} />
 			<Divider
-				className='tw-mt-5 tw-min-h-1 tw-bg-slate-400'
+				className='tw-mt-5'
 				title='Intervenciones'
 				alignContent='start'
 			/>
-			<VehicleDataInteractions interactions={vehicleInteractions} />
+			{isLoading ? (
+				<Spinner
+					label='Leyendo Interacciones del Vehiculo'
+					size='tiny'
+				/>
+			) : (
+				<>
+					<Title3 className='tw-flex tw-justify-center mt-3'>Intervenciones del Vehiculo</Title3>
+					<VehicleDataInteractions interactions={interventionList} />
+				</>
+			)}
 		</>
 	);
 };
