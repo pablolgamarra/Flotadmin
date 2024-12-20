@@ -1,3 +1,4 @@
+import { Currency } from '@/common/Currency';
 import { FleetCard } from '@/models/FleetCard';
 import { Vehicle } from '@/models/Vehicle';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
@@ -34,7 +35,7 @@ export class MockVehicleService implements IVehicleService {
 				ModelYear: '2020',
 				BuyDate: new Date('2020-05-15'),
 				Cost: 15000,
-				CostCurrency: 'USD',
+				CostCurrency: Currency.Dolar,
 				User: 'Juan Pérez',
 				FleetCard: mockFleetCards.find((card) => card.Id === 1),
 			},
@@ -46,7 +47,7 @@ export class MockVehicleService implements IVehicleService {
 				ModelYear: '2019',
 				BuyDate: new Date('2019-03-10'),
 				Cost: 13000,
-				CostCurrency: 'USD',
+				CostCurrency: Currency.Dolar,
 				User: 'Ana López',
 				FleetCard: mockFleetCards.find((card) => card.Id === 2),
 			},
@@ -58,7 +59,7 @@ export class MockVehicleService implements IVehicleService {
 				ModelYear: '2021',
 				BuyDate: new Date('2021-07-20'),
 				Cost: 17000,
-				CostCurrency: 'USD',
+				CostCurrency: Currency.Dolar,
 				User: 'Carlos González',
 				FleetCard: mockFleetCards.find((card) => card.Id === 3),
 			},
@@ -70,7 +71,7 @@ export class MockVehicleService implements IVehicleService {
 				ModelYear: '2018',
 				BuyDate: new Date('2018-11-05'),
 				Cost: 14000,
-				CostCurrency: 'USD',
+				CostCurrency: Currency.Dolar,
 				User: 'María Fernández',
 				FleetCard: mockFleetCards.find((card) => card.Id === 4),
 			},
@@ -82,7 +83,7 @@ export class MockVehicleService implements IVehicleService {
 				ModelYear: '2022',
 				BuyDate: new Date('2022-01-10'),
 				Cost: 18000,
-				CostCurrency: 'USD',
+				CostCurrency: Currency.Dolar,
 				User: 'Sin Asignar',
 				FleetCard: undefined, // Vehículo sin tarjeta asignada
 			},

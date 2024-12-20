@@ -38,7 +38,7 @@ export class MockInterventionService implements IInterventionService {
 				Date: new Date('2023-08-15'),
 				IntervationType: interventionTypes[0],
 				Cost: 150,
-				CostCurrency: 'USD' as Currency,
+				CostCurrency: Currency.Dolar,
 			},
 			{
 				Id: 2,
@@ -47,7 +47,7 @@ export class MockInterventionService implements IInterventionService {
 				Date: new Date('2023-09-10'),
 				IntervationType: interventionTypes[2],
 				Cost: 300,
-				CostCurrency: 'USD' as Currency,
+				CostCurrency: Currency.Dolar,
 			},
 			{
 				Id: 3,
@@ -56,7 +56,7 @@ export class MockInterventionService implements IInterventionService {
 				Date: new Date('2023-10-05'),
 				IntervationType: interventionTypes[1],
 				Cost: 450,
-				CostCurrency: 'USD' as Currency,
+				CostCurrency: Currency.Dolar,
 			},
 		];
 
