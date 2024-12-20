@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Currency } from '@/common/Currency';
+import { moneyFormat } from '@/helpers/moneyFormat';
 import { Intervention } from '@/models/Intervention';
 import { DetailsList, DetailsListLayoutMode, IColumn, SelectionMode } from '@fluentui/react';
 
@@ -18,7 +20,7 @@ export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
 			minWidth: 100,
 			maxWidth: 150,
 			isResizable: true,
-			onRender: (item: Intervention) => new Date(item.Date).toLocaleDateString('es-ES'),
+			onRender: (item: Intervention) => new Date(item.Date).toLocaleDateString('es-PY'),
 		},
 		{
 			key: 'columnCost',
@@ -27,7 +29,20 @@ export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
 			minWidth: 100,
 			maxWidth: 150,
 			isResizable: true,
-			onRender: (item: Intervention) => `${item.Cost.toLocaleString('es-ES')} ${item.CostCurrency}`,
+			onRender: (item: Intervention) => {
+				let formattedCost: string;
+				switch (item.CostCurrency) {
+					case Currency.Dolar:
+						formattedCost = moneyFormat('en-US', item.Cost, 'USD');
+						console.log(moneyFormat('en-US', item.Cost, 'USD'));
+						break;
+					case Currency.Guaranies:
+						formattedCost = moneyFormat('es-PY', item.Cost, 'Gs');
+						console.log(moneyFormat('es-PY', item.Cost, 'Gs'));
+						break;
+				}
+				return formattedCost;
+			},
 		},
 		{
 			key: 'columnInterventionType',

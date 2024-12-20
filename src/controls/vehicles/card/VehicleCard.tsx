@@ -11,6 +11,7 @@ import { Dismiss24Regular, Edit24Regular, Open28Filled, WindowWrench28Regular } 
 import { DialogMode } from '@/common/DialogMode';
 import { InteractionDialog } from '@/controls/interactions/InteractionDialog';
 import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
+import { moneyFormat } from '@/helpers/moneyFormat';
 import '../../../../assets/dist/tailwind.css';
 
 export interface VehicleCardProps {
@@ -46,10 +47,10 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 				className='tw-mb-4'
 			/>
 			<Body2>
-				<b>Monto de Flota Asignado:</b> {vehicle.FleetCard?.AssignedValue} Gs
+				<b>Monto de Flota Asignado:</b> {moneyFormat('es-PY', vehicle.FleetCard?.AssignedValue || 0, ' Gs')}
 			</Body2>
 			<Body2>
-				<b>Numero de Tarjeta Flota:</b> {vehicle.FleetCard?.CardNumber}{' '}
+				<b>Numero de Tarjeta Flota:</b> {vehicle.FleetCard?.CardNumber ?? 'No asignado'}
 			</Body2>
 			<Body2>
 				<b>Usuario:</b> {vehicle.User}

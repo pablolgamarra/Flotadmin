@@ -3,23 +3,12 @@ import * as React from 'react';
 import { Currency } from '@/common/Currency';
 import { InputField } from '@/controls/InputField';
 import { moneyFormat } from '@/helpers/moneyFormat';
+import { useVehicleForm } from '@/hooks/forms/useVehicleForm';
 import { useFleetCardList } from '@/hooks/useFleetCardList';
 import { FleetCard } from '@/models/FleetCard';
 import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { DatePicker } from '@fluentui/react';
-import {
-	Dropdown,
-	Field,
-	InputOnChangeData,
-	Option,
-	OptionOnSelectData,
-	Radio,
-	RadioGroup,
-	RadioGroupOnChangeData,
-	SelectionEvents,
-	Spinner,
-	useId,
-} from '@fluentui/react-components';
+import { Dropdown, Field, Option, Radio, RadioGroup, Spinner, useId } from '@fluentui/react-components';
 
 export interface VehicleDataFormProps {
 	fleetCardService: IFleetCardService;
@@ -47,32 +36,12 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 	//Get list of fleetCards
 	const { isLoading, fleetCardList } = useFleetCardList(fleetCardService);
 
-	//Event Handlers
-	const handleInputChanges = (ev: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData): void => {
-		if (!ev.target.getAttribute('name')) {
-			return;
-		}
-
-		const name = ev.target.getAttribute('name');
-
-		setFormState({ ...formState, [name!!]: data });
-	};
-
-	const handleDropdownChanges = (event: SelectionEvents, data: OptionOnSelectData): void => {
-		setFormState({
-			...formState,
-			fleetCard:
-				fleetCardList.find((card) => card.Id === (data.optionValue ? Number.parseInt(data.optionValue) : -1)) ||
-				undefined,
-		});
-	};
-
-	const handleRadioChanges = (ev: React.FormEvent<HTMLDivElement>, data: RadioGroupOnChangeData): void => {
-		setFormState({
-			...formState,
-			costCurrency: data.value as Currency,
-		});
-	};
+	//Get event handlers from custom hook
+	const { handleInputChanges, handleDropdownChanges, handleRadioChanges } = useVehicleForm({
+		formState,
+		setFormState,
+		fleetCardList,
+	});
 
 	return (
 		<>
@@ -86,7 +55,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				onChange={handleInputChanges}
 			/>
 			<InputField
-				id={`plate-${id}`}
+				id={`brand-${id}`}
 				label={'Marca'}
 				required
 				name='brand-input'
@@ -95,7 +64,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				onChange={handleInputChanges}
 			/>
 			<InputField
-				id={`plate-${id}`}
+				id={`model-${id}`}
 				label={'Modelo'}
 				required
 				name='model-input'
@@ -104,7 +73,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				onChange={handleInputChanges}
 			/>
 			<InputField
-				id={`plate-${id}`}
+				id={`fabricationYear-${id}`}
 				label={'Año'}
 				required
 				name='fabricationYear-input'
@@ -114,7 +83,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				onChange={handleInputChanges}
 			/>
 			<Field
-				id={`plate-${id}`}
+				id={`adquisitionDate-${id}`}
 				label={'Fecha de Adquisición'}
 			>
 				<DatePicker
@@ -123,7 +92,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				/>
 			</Field>
 			<InputField
-				id={`plate-${id}`}
+				id={`adquisitionCost-${id}`}
 				label={'Costo de Adquisición'}
 				name='cost-input'
 				type='number'
@@ -132,7 +101,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				onChange={handleInputChanges}
 			/>
 			<Field
-				id={`plate-${id}`}
+				id={`adquisitionCurrency-${id}`}
 				label={'Moneda de Adquisición'}
 			>
 				<RadioGroup
@@ -153,7 +122,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				</RadioGroup>
 			</Field>
 			<InputField
-				id={`plate-${id}`}
+				id={`user-${id}`}
 				label={'Usuario'}
 				required
 				name='user-cbx'
@@ -163,7 +132,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				onChange={handleInputChanges}
 			/>
 			<Field
-				id={`plate-${id}`}
+				id={`fleetCard-${id}`}
 				label={'Tarjeta Flota'}
 			>
 				{isLoading ? (
