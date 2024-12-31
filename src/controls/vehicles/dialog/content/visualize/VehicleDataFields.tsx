@@ -30,7 +30,7 @@ export const VehicleDataFields: React.FC<VehicleDataFieldsProps> = (props) => {
 			/>
 			<InputField
 				label={'Fecha de Adquisición'}
-				value={vehicle?.BuyDate.toDateString()}
+				value={vehicle?.BuyDate.toString()}
 			/>
 			<InputField
 				label={'Costo de Adquisición'}
