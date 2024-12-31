@@ -27,7 +27,7 @@ export const useVehicleForm = (props: useVehicleFormProps) => {
 
 		const name = ev.target.getAttribute('name');
 
-		setFormState({ ...formState, [name!!]: data });
+		setFormState({ ...formState, [name!!]: data.value });
 	};
 
 	const handleDropdownChanges = (event: SelectionEvents, data: OptionOnSelectData): void => {
