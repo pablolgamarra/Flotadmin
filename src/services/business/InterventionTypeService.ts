@@ -13,9 +13,13 @@ export class InterventionTypeService implements IInterventionTypeService {
 	private _SPService!: ISPService;
 
 	constructor(serviceScope: ServiceScope) {
-		serviceScope.whenFinished(() => {
-			this._SPService = serviceScope.consume(SPService.servicekey);
-		});
+		try {
+			serviceScope.whenFinished(() => {
+				this._SPService = serviceScope.consume(SPService.servicekey);
+			});
+		} catch (e) {
+			throw new Error(`Error initializing InterventionTypeService -> ${e}`);
+		}
 	}
 
 	public async listAll(): Promise<InterventionType[]> {

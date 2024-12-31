@@ -22,11 +22,15 @@ export class InterventionService implements IInterventionService {
 	private _InterventionTypeService!: IInterventionTypeService;
 
 	constructor(serviceScope: ServiceScope) {
-		serviceScope.whenFinished(() => {
-			this._SPService = serviceScope.consume(SPService.servicekey);
-			this._VehicleService = serviceScope.consume(VehicleService.serviceKey);
-			this._InterventionTypeService = serviceScope.consume(InterventionTypeService.serviceKey);
-		});
+		try {
+			serviceScope.whenFinished(() => {
+				this._SPService = serviceScope.consume(SPService.servicekey);
+				this._VehicleService = serviceScope.consume(VehicleService.serviceKey);
+				this._InterventionTypeService = serviceScope.consume(InterventionTypeService.serviceKey);
+			});
+		} catch (e) {
+			throw new Error(`Error initializing InterventionService -> ${e}`);
+		}
 	}
 
 	public async listAll(): Promise<Intervention[]> {

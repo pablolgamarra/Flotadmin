@@ -1,3 +1,4 @@
+import { Currency } from '@/common/Currency';
 import { FleetCard } from '@/models/FleetCard';
 import { Vehicle } from '@/models/Vehicle';
 import { ISPService } from '@/services/core/spService/ISPService';
@@ -16,10 +17,14 @@ export class VehicleService implements IVehicleService {
 	private _SPService!: ISPService;
 	private _fleetCardService!: IFleetCardService;
 	constructor(serviceScope: ServiceScope) {
-		serviceScope.whenFinished(() => {
-			this._SPService = serviceScope.consume(SPService.servicekey);
-			this._fleetCardService = serviceScope.consume(FleetCardService.serviceKey);
-		});
+		try {
+			serviceScope.whenFinished(() => {
+				this._SPService = serviceScope.consume(SPService.servicekey);
+				this._fleetCardService = serviceScope.consume(FleetCardService.serviceKey);
+			});
+		} catch (e) {
+			throw new Error(`Error initializing VehicleService -> ${e}`);
+		}
 	}
 
 	public async listAll(): Promise<Vehicle[]> {
@@ -90,7 +95,7 @@ export class VehicleService implements IVehicleService {
 				ModelYear: item.AnhoModelo,
 				BuyDate: item.FechaAdquisicion,
 				Cost: item.CostoAdquisicion,
-				CostCurrency: item.MonedaAdquisicion,
+				CostCurrency: item.MonedaAquisicion as Currency,
 				User: item.Usuario,
 				FleetCard: fleetCards.find((card) => card.Id === item.TarjetaFlotaId),
 			};
@@ -106,7 +111,7 @@ export class VehicleService implements IVehicleService {
 			AnhoModelo: item.ModelYear,
 			FechaAdquisicion: item.BuyDate,
 			CostoAdquisicion: item.Cost,
-			MonedaAdquisicion: item.CostCurrency,
+			MonedaAquisicion: item.CostCurrency,
 			Usuario: item.User,
 			TarjetaFlotaId: item.FleetCard?.Id,
 		};

@@ -13,9 +13,13 @@ export class FleetCardService implements IFleetCardService {
 	private _SPService!: ISPService;
 
 	constructor(serviceScope: ServiceScope) {
-		serviceScope.whenFinished(() => {
-			this._SPService = serviceScope.consume(SPService.servicekey);
-		});
+		try {
+			serviceScope.whenFinished(() => {
+				this._SPService = serviceScope.consume(SPService.servicekey);
+			});
+		} catch (e) {
+			throw new Error(`Error initializing FleetCardService -> ${e}`);
+		}
 	}
 
 	public async listAll(): Promise<FleetCard[]> {
