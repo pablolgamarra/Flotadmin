@@ -1,3 +1,4 @@
+import { Currency } from '@/common/Currency';
 import { FleetCard } from '@/models/FleetCard';
 
 export interface Vehicle {
@@ -8,7 +9,7 @@ export interface Vehicle {
 	ModelYear: string;
 	BuyDate: Date;
 	Cost: number;
-	CostCurrency: string;
+	CostCurrency: Currency;
 	User: string;
 	FleetCard?: FleetCard;
 }
