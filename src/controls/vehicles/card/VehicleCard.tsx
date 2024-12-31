@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 //Types
-import { Vehicle } from '@vehiclesList/types';
+import { Vehicle } from '@/models/Vehicle';
 
 //Components
 import { Body2, Button, Card, CardFooter, CardHeader, Title3 } from '@fluentui/react-components';
