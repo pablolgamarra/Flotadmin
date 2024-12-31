@@ -49,7 +49,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				id={`plate-${id}`}
 				label={'Chapa'}
 				required
-				name='plate-input'
+				name='plate'
 				placeholder='Insertar Número de Chapa'
 				value={formState.plate}
 				onChange={handleInputChanges}
@@ -58,7 +58,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				id={`brand-${id}`}
 				label={'Marca'}
 				required
-				name='brand-input'
+				name='brand'
 				placeholder='Insertar Marca del Vehículo'
 				value={formState.brand}
 				onChange={handleInputChanges}
@@ -67,7 +67,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				id={`model-${id}`}
 				label={'Modelo'}
 				required
-				name='model-input'
+				name='model'
 				placeholder='Insertar Modelo del Vehículo'
 				value={formState.model}
 				onChange={handleInputChanges}
@@ -76,10 +76,10 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				id={`fabricationYear-${id}`}
 				label={'Año'}
 				required
-				name='fabricationYear-input'
+				name='modelYear'
 				type='number'
 				placeholder='Insertar Año de Fabricación del Vehículo'
-				value={formState.modelYear?.toString()}
+				value={formState.modelYear}
 				onChange={handleInputChanges}
 			/>
 			<Field
@@ -88,16 +88,16 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 			>
 				<DatePicker
 					placeholder='Insertar Fecha de Adquisición del Vehículo'
-					value={formState.adquisitionDate}
+					value={new Date(formState.adquisitionDate)}
 				/>
 			</Field>
 			<InputField
 				id={`adquisitionCost-${id}`}
 				label={'Costo de Adquisición'}
-				name='cost-input'
+				name='cost'
 				type='number'
 				placeholder='Insertar Costo de Adquisición del Vehículo'
-				value={formState.adquisitionCost?.toString()}
+				value={formState.adquisitionCost}
 				onChange={handleInputChanges}
 			/>
 			<Field
@@ -125,7 +125,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				id={`user-${id}`}
 				label={'Usuario'}
 				required
-				name='user-cbx'
+				name='user'
 				type='text'
 				placeholder='Inserte nombre del usuario del vehículo'
 				value={formState.user}
