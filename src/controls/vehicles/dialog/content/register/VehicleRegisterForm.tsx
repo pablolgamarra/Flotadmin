@@ -145,7 +145,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 					<Dropdown
 						name='fleetCard-dropdown'
 						placeholder='Inserte o Seleccione...'
-						value={`Tarjeta ${formState.fleetCard?.Id} - ${formState.fleetCard?.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', formState.fleetCard?.AssignedValue ?? 0, 'Gs')} `}
+						value={formState.fleetCard ? `Tarjeta ${formState.fleetCard?.Id} - ${formState.fleetCard?.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', formState.fleetCard?.AssignedValue ?? 0, 'Gs')} ` : undefined}
                         onOptionSelect={handleDropdownChanges}
 					>
 						{fleetCardList.map((card) => (
