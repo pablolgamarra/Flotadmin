@@ -7,23 +7,23 @@ import { UploadState } from '@/common/UploadState';
 import { DataContext } from '@/context/dataContext';
 import { CustomDialog } from '@/controls/CustomDialog';
 import {
-	VehicleRegisterForm,
-	VehicleRegisterFormState,
+    VehicleRegisterForm,
+    VehicleRegisterFormState,
 } from '@/controls/vehicles/dialog/content/register/VehicleRegisterForm';
 import { FleetCard } from '@/models/FleetCard';
 import { Vehicle } from '@/models/Vehicle';
 import {
-	Button,
-	DialogActions,
-	DialogTrigger,
-	Slot,
-	Spinner,
-	Toast,
-	ToastBody,
-	Toaster,
-	ToastTitle,
-	useId,
-	useToastController,
+    Button,
+    DialogActions,
+    DialogTrigger,
+    Slot,
+    Spinner,
+    Toast,
+    ToastBody,
+    Toaster,
+    ToastTitle,
+    useId,
+    useToastController,
 } from '@fluentui/react-components';
 import { VehicleDataVisualizer } from './content/visualize/VehicleDataVisualizer';
 
@@ -227,7 +227,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 				);
 				setTimeout(() => {
 					window.location.reload();
-				}, 2000);
+				}, 1000);
 				break;
 			case UploadState.Failed:
 				dispatchToast(
@@ -258,7 +258,9 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			>
 				<div className='tw-dialog-content tw-overflow-y-auto'>{switchForm(mode, vehicle)}</div>
 			</CustomDialog>
-			<Toaster toasterId={toasterId} />
+			<Toaster toasterId={toasterId}
+					position={'top-end'}
+					pauseOnHover={true}/>
 		</>
 	);
 };

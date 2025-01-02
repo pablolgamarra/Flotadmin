@@ -3,7 +3,7 @@ import * as React from 'react';
 //Components
 import VehicleCard from '@/controls/vehicles/card/VehicleCard';
 import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
-import { Button, Field, IdPrefixProvider, SearchBox, Spinner, Title1, useId } from '@fluentui/react-components';
+import { Button, Field, FluentProvider, IdPrefixProvider, SearchBox, Spinner, Title1, useId, webLightTheme } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 
 //Styles
@@ -35,7 +35,8 @@ export const App: React.FC<AppProps> = (props) => {
 
 	return (
 		<IdPrefixProvider value='Flotadmin'>
-			<DataProvider
+			<FluentProvider theme={webLightTheme}>
+            <DataProvider
 				{...{
 					vehiclesService: vehiclesService,
 					fleetCardService: fleetCardService,
@@ -102,6 +103,7 @@ export const App: React.FC<AppProps> = (props) => {
 					</div>
 				)}
 			</DataProvider>
+            </FluentProvider>
 		</IdPrefixProvider>
 	);
 };
