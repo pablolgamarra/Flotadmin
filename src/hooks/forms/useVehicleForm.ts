@@ -1,10 +1,10 @@
 import * as React from 'react';
 
 import {
-	InputOnChangeData,
-	OptionOnSelectData,
-	RadioGroupOnChangeData,
-	SelectionEvents,
+    InputOnChangeData,
+    OptionOnSelectData,
+    RadioGroupOnChangeData,
+    SelectionEvents,
 } from '@fluentui/react-components';
 
 import { Currency } from '@/common/Currency';
@@ -46,5 +46,12 @@ export const useVehicleForm = (props: useVehicleFormProps) => {
 		});
 	};
 
-	return { handleInputChanges, handleDropdownChanges, handleRadioChanges };
+    const handleDatePickerChanges = (date: Date | undefined | null):void => {        
+        setFormState({
+			...formState,
+			adquisitionDate: date ? new Date(date) : new Date(),
+		});
+    }
+
+	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleDatePickerChanges };
 };

@@ -37,7 +37,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 	const { isLoading, fleetCardList } = useFleetCardList(fleetCardService);
 
 	//Get event handlers from custom hook
-	const { handleInputChanges, handleDropdownChanges, handleRadioChanges } = useVehicleForm({
+	const { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleDatePickerChanges } = useVehicleForm({
 		formState,
 		setFormState,
 		fleetCardList,
@@ -87,8 +87,9 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				label={'Fecha de Adquisición'}
 			>
 				<DatePicker
+                    onSelectDate={handleDatePickerChanges}
 					placeholder='Insertar Fecha de Adquisición del Vehículo'
-					value={new Date(formState.adquisitionDate)}
+					value={formState.adquisitionDate ? new Date(formState.adquisitionDate) : undefined}
 				/>
 			</Field>
 			<InputField
