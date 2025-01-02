@@ -124,6 +124,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 							appearance='secondary'
 							onClick={() => {
 								setOpen(false);
+                                setFormState({} as VehicleRegisterFormState);
 							}}
 						>
 							Descartar
