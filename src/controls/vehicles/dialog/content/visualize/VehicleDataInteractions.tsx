@@ -34,11 +34,9 @@ export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
 				switch (item.CostCurrency) {
 					case Currency.Dolar:
 						formattedCost = moneyFormat('en-US', item.Cost, 'USD');
-						console.log(moneyFormat('en-US', item.Cost, 'USD'));
 						break;
 					case Currency.Guaranies:
 						formattedCost = moneyFormat('es-PY', item.Cost, 'Gs');
-						console.log(moneyFormat('es-PY', item.Cost, 'Gs'));
 						break;
 				}
 				return formattedCost;
