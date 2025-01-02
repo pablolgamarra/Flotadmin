@@ -94,7 +94,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 			<InputField
 				id={`adquisitionCost-${id}`}
 				label={'Costo de Adquisición'}
-				name='cost'
+				name='adquisitionCost'
 				type='number'
 				placeholder='Insertar Costo de Adquisición del Vehículo'
 				value={formState.adquisitionCost}
@@ -144,16 +144,16 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 					<Dropdown
 						name='fleetCard-dropdown'
 						placeholder='Inserte o Seleccione...'
-						value={formState.fleetCard?.Id.toString()}
-						onOptionSelect={handleDropdownChanges}
+						value={`Tarjeta ${formState.fleetCard?.Id} - ${formState.fleetCard?.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', formState.fleetCard?.AssignedValue ?? 0, 'Gs')} `}
+                        onOptionSelect={handleDropdownChanges}
 					>
 						{fleetCardList.map((card) => (
 							<Option
 								key={card.Id}
-								text={card.CardNumber}
+								text={`Tarjeta ${card.Id} - ${card.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', card.AssignedValue, 'Gs')}`}
 								value={card.Id.toString()}
 							>
-								Tarjeta: {card.CardNumber} - Asignado: {moneyFormat('es-PY', card.AssignedValue, 'Gs')}
+								Tarjeta {card.Id} - {card.CardNumber} - Monto Asignado: {moneyFormat('es-PY', card.AssignedValue, 'Gs')}
 							</Option>
 						))}
 					</Dropdown>

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Vehicle } from '@/models/Vehicle';
 
 import { InputField } from '@/controls/InputField';
+import { moneyFormat } from '@/helpers/moneyFormat';
 export interface VehicleDataFieldsProps {
 	vehicle?: Vehicle;
 }
@@ -54,7 +55,7 @@ export const VehicleDataFields: React.FC<VehicleDataFieldsProps> = (props) => {
 			/>
 			<InputField
 				label={'Tarjeta Flota'}
-				value={vehicle?.FleetCard ? vehicle?.FleetCard.CardNumber : 'Sin Asignar'}
+				value={vehicle?.FleetCard ? `Tarjeta ${vehicle.FleetCard?.Id} - ${vehicle.FleetCard?.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', vehicle.FleetCard?.AssignedValue, 'Gs')}` : 'Sin Asignar'}
 			/>
 		</>
 	);
