@@ -8,7 +8,7 @@ import { useFleetCardList } from '@/hooks/useFleetCardList';
 import { FleetCard } from '@/models/FleetCard';
 import { IFleetCardService } from '@/services/business/IFleetCardService';
 import { DatePicker } from '@fluentui/react';
-import { Dropdown, Field, Option, Radio, RadioGroup, Spinner, useId } from '@fluentui/react-components';
+import { Dropdown, Field, Option, Radio, RadioGroup, Skeleton, useId } from '@fluentui/react-components';
 
 export interface VehicleDataFormProps {
 	fleetCardService: IFleetCardService;
@@ -137,10 +137,10 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				label={'Tarjeta Flota'}
 			>
 				{isLoading ? (
-					<Spinner
-						label='Cargando Tarjetas'
-						size='tiny'
-					/>
+					<>
+                    <Skeleton animation="pulse" appearance='opaque' className='tw-h-8 tw-w-full tw-mb-2 tw-bg-gray-300' />
+                    <Skeleton animation="pulse" appearance='opaque' className='tw-h-8 tw-w-full tw-bg-gray-300'/>
+                </>
 				) : (
 					<Dropdown
 						name='fleetCard-dropdown'
