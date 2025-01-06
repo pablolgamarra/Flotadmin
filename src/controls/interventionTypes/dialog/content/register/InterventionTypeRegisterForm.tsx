@@ -1,17 +1,37 @@
 import * as React from 'react';
 
-import { Checkbox, Field, Input } from '@fluentui/react-components';
+import { InputField } from '@/controls/InputField';
+import { useInterventionTypeForm } from '@/hooks/forms/useInterventionTypeForm';
+import { Checkbox, Field, useId } from '@fluentui/react-components';
 
-export interface InterventionTypeRegisterFormProps {}
+export interface InterventionTypeRegisterFormState {
+	description: string;
+	//active:boolean;
+}
+export interface InterventionTypeRegisterFormProps {
+	formState: InterventionTypeRegisterFormState;
+	setFormState: (arg0: InterventionTypeRegisterFormState) => void;
+}
 
 export const InterventionTypeRegisterForm: React.FC<InterventionTypeRegisterFormProps> = (props) => {
+	const { formState, setFormState } = props;
+	const id = useId('interventionTypeRegisterForm');
+
+	const { handleInputChanges } = useInterventionTypeForm({ formState, setFormState });
+
 	return (
 		<>
-			<Field label={'Descripción'}>
-				<Input placeholder='Insertar Descripcion' />
-			</Field>
+			<InputField
+				id={`${id}-description`}
+				name='description'
+				label='Descripción'
+				placeholder='Insertar Descripcion'
+				value={formState?.description}
+				type='text'
+				onChange={handleInputChanges}
+			/>
 			<Field label={'Activo'}>
-				<Checkbox /*checked={} label={interventionType?.Active}*/ />
+				<Checkbox name='active' /*checked={} label={interventionType?.Active}*/ />
 			</Field>
 		</>
 	);

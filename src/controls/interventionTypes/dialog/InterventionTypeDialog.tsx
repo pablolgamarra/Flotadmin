@@ -4,7 +4,10 @@ import { DialogMode } from '@/common/DialogMode';
 import { CustomDialog } from '@/controls/CustomDialog';
 import { InterventionType } from '@/models/InterventionType';
 import { Slot } from '@fluentui/react-components';
-import { InterventionTypeRegisterForm } from './content/register/InterventionTypeRegisterForm';
+import {
+	InterventionTypeRegisterForm,
+	InterventionTypeRegisterFormState,
+} from './content/register/InterventionTypeRegisterForm';
 import { InterventionTypeDataVisualizer } from './content/visualize/InterventionTypeDataVisualizer';
 
 export interface InterventionTypeDialogProps {
@@ -15,6 +18,7 @@ export interface InterventionTypeDialogProps {
 	mode: DialogMode;
 	interventionType?: InterventionType;
 	action?: Slot<'div'>;
+	setMode?: (arg0: DialogMode) => void;
 }
 
 export const InterventionTypeDialog: React.FC<React.PropsWithChildren<InterventionTypeDialogProps>> = (
@@ -22,12 +26,21 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 ) => {
 	const { open, setOpen, triggerButton, title, action, mode, interventionType, children } = props;
 
+	const [formState, setFormState] = React.useState<InterventionTypeRegisterFormState>(
+		{} as InterventionTypeRegisterFormState,
+	);
+
 	const switchContent = (mode: DialogMode, interventionType?: InterventionType) => {
 		switch (mode) {
 			case DialogMode.Show:
 				return <InterventionTypeDataVisualizer interventionType={interventionType} />;
 			case DialogMode.Edit:
-				return <InterventionTypeRegisterForm />;
+				return (
+					<InterventionTypeRegisterForm
+						formState={formState}
+						setFormState={setFormState}
+					/>
+				);
 		}
 	};
 
