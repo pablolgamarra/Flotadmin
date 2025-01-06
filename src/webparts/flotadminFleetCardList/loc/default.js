@@ -16,5 +16,9 @@ define([], function () {
 			ErrorQuerying: 'Error listando Tarjetas Flota',
 			ErrorInitServices: 'Error inicializando servicios',
 		},
+        PropertyPaneDescription: 'Propiedades Lista de Tarjetas Flota',
+		ListsSettingsGroupName: 'Configuracion de Origenes de Datos',
+		DescriptionFieldLabel: 'Descripcion',
+		IsTestEnvironmentFieldLabel: 'Datos de Prueba',
 	};
 });
