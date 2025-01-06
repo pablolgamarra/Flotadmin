@@ -5,6 +5,7 @@ import { Body2, Button, Card, CardFooter, CardHeader, Title3 } from '@fluentui/r
 import { Dismiss24Regular, Edit24Regular, Open28Filled } from '@fluentui/react-icons';
 
 import { DialogMode } from '@/common/DialogMode';
+import { moneyFormat } from '@/helpers/moneyFormat';
 import { FleetCard } from '@/models/FleetCard';
 import { FleetCardDialog } from '../dialog/FleetCardDialog';
 
@@ -33,7 +34,7 @@ export const FleetCardCard: React.FC<FleetCardCardProps> = (props) => {
 				className='tw-mb-4'
 			/>
 			<Body2>
-				<b>Monto de Asignado:</b> {fleetCard.AssignedValue} Gs
+				<b>Monto de Asignado:</b> {moneyFormat('es-PY', fleetCard.AssignedValue, 'Gs.')}
 			</Body2>
 			<CardFooter className='tw-mt-8 tw-justify-center'>
 				<FleetCardDialog
