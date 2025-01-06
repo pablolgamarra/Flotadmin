@@ -40,6 +40,7 @@ export const FleetCardCard: React.FC<FleetCardCardProps> = (props) => {
 					title={`Tarjeta #${fleetCard.CardNumber}`}
 					mode={dialogMode}
 					open={cardDialogOpen}
+					setMode={setDialogMode}
 					action={
 						dialogMode === DialogMode.Show ? (
 							<Edit24Regular

@@ -1,23 +1,43 @@
 import * as React from 'react';
 
-import { FleetCard } from '@/models/FleetCard';
-import { Field, Input } from '@fluentui/react-components';
+import { InputField } from '@/controls/InputField';
+import { useFleetCardForm } from '@/hooks/forms/useFleetCardForm';
+import { useId } from '@fluentui/react-utilities';
 
 export interface FleetCardDataFormProps {
-	fleetCard?: FleetCard;
+	formState: FleetCardRegisterFormState;
+	setFormState: (arg0: FleetCardRegisterFormState) => void;
+}
+
+export interface FleetCardRegisterFormState {
+	id?: number;
+	cardNumber: string;
+	assignedValue: number;
 }
 
 export const FleetCardRegisterForm: React.FC<FleetCardDataFormProps> = (props) => {
-	const { fleetCard } = props;
+	const { formState, setFormState } = props;
+	const id = useId('flotadmin-fleetCard-register-form');
+	const { handleInputChanges } = useFleetCardForm({ formState, setFormState });
 
 	return (
 		<>
-			<Field label={'Número de Tarjeta'}>
-				<Input value={fleetCard?.CardNumber} />
-			</Field>
-			<Field label={'Monto Asignado'}>
-				<Input value={fleetCard?.AssignedValue.toString()} />
-			</Field>
+			<InputField
+				id={`${id}-cardNumber`}
+				name='cardNumber'
+				label='Número de Tarjeta'
+				value={formState.cardNumber}
+				type='number'
+				onChange={handleInputChanges}
+			/>
+			<InputField
+				id={`${id}-assignedValue`}
+				name='assignedValue'
+				label={'Monto Asignado'}
+				value={formState.assignedValue?.toString()}
+				type='number'
+				onChange={handleInputChanges}
+			/>
 		</>
 	);
 };
