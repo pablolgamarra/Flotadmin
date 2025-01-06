@@ -3,7 +3,17 @@ import * as React from 'react';
 //Components
 import VehicleCard from '@/controls/vehicles/card/VehicleCard';
 import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
-import { Button, Field, FluentProvider, IdPrefixProvider, SearchBox, Spinner, Title1, useId, webLightTheme } from '@fluentui/react-components';
+import {
+	Button,
+	Field,
+	FluentProvider,
+	IdPrefixProvider,
+	SearchBox,
+	Spinner,
+	Title1,
+	useId,
+	webLightTheme,
+} from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
 
 //Styles
@@ -34,76 +44,76 @@ export const App: React.FC<AppProps> = (props) => {
 	const { isLoading, vehicleList, error } = useVehicleList(vehiclesService);
 
 	return (
-		<IdPrefixProvider value='Flotadmin'>
+		<IdPrefixProvider value='Flotadmin-vehicles-list'>
 			<FluentProvider theme={webLightTheme}>
-            <DataProvider
-				{...{
-					vehiclesService: vehiclesService,
-					fleetCardService: fleetCardService,
-					interventionsService: interventionsService,
-					interventionTypesService: interventionTypesService,
-				}}
-			>
-				{error ? (
-					ErrorVisualizer
-				) : (
-					<div className='tw-w-8/12 tw-mx-auto'>
-						<section className='tw-flex tw-flex-col tw-w-full tw-mb-2'>
-							<Title1
-								as='h2'
-								align='center'
-								className='tw-mt-8'
-							>
-								Todos los Vehículos
-							</Title1>
-							<Field className='tw-flex tw-mt-6'>
-								<SearchBox
-									className='tw-max-w-none tw-w-10/12 tw-mr-4'
-									placeholder='Buscar Vehículos'
-								/>
-								<VehicleDialog
-									title='Registrar Nuevo Vehiculo'
-									mode={DialogMode.Edit}
-									open={dialogOpen}
-									setOpen={setDialogOpen}
-									triggerButton={
-										<Button
-											className='tw-w-2/12'
-											appearance='primary'
-											icon={<AddCircle28Regular />}
-											onClick={() => {
-												setDialogOpen(!dialogOpen);
-											}}
-										>
-											Nuevo Vehiculo
-										</Button>
-									}
-								/>
-							</Field>
-						</section>
-						<div
-							id='cards-container'
-							className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-gap-4'
-						>
-							{isLoading ? (
-								<Spinner
-									label='Cargando Vehiculos Registrados'
-									size='tiny'
-								/>
-							) : (
-								vehicleList.map((item: Vehicle) => (
-									<VehicleCard
-										key={`${id}-${item.Plate}`}
-										vehicle={item}
-										className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
+				<DataProvider
+					{...{
+						vehiclesService: vehiclesService,
+						fleetCardService: fleetCardService,
+						interventionsService: interventionsService,
+						interventionTypesService: interventionTypesService,
+					}}
+				>
+					{error ? (
+						ErrorVisualizer
+					) : (
+						<div className='tw-w-8/12 tw-mx-auto'>
+							<section className='tw-flex tw-flex-col tw-w-full tw-mb-2'>
+								<Title1
+									as='h2'
+									align='center'
+									className='tw-mt-8'
+								>
+									Todos los Vehículos
+								</Title1>
+								<Field className='tw-flex tw-mt-6'>
+									<SearchBox
+										className='tw-max-w-none tw-w-10/12 tw-mr-4'
+										placeholder='Buscar Vehículos'
 									/>
-								))
-							)}
+									<VehicleDialog
+										title='Registrar Nuevo Vehiculo'
+										mode={DialogMode.Edit}
+										open={dialogOpen}
+										setOpen={setDialogOpen}
+										triggerButton={
+											<Button
+												className='tw-w-2/12'
+												appearance='primary'
+												icon={<AddCircle28Regular />}
+												onClick={() => {
+													setDialogOpen(!dialogOpen);
+												}}
+											>
+												Nuevo Vehiculo
+											</Button>
+										}
+									/>
+								</Field>
+							</section>
+							<div
+								id='cards-container'
+								className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-gap-4'
+							>
+								{isLoading ? (
+									<Spinner
+										label='Cargando Vehiculos Registrados'
+										size='tiny'
+									/>
+								) : (
+									vehicleList.map((item: Vehicle) => (
+										<VehicleCard
+											key={`${id}-${item.Plate}`}
+											vehicle={item}
+											className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
+										/>
+									))
+								)}
+							</div>
 						</div>
-					</div>
-				)}
-			</DataProvider>
-            </FluentProvider>
+					)}
+				</DataProvider>
+			</FluentProvider>
 		</IdPrefixProvider>
 	);
 };

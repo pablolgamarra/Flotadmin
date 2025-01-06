@@ -47,7 +47,7 @@ export const App: React.FC<AppProps> = (props) => {
 	}, [setInterventionTypes]);
 
 	return (
-		<IdPrefixProvider value='Flotadmin'>
+		<IdPrefixProvider value='Flotadmin-intervention-types-list'>
 			<DataProvider
 				{...{
 					vehiclesService: vehiclesService,
