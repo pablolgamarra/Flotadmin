@@ -2,10 +2,23 @@ import * as React from 'react';
 
 import { CrudActions } from '@/common/CrudActions';
 import { DialogMode } from '@/common/DialogMode';
+import { UploadState } from '@/common/UploadState';
 import { DataContext } from '@/context/dataContext';
 import { CustomDialog } from '@/controls/CustomDialog';
 import { FleetCard } from '@/models/FleetCard';
-import { Button, DialogActions, DialogTrigger, Slot } from '@fluentui/react-components';
+import {
+	Button,
+	DialogActions,
+	DialogTrigger,
+	Slot,
+	Spinner,
+	Toast,
+	ToastBody,
+	Toaster,
+	ToastTitle,
+	useId,
+	useToastController,
+} from '@fluentui/react-components';
 import { FleetCardRegisterForm, FleetCardRegisterFormState } from './content/register/FleetCardRegisterForm';
 import { FleetCardDataVisualizer } from './content/visualize/FleetCardDataVisualizer';
 
@@ -40,6 +53,8 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 	const { open, setOpen, setMode, triggerButton, title, action, mode, fleetCard, children } = props;
 
 	let initialValues;
+	const toasterId = useId('vehicleDialogToaster');
+	const { dispatchToast } = useToastController(toasterId);
 
 	//Verificar si se va a editar
 	if (fleetCard) {
@@ -55,12 +70,14 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 	const { fleetCardService } = React.useContext(DataContext);
 
 	const [formState, setFormState] = React.useState<FleetCardRegisterFormState>(initialValues);
+	const [uploadingState, setUploadingState] = React.useState<UploadState>(UploadState.Idle);
 
 	const saveFormData = async (action: CrudActions) => {
 		console.log('saveFleetCardData', action);
 
 		try {
 			const parsedState = parseStateToFleetCard(formState);
+			setUploadingState(UploadState.Uploading);
 
 			if (action === CrudActions.Save) {
 				await fleetCardService.create(parsedState);
@@ -70,7 +87,10 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 				await fleetCardService.update(parsedState);
 			}
 		} catch (e) {
+			setUploadingState(UploadState.Failed);
 			throw new Error(`Error saving fleetCards -> ${e}`);
+		} finally {
+			setUploadingState(UploadState.Uploaded);
 		}
 	};
 
@@ -167,6 +187,42 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 		}
 	};
 
+	React.useEffect(() => {
+		switch (uploadingState) {
+			case UploadState.Uploading:
+				dispatchToast(
+					<Toast>
+						<ToastTitle media={<Spinner size='tiny' />}>Guardando Datos del Vehiculo</ToastTitle>
+						<ToastBody>Enviando datos al servidor...</ToastBody>
+					</Toast>,
+				);
+				break;
+			case UploadState.Uploaded:
+				dispatchToast(
+					<Toast>
+						<ToastTitle>Datos Guardados Correctamente</ToastTitle>
+						<ToastBody>Se registraron los datos del vehiculo</ToastBody>
+					</Toast>,
+					{ intent: 'success' },
+				);
+				setTimeout(() => {
+					window.location.reload();
+				}, 1000);
+				break;
+			case UploadState.Failed:
+				dispatchToast(
+					<Toast>
+						<ToastTitle>Error al Guardar los Datos</ToastTitle>
+						<ToastBody>Por favor, vuelva a intentarlo más tarde</ToastBody>
+					</Toast>,
+					{ intent: 'error' },
+				);
+				break;
+			default:
+				break;
+		}
+	}, [uploadingState, dispatchToast]);
+
 	return (
 		<>
 			{triggerButton}
@@ -182,6 +238,11 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 			>
 				{switchContent(mode, fleetCard)}
 			</CustomDialog>
+			<Toaster
+				toasterId={toasterId}
+				position={'top-end'}
+				pauseOnHover={true}
+			/>
 		</>
 	);
 };
