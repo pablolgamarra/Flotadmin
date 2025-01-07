@@ -2,10 +2,23 @@ import * as React from 'react';
 
 import { CrudActions } from '@/common/CrudActions';
 import { DialogMode } from '@/common/DialogMode';
+import { UploadState } from '@/common/UploadState';
 import { CustomDialog } from '@/controls/CustomDialog';
 import { useDataContext } from '@/hooks/useDataContext';
 import { InterventionType } from '@/models/InterventionType';
-import { Button, DialogActions, DialogTrigger, Slot } from '@fluentui/react-components';
+import {
+	Button,
+	DialogActions,
+	DialogTrigger,
+	Slot,
+	Spinner,
+	Toast,
+	ToastBody,
+	Toaster,
+	ToastTitle,
+	useId,
+	useToastController,
+} from '@fluentui/react-components';
 import {
 	InterventionTypeRegisterForm,
 	InterventionTypeRegisterFormState,
@@ -42,6 +55,9 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 	const { open, setOpen, setMode, triggerButton, title, action, mode, interventionType, children } = props;
 	const { interventionTypesService } = useDataContext();
 
+	const toasterId = useId('interventionTypeToast');
+	const { dispatchToast } = useToastController(toasterId);
+
 	let initialValues = {} as InterventionTypeRegisterFormState;
 
 	if (interventionType) {
@@ -52,12 +68,14 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 	}
 
 	const [formState, setFormState] = React.useState<InterventionTypeRegisterFormState>(initialValues);
+	const [uploadingState, setUploadingState] = React.useState<UploadState>(UploadState.Idle);
 
 	const saveFormData = async (action: CrudActions) => {
 		console.log('saveFleetCardData', action);
 
 		try {
 			const parsedState = parseStateToInterventionType(formState);
+			setUploadingState(UploadState.Uploading);
 
 			if (action === CrudActions.Save) {
 				await interventionTypesService.create(parsedState);
@@ -67,7 +85,10 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 				await interventionTypesService.update(parsedState);
 			}
 		} catch (e) {
+			setUploadingState(UploadState.Failed);
 			throw new Error(`Error saving fleetCards -> ${e}`);
+		} finally {
+			setUploadingState(UploadState.Uploaded);
 		}
 	};
 
@@ -164,6 +185,42 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 		}
 	};
 
+	React.useEffect(() => {
+		switch (uploadingState) {
+			case UploadState.Uploading:
+				dispatchToast(
+					<Toast>
+						<ToastTitle media={<Spinner size='tiny' />}>Guardando Datos del Vehiculo</ToastTitle>
+						<ToastBody>Enviando datos al servidor...</ToastBody>
+					</Toast>,
+				);
+				break;
+			case UploadState.Uploaded:
+				dispatchToast(
+					<Toast>
+						<ToastTitle>Datos Guardados Correctamente</ToastTitle>
+						<ToastBody>Se registraron los datos del vehiculo</ToastBody>
+					</Toast>,
+					{ intent: 'success' },
+				);
+				setTimeout(() => {
+					window.location.reload();
+				}, 1000);
+				break;
+			case UploadState.Failed:
+				dispatchToast(
+					<Toast>
+						<ToastTitle>Error al Guardar los Datos</ToastTitle>
+						<ToastBody>Por favor, vuelva a intentarlo más tarde</ToastBody>
+					</Toast>,
+					{ intent: 'error' },
+				);
+				break;
+			default:
+				break;
+		}
+	}, [uploadingState, dispatchToast]);
+
 	return (
 		<>
 			{triggerButton}
@@ -178,6 +235,11 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 				dialogActions={switchActions(mode)}
 			>
 				{switchContent(mode, interventionType)}
+				<Toaster
+					toasterId={toasterId}
+					position={'top-end'}
+					pauseOnHover={true}
+				/>
 			</CustomDialog>
 		</>
 	);
