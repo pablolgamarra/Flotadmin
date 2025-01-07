@@ -3,8 +3,8 @@ import * as React from 'react';
 import { CrudActions } from '@/common/CrudActions';
 import { DialogMode } from '@/common/DialogMode';
 import { UploadState } from '@/common/UploadState';
-import { DataContext } from '@/context/dataContext';
 import { CustomDialog } from '@/controls/CustomDialog';
+import { useDataContext } from '@/hooks/useDataContext';
 import { FleetCard } from '@/models/FleetCard';
 import {
 	Button,
@@ -67,7 +67,7 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 		initialValues = {} as FleetCardRegisterFormState;
 	}
 
-	const { fleetCardService } = React.useContext(DataContext);
+	const { fleetCardService } = useDataContext();
 
 	const [formState, setFormState] = React.useState<FleetCardRegisterFormState>(initialValues);
 	const [uploadingState, setUploadingState] = React.useState<UploadState>(UploadState.Idle);
