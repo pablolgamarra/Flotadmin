@@ -1,9 +1,11 @@
 import * as React from 'react';
 
+import { CrudActions } from '@/common/CrudActions';
 import { DialogMode } from '@/common/DialogMode';
 import { CustomDialog } from '@/controls/CustomDialog';
+import { useDataContext } from '@/hooks/useDataContext';
 import { InterventionType } from '@/models/InterventionType';
-import { Slot } from '@fluentui/react-components';
+import { Button, DialogActions, DialogTrigger, Slot } from '@fluentui/react-components';
 import {
 	InterventionTypeRegisterForm,
 	InterventionTypeRegisterFormState,
@@ -21,14 +23,53 @@ export interface InterventionTypeDialogProps {
 	setMode?: (arg0: DialogMode) => void;
 }
 
+const parseStateToInterventionType = (state: InterventionTypeRegisterFormState): InterventionType => {
+	try {
+		const parsedState = {
+			Id: state.id || -1,
+			Description: state.description,
+		};
+
+		return parsedState;
+	} catch (e) {
+		throw new Error(`Error parsing state to interventionType object -> ${e}`);
+	}
+};
+
 export const InterventionTypeDialog: React.FC<React.PropsWithChildren<InterventionTypeDialogProps>> = (
 	props: React.PropsWithChildren<InterventionTypeDialogProps>,
 ) => {
-	const { open, setOpen, triggerButton, title, action, mode, interventionType, children } = props;
+	const { open, setOpen, setMode, triggerButton, title, action, mode, interventionType, children } = props;
+	const { interventionTypesService } = useDataContext();
 
-	const [formState, setFormState] = React.useState<InterventionTypeRegisterFormState>(
-		{} as InterventionTypeRegisterFormState,
-	);
+	let initialValues = {} as InterventionTypeRegisterFormState;
+
+	if (interventionType) {
+		initialValues = {
+			id: interventionType.Id,
+			description: interventionType.Description,
+		};
+	}
+
+	const [formState, setFormState] = React.useState<InterventionTypeRegisterFormState>(initialValues);
+
+	const saveFormData = async (action: CrudActions) => {
+		console.log('saveFleetCardData', action);
+
+		try {
+			const parsedState = parseStateToInterventionType(formState);
+
+			if (action === CrudActions.Save) {
+				await interventionTypesService.create(parsedState);
+			}
+
+			if (action === CrudActions.Update) {
+				await interventionTypesService.update(parsedState);
+			}
+		} catch (e) {
+			throw new Error(`Error saving fleetCards -> ${e}`);
+		}
+	};
 
 	const switchContent = (mode: DialogMode, interventionType?: InterventionType) => {
 		switch (mode) {
@@ -44,6 +85,85 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 		}
 	};
 
+	const switchActions = (mode: DialogMode) => {
+		//Nuevo Registro
+		if (!interventionType) {
+			return (
+				<DialogActions className='tw-sticky tw-bottom-0 tw-bg-white tw-z-10'>
+					<DialogTrigger>
+						<Button
+							appearance='secondary'
+							onClick={() => {
+								setOpen(false);
+								setFormState({} as InterventionTypeRegisterFormState);
+							}}
+						>
+							Descartar
+						</Button>
+					</DialogTrigger>
+					<DialogTrigger>
+						<Button
+							appearance='primary'
+							onClick={() => {
+								saveFormData(CrudActions.Save);
+							}}
+						>
+							Guardar
+						</Button>
+					</DialogTrigger>
+				</DialogActions>
+			);
+		}
+
+		switch (mode) {
+			//Solo visualizacion, si o si tiene vehiculo
+			case DialogMode.Show:
+				return (
+					<DialogActions className='tw-sticky tw-bottom-0 tw-bg-white tw-z-10'>
+						<DialogTrigger>
+							<Button
+								appearance='primary'
+								onClick={() => {
+									setOpen(false);
+								}}
+							>
+								Cerrar
+							</Button>
+						</DialogTrigger>
+					</DialogActions>
+				);
+			//Modo Edicion despues de haber clickado en visualizar en el componente Card
+			case DialogMode.Edit:
+				return (
+					<DialogActions className='tw-sticky tw-bottom-0 tw-bg-white tw-z-10'>
+						<DialogTrigger>
+							<Button
+								appearance='secondary'
+								onClick={(ev) => {
+									ev.preventDefault();
+									if (setMode) {
+										setMode(DialogMode.Show);
+									}
+								}}
+							>
+								Cancelar
+							</Button>
+						</DialogTrigger>
+						<DialogTrigger>
+							<Button
+								appearance='primary'
+								onClick={() => {
+									saveFormData(CrudActions.Update);
+								}}
+							>
+								Guardar
+							</Button>
+						</DialogTrigger>
+					</DialogActions>
+				);
+		}
+	};
+
 	return (
 		<>
 			{triggerButton}
@@ -55,6 +175,7 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 				primaryButtonText='Guardar'
 				secondaryButtonText='Cancelar'
 				trigger={children as HTMLButtonElement}
+				dialogActions={switchActions(mode)}
 			>
 				{switchContent(mode, interventionType)}
 			</CustomDialog>

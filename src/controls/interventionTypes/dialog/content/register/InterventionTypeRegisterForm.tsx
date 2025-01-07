@@ -5,6 +5,7 @@ import { useInterventionTypeForm } from '@/hooks/forms/useInterventionTypeForm';
 import { Checkbox, Field, useId } from '@fluentui/react-components';
 
 export interface InterventionTypeRegisterFormState {
+	id: number;
 	description: string;
 	//active:boolean;
 }
