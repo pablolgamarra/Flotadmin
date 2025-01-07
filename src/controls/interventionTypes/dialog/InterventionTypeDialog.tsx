@@ -235,12 +235,12 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 				dialogActions={switchActions(mode)}
 			>
 				{switchContent(mode, interventionType)}
-				<Toaster
-					toasterId={toasterId}
-					position={'top-end'}
-					pauseOnHover={true}
-				/>
 			</CustomDialog>
+			<Toaster
+				toasterId={toasterId}
+				position={'top-end'}
+				pauseOnHover={true}
+			/>
 		</>
 	);
 };
