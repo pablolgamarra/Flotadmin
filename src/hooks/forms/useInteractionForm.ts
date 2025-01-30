@@ -42,5 +42,28 @@ export const useInteractionForm = (props: useInteractionFormProps) => {
 		});
 	};
 
-	return { handleInputChanges, handleDropdownChanges, handleRadioChanges };
+    const handleFilePickerChanges = (ev: React.ChangeEvent<HTMLInputElement>): void => {
+            if (ev.target.files && ev.target.files.length > 0) {
+                const file = ev.target.files[0];
+                switch(ev.target.name){
+                    case 'budget': {
+                        setFormState({
+                            ...formState,
+                            budget: file
+                        });
+                        break;
+                    }
+                    case 'invoice': {
+                        setFormState({
+                            ...formState,
+                            invoice: file,
+                        });
+                        break;
+                }
+        
+                }
+            }
+    };
+
+	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleFilePickerChanges};
 };

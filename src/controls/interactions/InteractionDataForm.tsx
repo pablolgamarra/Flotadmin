@@ -7,6 +7,7 @@ import { InterventionType } from '@/models/InterventionType';
 import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
 import { DatePicker } from '@fluentui/react';
 import { Dropdown, Field, Option, Radio, RadioGroup, Spinner } from '@fluentui/react-components';
+import { FilePickerField } from '../FilePickerField';
 import { InputField } from '../InputField';
 
 export interface InteractionRegisterFormProps {
@@ -22,19 +23,20 @@ export interface InteractionRegisterFormState {
 	cost: number;
 	costCurrency: Currency;
 	description: string;
-	budget: string;
-	invoice: string;
+	budget?: File;
+	invoice?: File;
 }
 
 export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (props) => {
 	const { interventionTypesService, formState, setFormState } = props;
 	const { isLoading, interventionTypesList } = useInterventionTypesList(interventionTypesService);
 
-	const { handleRadioChanges, handleInputChanges, handleDropdownChanges } = useInteractionForm({
-		interventionTypesList,
-		formState,
-		setFormState,
-	});
+	const { handleRadioChanges, handleInputChanges, handleDropdownChanges, handleFilePickerChanges } =
+		useInteractionForm({
+			interventionTypesList,
+			formState,
+			setFormState,
+		});
 
 	return (
 		<>
@@ -102,17 +104,19 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 				value={formState.description}
 				onChange={handleInputChanges}
 			/>
-			<InputField
+			<FilePickerField
+				name='budget'
 				label={'Presupuesto'}
 				placeholder='Anexar Presupuesto'
 				value={formState.budget}
-				onChange={handleInputChanges}
+				onChange={handleFilePickerChanges}
 			/>
-			<InputField
+			<FilePickerField
+				name='invoice'
 				label={'Factura'}
 				placeholder='Anexar Factura'
 				value={formState.invoice}
-				onChange={handleInputChanges}
+				onChange={handleFilePickerChanges}
 			/>
 		</>
 	);
