@@ -51,7 +51,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				required
 				name='plate'
 				placeholder='Insertar Número de Chapa'
-				value={formState.plate}
+				value={formState.plate || ''}
 				onChange={handleInputChanges}
 			/>
 			<InputField
@@ -60,7 +60,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				required
 				name='brand'
 				placeholder='Insertar Marca del Vehículo'
-				value={formState.brand}
+				value={formState.brand || ''}
 				onChange={handleInputChanges}
 			/>
 			<InputField
@@ -69,7 +69,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				required
 				name='model'
 				placeholder='Insertar Modelo del Vehículo'
-				value={formState.model}
+				value={formState.model || ''}
 				onChange={handleInputChanges}
 			/>
 			<InputField
@@ -79,7 +79,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				name='modelYear'
 				type='number'
 				placeholder='Insertar Año de Fabricación del Vehículo'
-				value={formState.modelYear}
+				value={formState.modelYear || ''}
 				onChange={handleInputChanges}
 			/>
 			<Field
@@ -87,7 +87,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				label={'Fecha de Adquisición'}
 			>
 				<DatePicker
-                    onSelectDate={handleDatePickerChanges}
+					onSelectDate={handleDatePickerChanges}
 					placeholder='Insertar Fecha de Adquisición del Vehículo'
 					value={formState.adquisitionDate ? new Date(formState.adquisitionDate) : undefined}
 				/>
@@ -98,7 +98,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				name='adquisitionCost'
 				type='number'
 				placeholder='Insertar Costo de Adquisición del Vehículo'
-				value={formState.adquisitionCost}
+				value={formState.adquisitionCost || ''}
 				onChange={handleInputChanges}
 			/>
 			<Field
@@ -108,7 +108,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				<RadioGroup
 					name='currency-select'
 					onChange={handleRadioChanges}
-					value={formState.costCurrency}
+					value={formState.costCurrency || ''}
 				>
 					<Radio
 						key='a-c-local-radio-group'
@@ -129,7 +129,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				name='user'
 				type='text'
 				placeholder='Inserte nombre del usuario del vehículo'
-				value={formState.user}
+				value={formState.user || ''}
 				onChange={handleInputChanges}
 			/>
 			<Field
@@ -138,23 +138,46 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 			>
 				{isLoading ? (
 					<>
-                    <Skeleton animation="pulse" appearance='opaque' className='tw-h-8 tw-w-full tw-mb-2 tw-bg-gray-300' />
-                    <Skeleton animation="pulse" appearance='opaque' className='tw-h-8 tw-w-full tw-bg-gray-300'/>
-                </>
+						<Skeleton
+							animation='pulse'
+							appearance='opaque'
+							className='tw-h-8 tw-w-full tw-mb-2 tw-bg-gray-300'
+						/>
+						<Skeleton
+							animation='pulse'
+							appearance='opaque'
+							className='tw-h-8 tw-w-full tw-bg-gray-300'
+						/>
+					</>
 				) : (
 					<Dropdown
 						name='fleetCard-dropdown'
 						placeholder='Inserte o Seleccione...'
-						value={formState.fleetCard ? `Tarjeta ${formState.fleetCard?.Id} - ${formState.fleetCard?.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', formState.fleetCard?.AssignedValue ?? 0, 'Gs')} ` : undefined}
-                        onOptionSelect={handleDropdownChanges}
+						value={
+							formState.fleetCard
+								? `Tarjeta ${formState.fleetCard?.Id} - ${
+										formState.fleetCard?.CardNumber
+								} - Monto Asignado: ${moneyFormat(
+										'es-PY',
+										formState.fleetCard?.AssignedValue ?? 0,
+										'Gs',
+								)} `
+								: ''
+						}
+						onOptionSelect={handleDropdownChanges}
 					>
 						{fleetCardList.map((card) => (
 							<Option
 								key={card.Id}
-								text={`Tarjeta ${card.Id} - ${card.CardNumber} - Monto Asignado: ${moneyFormat('es-PY', card.AssignedValue, 'Gs')}`}
+								text={`Tarjeta ${card.Id} - ${card.CardNumber} - Monto Asignado: ${moneyFormat(
+									'es-PY',
+									card.AssignedValue,
+									'Gs',
+								)}`}
 								value={card.Id.toString()}
 							>
-								Tarjeta {card.Id} - {card.CardNumber} - Monto Asignado: {moneyFormat('es-PY', card.AssignedValue, 'Gs')}
+								Tarjeta {card.Id} - {card.CardNumber} - Monto Asignado:{' '}
+								{moneyFormat('es-PY', card.AssignedValue, 'Gs')}
 							</Option>
 						))}
 					</Dropdown>
