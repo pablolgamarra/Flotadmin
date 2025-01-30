@@ -7,7 +7,8 @@ export interface Intervention {
 	Kilometers: string;
 	Vehicle: Vehicle;
 	Date: Date;
-	IntervationType: InterventionType;
+	InterventionType: InterventionType;
+    Description:string;
 	Cost: number;
 	CostCurrency: Currency;
 }
