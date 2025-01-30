@@ -108,7 +108,7 @@ export const App: React.FC<AppProps> = (props) => {
 								<FleetCardCard
 									key={`${id}-${item.CardNumber}`}
 									fleetCard={item}
-									className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
+									className='tw-w-fit hover:tw-shadow-sm tw-h-fit tw-rounded-lg tw-p-4 tw-bg-white tw-cursor-pointer'
 								/>
 							))}
 						</div>
