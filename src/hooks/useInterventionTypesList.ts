@@ -23,7 +23,7 @@ export const useInterventionTypesList = (interventionTypeService: IInterventionT
 		};
 
 		getInterventionTypes();
-	}, [interventionTypesList]);
+	}, [setInterventionTypesList]);
 
 	return { interventionTypesList, isLoading, error };
 };

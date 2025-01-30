@@ -4,6 +4,7 @@ import { Currency } from '@/common/Currency';
 import { useInteractionForm } from '@/hooks/forms/useInteractionForm';
 import { useInterventionTypesList } from '@/hooks/useInterventionTypesList';
 import { InterventionType } from '@/models/InterventionType';
+import { Vehicle } from '@/models/Vehicle';
 import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
 import { DatePicker } from '@fluentui/react';
 import { Dropdown, Field, Option, Radio, RadioGroup, Spinner } from '@fluentui/react-components';
@@ -17,6 +18,8 @@ export interface InteractionRegisterFormProps {
 }
 
 export interface InteractionRegisterFormState {
+	id?: number;
+	vehicle: Vehicle;
 	realizationDate: Date;
 	interventionType: InterventionType | undefined;
 	kilometers: number;
@@ -52,10 +55,11 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 					size='tiny'
 				/>
 			) : (
-				<Field label={'Tipo de Interacción'}>
+				<Field label={'Tipo de Intervencion'}>
 					<Dropdown
 						name='interventionType'
 						placeholder='Seleccione...'
+						value={formState.interventionType?.Description || ''}
 						onOptionSelect={handleDropdownChanges}
 					>
 						{interventionTypesList.map((type: InterventionType) => (
@@ -67,22 +71,24 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 			<InputField
 				name='kilometers'
 				label={'Kilometraje del Vehículo'}
+				type='number'
 				required
 				placeholder='Insertar Kilometraje al momento de realización'
-				value={formState.kilometers}
+				value={formState.kilometers || ''}
 				onChange={handleInputChanges}
 			/>
 			<InputField
 				name='cost'
+				type='number'
 				label={'Costo de Realización'}
 				placeholder='Insertar Costo de Realización'
-				value={formState.cost}
+				value={formState.cost || ''}
 				onChange={handleInputChanges}
 			/>
 			<Field label={'Moneda'}>
 				<RadioGroup
 					name='costCurrency'
-					value={formState.costCurrency}
+					value={formState.costCurrency || ''}
 					onChange={handleRadioChanges}
 				>
 					<Radio
@@ -98,10 +104,12 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 				</RadioGroup>
 			</Field>
 			<InputField
+				name='description'
 				label={'Descripción'}
+				type='text'
 				required
 				placeholder='Insertar Descripcion u Observaciones'
-				value={formState.description}
+				value={formState.description || ''}
 				onChange={handleInputChanges}
 			/>
 			<FilePickerField

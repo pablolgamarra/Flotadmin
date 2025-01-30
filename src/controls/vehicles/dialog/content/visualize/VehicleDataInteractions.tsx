@@ -49,7 +49,7 @@ export const VehicleDataInteractions: React.FC<VehicleDataInteractionsProps> = (
 			minWidth: 150,
 			maxWidth: 200,
 			isResizable: true,
-			onRender: (item: Intervention) => item.IntervationType.Description,
+			onRender: (item: Intervention) => item.InterventionType?.Description,
 		},
 	];
 

@@ -68,6 +68,8 @@ export class InterventionService implements IInterventionService {
 
 			await this._SPService.insertItem('Intervenciones', interventionInsert);
 
+            await this._SPService.insertDocument!('FacturasIntervenciones', arg0.Invoice!);
+            await this._SPService.insertDocument!('PresupuestosIntervenciones', arg0.Budget!);
 			return true;
 		} catch (e) {
 			throw Error(`Error saving interventions data -> ${e}`);
@@ -107,7 +109,8 @@ export class InterventionService implements IInterventionService {
 				Vehicle: vehicles.find((vehicle: Vehicle) => vehicle.Id === item.VehiculoId)!,
 				Kilometers: item.Title,
 				Date: item.FechaIntervencion,
-				IntervationType: interventionTypes.find(
+                Description: item.Descripcion,
+				InterventionType: interventionTypes.find(
 					(type: InterventionType) => type.Id === item.TipoIntervencionId,
 				)!,
 				Cost: item.CostoIntervencion,
@@ -122,8 +125,9 @@ export class InterventionService implements IInterventionService {
 			VehiculoId: item.Vehicle?.Id,
 			Title: item.Kilometers,
 			FechaIntervencion: item.Date,
-			TipoIntervencionId: item.IntervationType,
+			TipoIntervencionId: item.InterventionType,
 			CostoIntervencion: item.Cost,
+            Descripcion: item.Description,
 			MonedaIntervencion: item.CostCurrency,
 		};
 	}

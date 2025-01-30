@@ -21,7 +21,7 @@ export const useInteractionForm = (props: useInteractionFormProps) => {
 
 		const name = ev.target.getAttribute('name');
 
-		setFormState({ ...formState, [name!!]: data });
+		setFormState({ ...formState, [name!!]: data.value });
 	};
 
 	const handleDropdownChanges = (event: SelectionEvents, data: OptionOnSelectData): void => {
@@ -30,8 +30,8 @@ export const useInteractionForm = (props: useInteractionFormProps) => {
 			interventionType:
 				interventionTypesList.find(
 					(interventionType) =>
-						interventionType.Id === (data.optionValue ? Number.parseInt(data.optionValue) : -1),
-				) || undefined,
+						interventionType.Description === (data.optionText),
+				) || ({} as InterventionType),
 		});
 	};
 
