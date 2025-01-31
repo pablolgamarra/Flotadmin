@@ -13,9 +13,9 @@ export const useInterventionList = (interventionListService: IInterventionServic
 				setLoading(true);
 
 				const interventions: Intervention[] = await interventionListService.listAll();
-
+                
 				if (vehicleId) {
-					const filteredInterventions = interventions.filter((intervention) => intervention.Id === vehicleId);
+					const filteredInterventions = interventions.filter((intervention:Intervention) => intervention.Vehicle.Id === vehicleId);
 					setInterventionList(filteredInterventions);
 				} else {
 					setInterventionList(interventions);
