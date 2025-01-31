@@ -92,6 +92,7 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 					vehicle={vehicle}
 				/>
 				<InteractionDialog
+					vehicle={vehicle}
 					open={interactionDialogOpen}
 					setOpen={setInteractionDialogOpen}
 					triggerButton={

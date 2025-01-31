@@ -3,6 +3,7 @@ import * as React from 'react';
 import { UploadState } from '@/common/UploadState';
 import { DataContext } from '@/context/dataContext';
 import { Intervention } from '@/models/Intervention';
+import { Vehicle } from '@/models/Vehicle';
 import {
 	Button,
 	DialogActions,
@@ -22,6 +23,7 @@ export interface InteractionDialogProps {
 	open: boolean;
 	setOpen(arg0: boolean): void;
 	triggerButton: React.ReactElement;
+	vehicle?: Vehicle;
 }
 
 const parseStateToInteraction = (state: InteractionRegisterFormState): Intervention => {
@@ -35,6 +37,8 @@ const parseStateToInteraction = (state: InteractionRegisterFormState): Intervent
 			Cost: state.cost,
 			CostCurrency: state.costCurrency,
 			Vehicle: state.vehicle,
+			Budget: state.budget,
+			Invoice: state.invoice,
 		};
 
 		return parsedState;
@@ -44,20 +48,21 @@ const parseStateToInteraction = (state: InteractionRegisterFormState): Intervent
 };
 
 export const InteractionDialog: React.FC<React.PropsWithChildren<InteractionDialogProps>> = (props) => {
-	const { open, setOpen, triggerButton, children } = props;
+	const { open, setOpen, triggerButton, vehicle, children } = props;
 	const { interventionTypesService, interventionsService } = React.useContext(DataContext);
 
 	const toasterId = useId('interactionDialogToaster');
 	const { dispatchToast } = useToastController(toasterId);
 
-	const [interactionFormState, setInteractionFormState] = React.useState<InteractionRegisterFormState>(
-		{} as InteractionRegisterFormState,
-	);
+	const [interactionFormState, setInteractionFormState] = React.useState<InteractionRegisterFormState>({
+		vehicle: vehicle,
+	} as InteractionRegisterFormState);
 	const [uploadingState, setUploadingState] = React.useState<UploadState>(UploadState.Idle);
 
 	const saveFormData = async () => {
 		try {
 			setUploadingState(UploadState.Uploading);
+			console.log(interactionFormState);
 			const parsedInteraction = parseStateToInteraction(interactionFormState);
 			await interventionsService.create(parsedInteraction);
 			setUploadingState(UploadState.Uploaded);
