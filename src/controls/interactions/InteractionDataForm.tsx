@@ -93,13 +93,13 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 				>
 					<Radio
 						key='a-c-local-radio-group'
-						value='Guaraní'
-						label='Guaraní'
+						value={Currency.Guaranies}
+						label={Currency.Guaranies.toString()}
 					/>
 					<Radio
 						key='a-c-exchange-radio-group'
-						value='Dólar'
-						label='Dólar'
+						value={Currency.Dolar}
+						label={Currency.Dolar.toString()}
 					/>
 				</RadioGroup>
 			</Field>
