@@ -83,4 +83,13 @@ export class SPService implements ISPService {
             throw Error(`${e}`);
         }
     }
+
+    public async getDocument(libraryName:string, fileNameURI:string):Promise<ArrayBuffer | undefined>{
+        try{
+            const bufferedFile = await this._sp.web.getFolderByServerRelativePath(libraryName).files.getByUrl(fileNameURI).getBuffer();
+            return bufferedFile;
+        }catch(e){
+            throw Error(`${e}`);
+        }
+    }
 }

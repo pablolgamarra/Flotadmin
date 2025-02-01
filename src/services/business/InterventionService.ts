@@ -64,12 +64,20 @@ export class InterventionService implements IInterventionService {
 	}
 	public async create(arg0: Intervention): Promise<boolean> {
 		try {
-			const interventionInsert = this.formatPersistanceData(arg0);
-
+            let budgetList, invoiceList;
+            //Insert the file in the document library if it exists
+            if(arg0.Invoice){
+                await this._SPService.insertDocument!('FacturasIntervenciones', arg0.Invoice);
+                invoiceList = await this._SPService.getListItems('FacturasIntervenciones');
+            }else if(arg0.Budget){
+                await this._SPService.insertDocument!('PresupuestosIntervenciones', arg0.Budget);
+                budgetList = await this._SPService.getListItems('PresupuestosIntervenciones');
+            }
+            
+            //Prepare the data to be saved in the list
+            const interventionInsert = this.formatPersistanceData(arg0, invoiceList, budgetList);
 			await this._SPService.insertItem('Intervenciones', interventionInsert);
 
-            await this._SPService.insertDocument!('FacturasIntervenciones', arg0.Invoice!);
-            await this._SPService.insertDocument!('PresupuestosIntervenciones', arg0.Budget!);
 			return true;
 		} catch (e) {
 			throw Error(`Error saving interventions data -> ${e}`);
@@ -119,16 +127,18 @@ export class InterventionService implements IInterventionService {
 		});
 	}
 
-	private formatPersistanceData(item: Intervention) {
+	private formatPersistanceData(item: Intervention, invoiceList?: any[], budgetList?: any[]): any {
 		return {
 			Id: item.Id,
 			VehiculoId: item.Vehicle?.Id,
 			Title: item.Kilometers,
 			FechaIntervencion: item.Date,
-			TipoIntervencionId: item.InterventionType,
+			TipoIntervencionId: item.InterventionType?.Id,
 			CostoIntervencion: item.Cost,
             Descripcion: item.Description,
 			MonedaIntervencion: item.CostCurrency,
+            FacturasId: invoiceList ? invoiceList.filter((invoice) => invoice.IntervencionesIdId === item.Id) : [],
+            PresupuestosId: budgetList ? budgetList.filter((budget) => budget.IntervencionesIdId === item.Id) : [],
 		};
 	}
 }
