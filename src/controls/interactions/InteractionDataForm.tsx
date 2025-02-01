@@ -34,12 +34,17 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 	const { interventionTypesService, formState, setFormState } = props;
 	const { isLoading, interventionTypesList } = useInterventionTypesList(interventionTypesService);
 
-	const { handleRadioChanges, handleInputChanges, handleDropdownChanges, handleFilePickerChanges } =
-		useInteractionForm({
-			interventionTypesList,
-			formState,
-			setFormState,
-		});
+	const {
+		handleRadioChanges,
+		handleInputChanges,
+		handleDropdownChanges,
+		handleFilePickerChanges,
+		handleDatePickerChanges,
+	} = useInteractionForm({
+		interventionTypesList,
+		formState,
+		setFormState,
+	});
 
 	return (
 		<>
@@ -47,6 +52,7 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 				<DatePicker
 					placeholder='Insertar Fecha de Realización'
 					value={formState.realizationDate}
+					onSelectDate={handleDatePickerChanges}
 				/>
 			</Field>
 			{isLoading ? (

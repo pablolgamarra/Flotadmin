@@ -65,5 +65,12 @@ export const useInteractionForm = (props: useInteractionFormProps) => {
             }
     };
 
-	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleFilePickerChanges};
+    const handleDatePickerChanges = (date: Date | undefined | null):void => {        
+        setFormState({
+			...formState,
+			realizationDate: date ? new Date(date) : new Date(),
+		});
+    }
+
+	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleFilePickerChanges, handleDatePickerChanges};
 };
