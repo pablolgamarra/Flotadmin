@@ -12,4 +12,10 @@ export interface Vehicle {
 	CostCurrency: Currency;
 	User: string;
 	FleetCard?: FleetCard;
+    InsuranceExpirationDate: Date;
+    VehicleLicenseExpirationDate: Date;
+    DinatranExpirationDate: Date;
+    InsuratedValue: number;
+    InsuratedValueCurrency: Currency;
+    FireExtinguisherExpirationDate: Date;
 }

@@ -39,18 +39,15 @@ export const useVehicleForm = (props: useVehicleFormProps) => {
 		});
 	};
 
-	const handleRadioChanges = (ev: React.FormEvent<HTMLDivElement>, data: RadioGroupOnChangeData): void => {
+	const handleRadioChanges = (name:string, data: RadioGroupOnChangeData): void => {
 		setFormState({
 			...formState,
-			costCurrency: data.value as Currency,
+			[name]: data.value as Currency,
 		});
 	};
 
-    const handleDatePickerChanges = (date: Date | undefined | null):void => {        
-        setFormState({
-			...formState,
-			adquisitionDate: date ? new Date(date) : new Date(),
-		});
+    const handleDatePickerChanges = (name:string, date: Date | undefined | null):void => {
+        setFormState({ ...formState, [name!!]: date ? new Date(date) : new Date() });
     }
 
 	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleDatePickerChanges };

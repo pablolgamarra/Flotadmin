@@ -98,6 +98,12 @@ export class VehicleService implements IVehicleService {
 				CostCurrency: item.MonedaAquisicion as Currency,
 				User: item.Usuario,
 				FleetCard: fleetCards.find((card) => card.Id === item.TarjetaFlotaId),
+                VehicleLicenseExpirationDate: item.VencimientoHabilitacion,
+                DinatranExpirationDate: item.VencimientoDinatran,
+                InsuranceExpirationDate: item.VencimientoSeguro,
+                InsuratedValue: item.ValorAsegurado,
+                InsuratedValueCurrency: item.MonedaValorAsegurado as Currency,
+                FireExtinguisherExpirationDate: item.VencimientoExtintor,
 			};
 		});
 	}
@@ -114,6 +120,12 @@ export class VehicleService implements IVehicleService {
 			MonedaAquisicion: item.CostCurrency,
 			Usuario: item.User,
 			TarjetaFlotaId: item.FleetCard?.Id,
+            VencimientoHabilitacion: item.VehicleLicenseExpirationDate,
+            VencimientoDinatran: item.DinatranExpirationDate,
+            VencimientoSeguro: item.InsuranceExpirationDate,
+            ValorAsegurado: item.InsuratedValue,
+            MonedaValorAsegurado : item.InsuratedValueCurrency as Currency,
+            VencimientoExtintor : item.FireExtinguisherExpirationDate,
 		};
 	}
 }

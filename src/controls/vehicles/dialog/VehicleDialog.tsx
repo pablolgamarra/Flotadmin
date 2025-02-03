@@ -7,23 +7,23 @@ import { UploadState } from '@/common/UploadState';
 import { DataContext } from '@/context/dataContext';
 import { CustomDialog } from '@/controls/CustomDialog';
 import {
-    VehicleRegisterForm,
-    VehicleRegisterFormState,
+	VehicleRegisterForm,
+	VehicleRegisterFormState,
 } from '@/controls/vehicles/dialog/content/register/VehicleRegisterForm';
 import { FleetCard } from '@/models/FleetCard';
 import { Vehicle } from '@/models/Vehicle';
 import {
-    Button,
-    DialogActions,
-    DialogTrigger,
-    Slot,
-    Spinner,
-    Toast,
-    ToastBody,
-    Toaster,
-    ToastTitle,
-    useId,
-    useToastController,
+	Button,
+	DialogActions,
+	DialogTrigger,
+	Slot,
+	Spinner,
+	Toast,
+	ToastBody,
+	Toaster,
+	ToastTitle,
+	useId,
+	useToastController,
 } from '@fluentui/react-components';
 import { VehicleDataVisualizer } from './content/visualize/VehicleDataVisualizer';
 
@@ -51,6 +51,12 @@ const parseStateToVehicle = (state: VehicleRegisterFormState): Vehicle => {
 			CostCurrency: state.costCurrency,
 			User: state.user,
 			FleetCard: state.fleetCard,
+			FireExtinguisherExpirationDate: state.fireExtinguisherExpirationDate,
+			InsuratedValue: state.insuratedValue,
+			InsuratedValueCurrency: state.insuratedValueCurrency,
+			InsuranceExpirationDate: state.insuranceExpirationDate,
+			VehicleLicenseExpirationDate: state.vehicleLicenseExpirationDate,
+			DinatranExpirationDate: state.dinatranExpirationDate,
 		};
 
 		return parsedState;
@@ -84,6 +90,12 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			costCurrency: vehicle.CostCurrency as Currency,
 			user: vehicle.User,
 			fleetCard: vehicle.FleetCard ? vehicle.FleetCard : ({} as FleetCard),
+			fireExtinguisherExpirationDate: vehicle.FireExtinguisherExpirationDate,
+			insuratedValue: vehicle.InsuratedValue,
+			insuratedValueCurrency: vehicle.InsuratedValueCurrency as Currency,
+			insuranceExpirationDate: vehicle.InsuranceExpirationDate,
+			vehicleLicenseExpirationDate: vehicle.VehicleLicenseExpirationDate,
+			dinatranExpirationDate: vehicle.DinatranExpirationDate,
 		};
 	} else {
 		initialProps = {} as VehicleRegisterFormState;
@@ -124,7 +136,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 							appearance='secondary'
 							onClick={() => {
 								setOpen(false);
-                                setFormState({} as VehicleRegisterFormState);
+								setFormState({} as VehicleRegisterFormState);
 							}}
 						>
 							Descartar
@@ -259,9 +271,11 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			>
 				<div className='tw-dialog-content tw-overflow-y-auto'>{switchForm(mode, vehicle)}</div>
 			</CustomDialog>
-			<Toaster toasterId={toasterId}
-					position={'top-end'}
-					pauseOnHover={true}/>
+			<Toaster
+				toasterId={toasterId}
+				position={'top-end'}
+				pauseOnHover={true}
+			/>
 		</>
 	);
 };
