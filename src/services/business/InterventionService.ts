@@ -67,11 +67,21 @@ export class InterventionService implements IInterventionService {
             let budgetList, invoiceList;
             //Insert the file in the document library if it exists
             if(arg0.Invoice){
-                await this._SPService.insertDocument!('FacturasIntervenciones', arg0.Invoice);
-                invoiceList = await this._SPService.getListItems('FacturasIntervenciones');
-            }else if(arg0.Budget){
-                await this._SPService.insertDocument!('PresupuestosIntervenciones', arg0.Budget);
-                budgetList = await this._SPService.getListItems('PresupuestosIntervenciones');
+                try{
+                    await this._SPService.insertDocument!('FacturasIntervenciones', {Id: arg0.Id, file: arg0.Invoice});
+                    invoiceList = await this._SPService.getListItems('FacturasIntervenciones');
+                }catch(e){
+                    throw Error(`Error saving invoice data -> ${e}`);
+                }
+            }
+
+            if(arg0.Budget){
+                try{
+                    await this._SPService.insertDocument!('PresupuestosIntervenciones', {Id: arg0.Id, file: arg0.Budget});
+                    budgetList = await this._SPService.getListItems('PresupuestosIntervenciones');
+                }catch(e){
+                    throw Error(`Error saving budget data -> ${e}`);
+                }
             }
             
             //Prepare the data to be saved in the list
@@ -137,8 +147,8 @@ export class InterventionService implements IInterventionService {
 			CostoIntervencion: item.Cost,
             Descripcion: item.Description,
 			MonedaIntervencion: item.CostCurrency,
-            FacturasId: invoiceList ? invoiceList.filter((invoice) => invoice.IntervencionesIdId === item.Id) : [],
-            PresupuestosId: budgetList ? budgetList.filter((budget) => budget.IntervencionesIdId === item.Id) : [],
+            FacturasId: invoiceList ? invoiceList.filter((invoice) => invoice.Title === encodeURI(item.Invoice?.name || '')).map((item) => item.Id) : [],
+            PresupuestosId: budgetList ? budgetList.filter((budget) => budget.Title === encodeURI(item.Budget?.name || '')).map((item) => item.Id) : [],
 		};
 	}
 }

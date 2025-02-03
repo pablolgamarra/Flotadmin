@@ -74,10 +74,15 @@ export class SPService implements ISPService {
 		}
 	}
 
-    public async insertDocument(libraryName:string, item:File):Promise<boolean>{
+    public async insertDocument<T extends {Id:number, file:File}>(libraryName:string, item:T):Promise<boolean>{
         try{
-            const fileNamePath = encodeURI(item.name)
-            await this._sp.web.getFolderByServerRelativePath(libraryName).files.addUsingPath(fileNamePath, item, {Overwrite:true});
+            const fileNamePath = encodeURI(item.file.name);
+            await this._sp.web.getFolderByServerRelativePath(libraryName).files.addUsingPath(fileNamePath, item.file, {Overwrite:true});
+
+            const uploadedFile = await this._sp.web.getFolderByServerRelativePath(`${libraryName}/${fileNamePath}`).getItem();
+            
+            await uploadedFile.update({Title:fileNamePath});
+            
             return true;
         }catch(e){
             throw Error(`${e}`);

@@ -4,5 +4,5 @@ export interface ISPService {
 	insertItem<T extends { Id?: number }>(listName: string, item: T): Promise<boolean>;
 	updateItem<T extends { Id: number }>(listName: string, item: T): Promise<boolean>;
 	deleteItem(listName: string, id: number): Promise<boolean>;
-    insertDocument?:(libraryName:string, item:File)=>Promise<boolean>;
+    insertDocument?:<T extends { Id: number, file:File }>(libraryName:string, item:T)=>Promise<boolean>;
 }
