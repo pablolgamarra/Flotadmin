@@ -39,6 +39,7 @@ const parseStateToInteraction = (state: InteractionRegisterFormState): Intervent
 			Vehicle: state.vehicle,
 			Budget: state.budget,
 			Invoice: state.invoice,
+			NextMaintenanceKilometers: state.nextMaintenanceKilometers.toString(),
 		};
 
 		return parsedState;

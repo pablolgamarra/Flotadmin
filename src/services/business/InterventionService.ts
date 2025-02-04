@@ -133,6 +133,7 @@ export class InterventionService implements IInterventionService {
 				)!,
 				Cost: item.CostoIntervencion,
 				CostCurrency: item.MonedaIntervencion as Currency,
+                NextMaintenanceKilometers: item.KmProxMantenimiento,
 			};
 		});
 	}
@@ -147,6 +148,7 @@ export class InterventionService implements IInterventionService {
 			CostoIntervencion: item.Cost,
             Descripcion: item.Description,
 			MonedaIntervencion: item.CostCurrency,
+            KmProxMantenimiento: item.NextMaintenanceKilometers,
             FacturasId: invoiceList ? invoiceList.filter((invoice) => invoice.Title === encodeURI(item.Invoice?.name || '')).map((item) => item.Id) : [],
             PresupuestosId: budgetList ? budgetList.filter((budget) => budget.Title === encodeURI(item.Budget?.name || '')).map((item) => item.Id) : [],
 		};

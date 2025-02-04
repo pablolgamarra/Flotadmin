@@ -31,37 +31,40 @@ export class MockInterventionService implements IInterventionService {
 		const interventionTypes = await this._interventionTypeService.listAll();
 
 		const interventions = [
-			{
-				Id: 1,
-				Kilometers: '25000',
-				Vehicle: vehicles[0],
-				Date: new Date('2023-08-15'),
-				InterventionType: interventionTypes[0],
-				Description: 'Cambio de Embrague',
-				Cost: 150,
-				CostCurrency: Currency.Dolar,
-			},
-			{
-				Id: 2,
-				Kilometers: '50000',
-				Vehicle: vehicles[2],
-				Date: new Date('2023-09-10'),
-				InterventionType: interventionTypes[2],
-				Description: 'Cambio de Embrague',
+            {
+                Id: 1,
+                Kilometers: '25000',
+                Vehicle: vehicles[0],
+                Date: new Date('2023-08-15'),
+                InterventionType: interventionTypes[0],
+                Description: 'Cambio de Embrague',
+                Cost: 150,
+                CostCurrency: Currency.Dolar,
+                NextMaintenanceKilometers: '75000', // Próximo mantenimiento en 50,000 km más
+            },
+            {
+                Id: 2,
+                Kilometers: '50000',
+                Vehicle: vehicles[2],
+                Date: new Date('2023-09-10'),
+                InterventionType: interventionTypes[2],
+                Description: 'Cambio de Embrague',
                 Cost: 300,
-				CostCurrency: Currency.Dolar,
-			},
-			{
-				Id: 3,
-				Kilometers: '75000',
-				Vehicle: vehicles[4],
-				Date: new Date('2023-10-05'),
-				InterventionType: interventionTypes[1],
+                CostCurrency: Currency.Dolar,
+                NextMaintenanceKilometers: '100000', // Próximo mantenimiento en 50,000 km más
+            },
+            {
+                Id: 3,
+                Kilometers: '75000',
+                Vehicle: vehicles[4],
+                Date: new Date('2023-10-05'),
+                InterventionType: interventionTypes[1],
                 Description: 'Cambio de aceite y filtro',
-				Cost: 450,
-				CostCurrency: Currency.Dolar,
-			},
-		];
+                Cost: 450,
+                CostCurrency: Currency.Dolar,
+                NextMaintenanceKilometers: '85000', // Próximo mantenimiento en 10,000 km más
+            },
+        ];
 
 		return new Promise((resolve) => {
 			setTimeout(() => resolve(interventions), 1100);

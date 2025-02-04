@@ -5,6 +5,7 @@ import { Vehicle } from '@/models/Vehicle';
 export interface Intervention {
 	Id: number;
 	Kilometers: string;
+    NextMaintenanceKilometers: string;
 	Vehicle: Vehicle;
 	Date: Date;
 	InterventionType?: InterventionType;

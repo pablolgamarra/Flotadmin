@@ -28,6 +28,7 @@ export interface InteractionRegisterFormState {
 	description: string;
 	budget?: File;
 	invoice?: File;
+	nextMaintenanceKilometers: number;
 }
 
 export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (props) => {
@@ -76,10 +77,19 @@ export const InteractionDataForm: React.FC<InteractionRegisterFormProps> = (prop
 			)}
 			<InputField
 				name='kilometers'
-				label={'Kilometraje del Vehículo'}
+				label={'Kilometraje al momento de realización'}
 				type='number'
 				required
 				placeholder='Insertar Kilometraje al momento de realización'
+				value={formState.kilometers || ''}
+				onChange={handleInputChanges}
+			/>
+			<InputField
+				name='nextMaintenanceKilometers'
+				label={'Kilometraje para proximo mantenimiento'}
+				type='number'
+				required
+				placeholder='Insertar Kilometraje para proximo mantenimiento'
 				value={formState.kilometers || ''}
 				onChange={handleInputChanges}
 			/>
