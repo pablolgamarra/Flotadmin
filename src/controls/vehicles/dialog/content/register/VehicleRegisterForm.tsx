@@ -89,16 +89,6 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				value={formState.modelYear || ''}
 				onChange={handleInputChanges}
 			/>
-			{/* <Field
-				id={`adquisitionDate-${id}`}
-				label={'Fecha de Adquisición'}
-			>
-				<DatePicker
-					onSelectDate={handleDatePickerChanges}
-					placeholder='Insertar Fecha de Adquisición del Vehículo'
-					value={formState.adquisitionDate ? new Date(formState.adquisitionDate) : undefined}
-				/>
-			</Field> */}
             <DatePickerField id={`adquisitionDate-${id}`}
 				label={'Fecha de Adquisición'}
                 name='adquisitionDate'
@@ -115,27 +105,6 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				value={formState.adquisitionCost || ''}
 				onChange={handleInputChanges}
 			/>
-			{/* <Field
-				id={`adquisitionCurrency-${id}`}
-				label={'Moneda de Adquisición'}
-			>
-				<RadioGroup
-					name='currency-select'
-					onChange={handleRadioChanges}
-					value={formState.costCurrency || ''}
-				>
-					<Radio
-						key='a-c-local-radio-group'
-						value={Currency.Guaranies}
-						label='Guaranies'
-					/>
-					<Radio
-						key='a-c-exchange-radio-group'
-						value={Currency.Dolar}
-						label='Dolar'
-					/>
-				</RadioGroup>
-			</Field> */}
             <RadioGroupField 				
                 id={`adquisitionCurrency-${id}`}
 				label={'Moneda de Adquisición'}
@@ -238,27 +207,6 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
                 value={formState.insuratedValueCurrency || ''}
                 onChange={handleRadioChanges}
             />
-			{/* // <Field
-			// 	id={`insuratedValueCurrency-${id}`}
-			// 	label={'Moneda de Valor Asegurado'}
-			// >
-			// 	<RadioGroup
-			// 		name='currency-select'
-			// 		onChange={handleRadioChanges}
-			// 		value={formState.insuratedValueCurrency || ''}
-			// 	>
-			// 		<Radio
-			// 			key='a-c-local-radio-group'
-			// 			value={Currency.Guaranies}
-			// 			label='Guaranies'
-			// 		/>
-			// 		<Radio
-			// 			key='a-c-exchange-radio-group'
-			// 			value={Currency.Dolar}
-			// 			label='Dolar'
-			// 		/>
-			// 	</RadioGroup>
-			// </Field> */}
             <DatePickerField id={`dinatranExpirationDate-${id}`}
 				label={'Fecha de Vencimiento Dinatran'}
                 name='dinatranExpirationDate'
