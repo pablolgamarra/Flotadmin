@@ -73,6 +73,9 @@ export class MockInterventionService implements IInterventionService {
 	listById(): Promise<Intervention> {
 		throw new Error('Method not implemented.');
 	}
+    listByVehicleId(): Promise<Intervention[]> {
+		throw new Error('Method not implemented.');
+	}
 	create(arg0: Intervention): Promise<boolean> {
 		throw new Error('Method not implemented.');
 	}

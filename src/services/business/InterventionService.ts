@@ -40,7 +40,7 @@ export class InterventionService implements IInterventionService {
 
 			const results = await this._SPService.getListItems('Intervenciones');
 
-			const interventions = this.parseToIntervention(results, vehicles, interventionTypes);
+			const interventions = this.parseToIntervention(results, interventionTypes, vehicles);
 
 			return interventions;
 		} catch (e) {
@@ -55,13 +55,22 @@ export class InterventionService implements IInterventionService {
 
 			const results = await this._SPService.getListItems('Intervenciones');
 
-			const interventions = this.parseToIntervention(results, vehicles, interventionTypes);
+			const interventions = this.parseToIntervention(results, interventionTypes, vehicles);
 
 			return interventions[0];
 		} catch (e) {
 			throw Error(`Error retrieving intervention data by Id -> ${e}`);
 		}
 	}
+
+    public async listByVehicleId(vehicleId: number): Promise<Intervention[]> {
+        try {
+            return await this._SPService.getListItemsWithFilter('Intervenciones', `VehiculoId eq ${vehicleId}`);
+        } catch (e) {
+            throw new Error(`Error retrieving interventions for vehicle ${vehicleId}: ${e}`);
+        }
+    }
+
 	public async create(arg0: Intervention): Promise<boolean> {
 		try {
             let budgetList, invoiceList;
@@ -118,13 +127,13 @@ export class InterventionService implements IInterventionService {
 
 	private parseToIntervention(
 		data: any[],
-		vehicles: Vehicle[],
 		interventionTypes: InterventionType[],
+		vehicles?: Vehicle[],
 	): Intervention[] {
 		return data.map((item) => {
 			return {
 				Id: item.Id,
-				Vehicle: vehicles.find((vehicle: Vehicle) => vehicle.Id === item.VehiculoId)!,
+				Vehicle: vehicles ? vehicles.find((vehicle: Vehicle) => vehicle.Id === item.VehiculoId)! : item.VehiculoId,
 				Kilometers: item.Title,
 				Date: item.FechaIntervencion,
                 Description: item.Descripcion,

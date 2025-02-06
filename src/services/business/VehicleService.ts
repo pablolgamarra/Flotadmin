@@ -6,7 +6,9 @@ import { SPService } from '@/services/core/spService/SPService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
 import { FleetCardService } from './FleetCardService';
 import { IFleetCardService } from './IFleetCardService';
+import { IInterventionService } from './IInterventionService';
 import { IVehicleService } from './IVehicleService';
+import { InterventionService } from './InterventionService';
 
 export class VehicleService implements IVehicleService {
 	public static readonly serviceKey: ServiceKey<IVehicleService> = ServiceKey.create(
@@ -16,11 +18,14 @@ export class VehicleService implements IVehicleService {
 
 	private _SPService!: ISPService;
 	private _fleetCardService!: IFleetCardService;
+    private _interventionService!: IInterventionService;
+
 	constructor(serviceScope: ServiceScope) {
 		try {
 			serviceScope.whenFinished(() => {
 				this._SPService = serviceScope.consume(SPService.servicekey);
 				this._fleetCardService = serviceScope.consume(FleetCardService.serviceKey);
+				this._interventionService = serviceScope.consume(InterventionService.serviceKey);
 			});
 		} catch (e) {
 			throw new Error(`Error initializing VehicleService -> ${e}`);
@@ -44,7 +49,8 @@ export class VehicleService implements IVehicleService {
 		try {
 			const fleetCards = await this._fleetCardService.listAll();
 			const result = await this._SPService.getListItem('Vehiculos', arg0);
-			const vehicle = this.parseToVehicle(result, fleetCards);
+
+            const vehicle = await this.parseToVehicle(result, fleetCards);
 
 			return vehicle[0];
 		} catch (e) {
@@ -85,27 +91,33 @@ export class VehicleService implements IVehicleService {
 		}
 	}
 
-	private parseToVehicle(data: any[], fleetCards: FleetCard[]): Vehicle[] {
-		return data.map((item) => {
-			return {
-				Id: item.Id,
-				Plate: item.Title,
-				Brand: item.Marca,
-				Model: item.Modelo,
-				ModelYear: item.AnhoModelo,
-				BuyDate: item.FechaAdquisicion,
-				Cost: item.CostoAdquisicion,
-				CostCurrency: item.MonedaAquisicion as Currency,
-				User: item.Usuario,
-				FleetCard: fleetCards.find((card) => card.Id === item.TarjetaFlotaId),
-                VehicleLicenseExpirationDate: item.VencimientoHabilitacion,
-                DinatranExpirationDate: item.VencimientoDinatran,
-                InsuranceExpirationDate: item.VencimientoSeguro,
-                InsuratedValue: item.ValorAsegurado,
-                InsuratedValueCurrency: item.MonedaValorAsegurado as Currency,
-                FireExtinguisherExpirationDate: item.VencimientoExtintor,
-			};
-		});
+	private async parseToVehicle(data: any[], fleetCards: FleetCard[]): Promise<Vehicle[]> {
+		const vehicleList = await Promise.all(
+            data.map(async (item) => ({
+                    ...item,
+                    interventions : await this._interventionService.listByVehicleId(item.Id),
+            }))
+        );
+
+        return vehicleList.map((item) => ({
+            Id: item.Id,
+            Plate: item.Title,
+            Brand: item.Marca,
+            Model: item.Modelo,
+            ModelYear: item.AnhoModelo,
+            BuyDate: item.FechaAdquisicion,
+            Cost: item.CostoAdquisicion,
+            CostCurrency: item.MonedaAquisicion as Currency,
+            User: item.Usuario,
+            FleetCard: fleetCards.find((card) => card.Id === item.TarjetaFlotaId),
+            VehicleLicenseExpirationDate: item.VencimientoHabilitacion,
+            DinatranExpirationDate: item.VencimientoDinatran,
+            InsuranceExpirationDate: item.VencimientoSeguro,
+            InsuratedValue: item.ValorAsegurado,
+            InsuratedValueCurrency: item.MonedaValorAsegurado as Currency,
+            FireExtinguisherExpirationDate: item.VencimientoExtintor,
+            Interventions: item.interventions,
+        }));
 	}
 
 	private formatPersistanceProps(item: Vehicle) {
