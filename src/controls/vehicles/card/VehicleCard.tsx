@@ -11,7 +11,9 @@ import { Dismiss24Regular, Edit24Regular, Open28Filled, WindowWrench28Regular } 
 import { DialogMode } from '@/common/DialogMode';
 import { InteractionDialog } from '@/controls/interactions/InteractionDialog';
 import { VehicleDialog } from '@/controls/vehicles/dialog/VehicleDialog';
+import { dateFormat } from '@/helpers/dateFormat';
 import { moneyFormat } from '@/helpers/moneyFormat';
+import { Intervention } from '@/models/Intervention';
 import '../../../../assets/dist/tailwind.css';
 
 export interface VehicleCardProps {
@@ -26,6 +28,11 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 
 	const [vehicleDialogOpen, setVehicleDialogOpen] = React.useState<boolean>(false);
 	const [dialogMode, setDialogMode] = React.useState<DialogMode>(DialogMode.Show);
+
+	const lastMaintenance: Intervention | undefined = vehicle.Interventions?.filter(
+		(interv) => interv.InterventionType?.Description === 'MANTENIMIENTO ORDINARIO',
+	).sort((a, b) => (a.Date.getTime() < b.Date.getTime() ? -1 : 1))[0];
+
 	return (
 		<Card
 			className={className}
@@ -38,11 +45,15 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 					</Title3>
 				}
 				description={
-					//TODO: Agregar campo calculado de ultimo mantenimiento a la DB
-					<Body2>
-						{/* Km Ultimo Mantenimiento: {Vehicle.} */}
-						Km Último Mantenimiento: 10.000 Km
-					</Body2>
+					<>
+						<Body2>
+							{lastMaintenance
+								? `Último Mantenimiento: ${dateFormat(lastMaintenance!.Date, 'es-PY')} - ${
+										lastMaintenance!.Kilometers
+                                    } km`
+								: `Aún no se ha registrado mantenimiento`}
+						</Body2>
+					</>
 				}
 				className='tw-mb-4'
 			/>
@@ -54,6 +65,10 @@ const VehicleCard: React.FC<VehicleCardProps> = (props) => {
 			</Body2>
 			<Body2>
 				<b>Usuario:</b> {vehicle.User}
+			</Body2>
+			<Body2>
+				<b>Km Proximo Mantenimiento:</b>{' '}
+				{lastMaintenance?.NextMaintenanceKilometers ?? 'No Registrado'}
 			</Body2>
 			<CardFooter className='tw-mt-8'>
 				<VehicleDialog
