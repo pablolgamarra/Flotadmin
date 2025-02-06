@@ -25,6 +25,7 @@ import { IInterventionTypeService } from '@/services/business/IInterventionTypeS
 import { IVehicleService } from '@/services/business/IVehicleService';
 import '../../../../assets/dist/tailwind.css';
 
+import { Vehicle } from '@/models/Vehicle';
 import * as strings from 'FlotadminFleetCardWebPartStrings';
 
 export interface AppProps {
@@ -42,11 +43,15 @@ export const App: React.FC<AppProps> = (props) => {
 
 	const [fleetCards, setFleetCards] = React.useState<FleetCard[]>([]);
 
+	const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
+
 	React.useEffect(() => {
 		const getFleetCards = async () => {
 			try {
 				const cardList = await fleetCardService.listAll();
 				setFleetCards(cardList);
+				const vehiclesList = await vehiclesService.listAll();
+				setVehicles(vehiclesList);
 			} catch (e) {
 				console.error(strings.Errors.ErrorQuerying, e);
 			}
@@ -108,6 +113,7 @@ export const App: React.FC<AppProps> = (props) => {
 								<FleetCardCard
 									key={`${id}-${item.CardNumber}`}
 									fleetCard={item}
+									linkedVehicle={vehicles.find((v) => item.Id === v.FleetCard?.Id)}
 									className='tw-w-fit hover:tw-shadow-sm tw-h-fit tw-rounded-lg tw-p-4 tw-bg-white tw-cursor-pointer'
 								/>
 							))}

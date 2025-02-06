@@ -7,15 +7,17 @@ import { Dismiss24Regular, Edit24Regular, Open28Filled } from '@fluentui/react-i
 import { DialogMode } from '@/common/DialogMode';
 import { moneyFormat } from '@/helpers/moneyFormat';
 import { FleetCard } from '@/models/FleetCard';
+import { Vehicle } from '@/models/Vehicle';
 import { FleetCardDialog } from '../dialog/FleetCardDialog';
 
 export interface FleetCardCardProps {
 	fleetCard: FleetCard;
+	linkedVehicle: Vehicle | undefined;
 	className: string;
 }
 
 export const FleetCardCard: React.FC<FleetCardCardProps> = (props) => {
-	const { fleetCard, className } = props;
+	const { fleetCard, linkedVehicle, className } = props;
 
 	const [cardDialogOpen, setCardDialogOpen] = React.useState<boolean>(false);
 	const [dialogMode, setDialogMode] = React.useState<DialogMode>(DialogMode.Show);
@@ -30,6 +32,16 @@ export const FleetCardCard: React.FC<FleetCardCardProps> = (props) => {
 					<Title3>
 						#{fleetCard.Id} - Tarjeta Flota Nro: {fleetCard.CardNumber}
 					</Title3>
+				}
+				description={
+					<>
+						<Body2>
+							Asignado al Vehiculo:{' '}
+							{linkedVehicle
+								? `#${linkedVehicle.Id} - ${linkedVehicle.Model} - ${linkedVehicle.Plate}`
+								: 'No asignado'}
+						</Body2>
+					</>
 				}
 				className='tw-mb-4'
 			/>
