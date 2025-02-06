@@ -65,7 +65,10 @@ export class InterventionService implements IInterventionService {
 
     public async listByVehicleId(vehicleId: number): Promise<Intervention[]> {
         try {
-            return await this._SPService.getListItemsWithFilter('Intervenciones', `VehiculoId eq ${vehicleId}`);
+            const result = await this._SPService.getListItemsWithFilter('Intervenciones', `VehiculoId eq ${vehicleId}`);
+			const interventionTypes = await this._InterventionTypeService.listAll();
+            
+            return this.parseToIntervention(result, interventionTypes);
         } catch (e) {
             throw new Error(`Error retrieving interventions for vehicle ${vehicleId}: ${e}`);
         }
