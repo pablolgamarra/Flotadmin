@@ -1,8 +1,11 @@
 export interface ISPService {
-	getListItems<T = any>(listName: string): Promise<T[]>;
-	getListItem<T = any>(listName: string, id: number): Promise<T[]>;
-	insertItem<T extends { Id?: number }>(listName: string, item: T): Promise<boolean>;
-	updateItem<T extends { Id: number }>(listName: string, item: T): Promise<boolean>;
-	deleteItem(listName: string, id: number): Promise<boolean>;
-    insertDocument?:<T extends { Id: number, file:File }>(libraryName:string, item:T)=>Promise<boolean>;
+    getListItems<T = any>(listName: string): Promise<T[]>;
+    getListItemsWithFilter<T = any>(listName: string, filter: string): Promise<T[]>;
+    getListItem<T = any>(listName: string, id: number): Promise<T>;
+    insertItem<T extends { Id?: number }>(listName: string, item: T): Promise<boolean>;
+    updateItem<T extends { Id: number }>(listName: string, item: T): Promise<boolean>;
+    deleteItem(listName: string, id: number): Promise<boolean>;
+    insertDocument?<T extends { Id: number; file: File }>(libraryName: string, item: T): Promise<boolean>;
+    getDocument?: (libraryName: string, fileNameURI: string) => Promise<ArrayBuffer | undefined>;
 }
+
