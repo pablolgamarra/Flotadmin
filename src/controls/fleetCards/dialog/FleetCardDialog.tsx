@@ -5,7 +5,9 @@ import { DialogMode } from '@/common/DialogMode';
 import { UploadState } from '@/common/UploadState';
 import { CustomDialog } from '@/controls/CustomDialog';
 import { useDataContext } from '@/hooks/useDataContext';
+import { useVehicleList } from '@/hooks/useVehicleList';
 import { FleetCard } from '@/models/FleetCard';
+import { Vehicle } from '@/models/Vehicle';
 import {
 	Button,
 	DialogActions,
@@ -39,6 +41,7 @@ const parseStateToFleetCard = (state: FleetCardRegisterFormState): FleetCard => 
 			Id: state.id || -1,
 			CardNumber: state.cardNumber,
 			AssignedValue: state.assignedValue,
+			IsActive: state.isActive,
 		};
 
 		return parsedState;
@@ -56,12 +59,20 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 	const toasterId = useId('vehicleDialogToaster');
 	const { dispatchToast } = useToastController(toasterId);
 
+	const { vehiclesService } = useDataContext();
+	const { vehicleList } = useVehicleList(vehiclesService);
+	const linkedVehicle: Vehicle | undefined = vehicleList.find(
+		(vehicle: Vehicle) => vehicle.FleetCard?.Id === fleetCard?.Id,
+	);
+
 	//Verificar si se va a editar
 	if (fleetCard) {
 		initialValues = {
 			id: fleetCard.Id,
 			cardNumber: fleetCard.CardNumber,
 			assignedValue: fleetCard.AssignedValue,
+			isActive: fleetCard.IsActive,
+			assignedVehicle: vehicleList.find((vehicle: Vehicle) => vehicle.FleetCard?.Id === fleetCard?.Id),
 		};
 	} else {
 		initialValues = {} as FleetCardRegisterFormState;
@@ -77,14 +88,24 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 
 		try {
 			const parsedState = parseStateToFleetCard(formState);
+			const vehicle = {
+				...(formState.assignedVehicle || ({} as Vehicle)),
+				FleetCard: fleetCard || ({} as FleetCard),
+			};
 			setUploadingState(UploadState.Uploading);
 
 			if (action === CrudActions.Save) {
 				await fleetCardService.create(parsedState);
+				if (vehicle) {
+					await vehiclesService.update(vehicle);
+				}
 			}
 
 			if (action === CrudActions.Update) {
 				await fleetCardService.update(parsedState);
+				if (vehicle) {
+					await vehiclesService.update(vehicle);
+				}
 			}
 		} catch (e) {
 			setUploadingState(UploadState.Failed);
@@ -97,7 +118,12 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 	const switchContent = (mode: DialogMode, fleetCard?: FleetCard) => {
 		switch (mode) {
 			case DialogMode.Show:
-				return <FleetCardDataVisualizer fleetCard={fleetCard} />;
+				return (
+					<FleetCardDataVisualizer
+						fleetCard={fleetCard}
+						linkedVehicle={linkedVehicle}
+					/>
+				);
 			case DialogMode.Edit:
 				return (
 					<FleetCardRegisterForm
@@ -147,6 +173,8 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 							<Button
 								appearance='primary'
 								onClick={() => {
+									setOpen(false);
+									setFormState({} as FleetCardRegisterFormState);
 									setOpen(false);
 								}}
 							>
@@ -222,6 +250,15 @@ export const FleetCardDialog: React.FC<React.PropsWithChildren<FleetCardDialogPr
 				break;
 		}
 	}, [uploadingState, dispatchToast]);
+
+	React.useEffect(() => {
+		if (fleetCard) {
+			const assigned = vehicleList.find((vehicle: Vehicle) => vehicle.FleetCard?.Id === fleetCard.Id);
+			if (assigned) {
+				setFormState((prevState) => ({ ...prevState, assignedVehicle: assigned }));
+			}
+		}
+	}, [vehicleList, fleetCard]);
 
 	return (
 		<>

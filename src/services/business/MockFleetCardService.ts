@@ -21,21 +21,25 @@ export class MockFleetCardService implements IFleetCardService {
 				Id: 1,
 				CardNumber: '1597538426',
 				AssignedValue: 3000000,
+                IsActive: true,
 			},
 			{
 				Id: 2,
 				CardNumber: '1597538426',
 				AssignedValue: 6000000,
+                IsActive: true,
 			},
 			{
 				Id: 3,
 				CardNumber: '1597586426',
 				AssignedValue: 7500000,
+                IsActive: false,
 			},
 			{
 				Id: 4,
 				CardNumber: '9457538426',
 				AssignedValue: 8000000,
+                IsActive: true,
 			},
 		];
 

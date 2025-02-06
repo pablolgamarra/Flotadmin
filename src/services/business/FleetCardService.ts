@@ -22,9 +22,14 @@ export class FleetCardService implements IFleetCardService {
 		}
 	}
 
-	public async listAll(): Promise<FleetCard[]> {
+	public async listAll(filter?:string): Promise<FleetCard[]> {
 		try {
-			const queryResults = await this._SPService.getListItems('TarjetasFlota');
+            let queryResults
+            if(filter){
+                queryResults = await this._SPService.getListItemsWithFilter('TarjetasFlota', filter);
+            }else{
+                queryResults = await this._SPService.getListItems('TarjetasFlota');
+            }
 
 			const fleetCards = this.parseToFleetCard(queryResults);
 
@@ -82,6 +87,7 @@ export class FleetCardService implements IFleetCardService {
 				Id: item.Id,
 				CardNumber: item.Title,
 				AssignedValue: item.MontoAsignado,
+                IsActive: item.Activo,
 			};
 		});
 	}
@@ -91,6 +97,7 @@ export class FleetCardService implements IFleetCardService {
 			Id: item.Id,
 			Title: item.CardNumber,
 			MontoAsignado: item.AssignedValue,
+            Activo: item.IsActive,
 		};
 	}
 }

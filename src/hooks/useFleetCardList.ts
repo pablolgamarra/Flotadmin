@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 export const useFleetCardList = (
 	fleetCardService: IFleetCardService,
+    onlyNonUsed?: boolean
 ): { isLoading: boolean; error: string | undefined; fleetCardList: FleetCard[] } => {
 	const [isLoading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string | undefined>(undefined);
@@ -14,8 +15,14 @@ export const useFleetCardList = (
 			try {
 				setLoading(true);
 
-				const fleetCardList = await fleetCardService.listAll();
-				setFleetCardList(fleetCardList);
+                if(onlyNonUsed){
+                    const fleetCardList = await fleetCardService.listAll(`Activo eq true`);
+                    setFleetCardList(fleetCardList);
+                }else{
+                    const fleetCardList = await fleetCardService.listAll(`Activo eq true`);
+                    setFleetCardList(fleetCardList);
+                }
+
 
 				setError(undefined);
 			} catch (e) {
