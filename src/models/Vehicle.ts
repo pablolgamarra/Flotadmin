@@ -1,5 +1,6 @@
 import { Currency } from '@/common/Currency';
 import { FleetCard } from '@/models/FleetCard';
+import { Intervention } from './Intervention';
 
 export interface Vehicle {
 	Id: number;
@@ -18,4 +19,5 @@ export interface Vehicle {
     InsuratedValue: number;
     InsuratedValueCurrency: Currency;
     FireExtinguisherExpirationDate: Date;
+    Interventions?: Intervention[];
 }
