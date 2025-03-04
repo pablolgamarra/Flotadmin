@@ -1,5 +1,5 @@
 import { Vehicle } from '@/models/Vehicle';
-import { IVehicleService } from '@/services/business/IVehicleService';
+import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import { useEffect, useState } from 'react';
 
 export const useVehicleList = (vehicleService: IVehicleService) => {

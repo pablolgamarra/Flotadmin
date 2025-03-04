@@ -1,14 +1,14 @@
 import { Currency } from '@/common/Currency';
 import { FleetCard } from '@/models/FleetCard';
 import { Vehicle } from '@/models/Vehicle';
+import { FleetCardService } from '@/services/business/FleetCardService';
+import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
+import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
+import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
+import { InterventionService } from '@/services/business/InterventionService';
 import { ISPService } from '@/services/core/spService/ISPService';
 import { SPService } from '@/services/core/spService/SPService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { FleetCardService } from './FleetCardService';
-import { IFleetCardService } from './IFleetCardService';
-import { IInterventionService } from './IInterventionService';
-import { IVehicleService } from './IVehicleService';
-import { InterventionService } from './InterventionService';
 
 export class VehicleService implements IVehicleService {
 	public static readonly serviceKey: ServiceKey<IVehicleService> = ServiceKey.create(

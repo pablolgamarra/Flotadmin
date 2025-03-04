@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { InterventionType } from '@/models/InterventionType';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
 
 export const useInterventionTypesList = (interventionTypeService: IInterventionTypeService) => {
 	const [interventionTypesList, setInterventionTypesList] = useState<InterventionType[]>([]);

@@ -8,7 +8,7 @@ import { moneyFormat } from '@/helpers/moneyFormat';
 import { useVehicleForm } from '@/hooks/forms/useVehicleForm';
 import { useFleetCardList } from '@/hooks/useFleetCardList';
 import { FleetCard } from '@/models/FleetCard';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
 import { Dropdown, Field, Option, Skeleton, useId } from '@fluentui/react-components';
 
 export interface VehicleDataFormProps {
@@ -28,12 +28,12 @@ export interface VehicleRegisterFormState {
 	costCurrency: Currency;
 	user: string;
 	fleetCard: FleetCard | undefined;
-    fireExtinguisherExpirationDate: Date;
-    insuratedValue: number;
-    insuratedValueCurrency: Currency;
-    insuranceExpirationDate: Date;
-    vehicleLicenseExpirationDate: Date;
-    dinatranExpirationDate: Date;
+	fireExtinguisherExpirationDate: Date;
+	insuratedValue: number;
+	insuratedValueCurrency: Currency;
+	insuranceExpirationDate: Date;
+	vehicleLicenseExpirationDate: Date;
+	dinatranExpirationDate: Date;
 }
 
 export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
@@ -89,13 +89,14 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				value={formState.modelYear || ''}
 				onChange={handleInputChanges}
 			/>
-            <DatePickerField id={`adquisitionDate-${id}`}
+			<DatePickerField
+				id={`adquisitionDate-${id}`}
 				label={'Fecha de Adquisición'}
-                name='adquisitionDate'
-                placeholder='Insertar Fecha de Adquisición del Vehículo'
-                value={formState.adquisitionDate ? new Date(formState.adquisitionDate) : undefined}
-                onSelectDate={handleDatePickerChanges}
-            />
+				name='adquisitionDate'
+				placeholder='Insertar Fecha de Adquisición del Vehículo'
+				value={formState.adquisitionDate ? new Date(formState.adquisitionDate) : undefined}
+				onSelectDate={handleDatePickerChanges}
+			/>
 			<InputField
 				id={`adquisitionCost-${id}`}
 				label={'Costo de Adquisición'}
@@ -105,22 +106,23 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				value={formState.adquisitionCost || ''}
 				onChange={handleInputChanges}
 			/>
-            <RadioGroupField 				
-                id={`adquisitionCurrency-${id}`}
+			<RadioGroupField
+				id={`adquisitionCurrency-${id}`}
 				label={'Moneda de Adquisición'}
-                name='costCurrency'
-                options={[
-                    {
-                        value:Currency.Guaranies.toString(),
-                        label:'Guaranies'},
-                    {
-                        value:Currency.Dolar.toString(),
-                    label:'Dolar'
-                    }
-                ]}
-                value={formState.insuratedValueCurrency || ''}
-                onChange={handleRadioChanges}
-            />
+				name='costCurrency'
+				options={[
+					{
+						value: Currency.Guaranies.toString(),
+						label: 'Guaranies',
+					},
+					{
+						value: Currency.Dolar.toString(),
+						label: 'Dolar',
+					},
+				]}
+				value={formState.insuratedValueCurrency || ''}
+				onChange={handleRadioChanges}
+			/>
 			<InputField
 				id={`user-${id}`}
 				label={'Usuario'}
@@ -182,7 +184,7 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 					</Dropdown>
 				)}
 			</Field>
-            <InputField
+			<InputField
 				id={`insuratedValue-${id}`}
 				label={'Valor Asegurado'}
 				name='insuratedValue'
@@ -191,50 +193,63 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 				value={formState.insuratedValue || ''}
 				onChange={handleInputChanges}
 			/>
-            <RadioGroupField 				
-                id={`insuratedValueCurrency-${id}`}
+			<RadioGroupField
+				id={`insuratedValueCurrency-${id}`}
 				label={'Moneda de Valor Asegurado'}
-                name='insuratedValueCurrency'
-                options={[
-                    {
-                        value:Currency.Guaranies.toString(),
-                        label:'Guaranies'},
-                    {
-                        value:Currency.Dolar.toString(),
-                    label:'Dolar'
-                    }
-                ]}
-                value={formState.insuratedValueCurrency || ''}
-                onChange={handleRadioChanges}
-            />
-            <DatePickerField id={`dinatranExpirationDate-${id}`}
+				name='insuratedValueCurrency'
+				options={[
+					{
+						value: Currency.Guaranies.toString(),
+						label: 'Guaranies',
+					},
+					{
+						value: Currency.Dolar.toString(),
+						label: 'Dolar',
+					},
+				]}
+				value={formState.insuratedValueCurrency || ''}
+				onChange={handleRadioChanges}
+			/>
+			<DatePickerField
+				id={`dinatranExpirationDate-${id}`}
 				label={'Fecha de Vencimiento Dinatran'}
-                name='dinatranExpirationDate'
-                placeholder='Insertar Fecha de Vencimiento Dinatran'
-                value={formState.dinatranExpirationDate ? new Date(formState.dinatranExpirationDate) : undefined}
-                onSelectDate={handleDatePickerChanges}
-            />
-            <DatePickerField id={`fireExtinguisherExpirationDate-${id}`}
+				name='dinatranExpirationDate'
+				placeholder='Insertar Fecha de Vencimiento Dinatran'
+				value={formState.dinatranExpirationDate ? new Date(formState.dinatranExpirationDate) : undefined}
+				onSelectDate={handleDatePickerChanges}
+			/>
+			<DatePickerField
+				id={`fireExtinguisherExpirationDate-${id}`}
 				label={'Fecha de Vencimiento Extintor'}
-                name='fireExtinguisherExpirationDate'
-                placeholder='Insertar Fecha de Vencimiento Dinatran'
-                value={formState.fireExtinguisherExpirationDate ? new Date(formState.fireExtinguisherExpirationDate) : undefined}
-                onSelectDate={handleDatePickerChanges}
-            />
-            <DatePickerField id={`vehicleLicenseExpirationDate-${id}`}
+				name='fireExtinguisherExpirationDate'
+				placeholder='Insertar Fecha de Vencimiento Dinatran'
+				value={
+					formState.fireExtinguisherExpirationDate
+						? new Date(formState.fireExtinguisherExpirationDate)
+						: undefined
+				}
+				onSelectDate={handleDatePickerChanges}
+			/>
+			<DatePickerField
+				id={`vehicleLicenseExpirationDate-${id}`}
 				label={'Fecha de Vencimiento de Habilitación'}
-                name='vehicleLicenseExpirationDate'
-                placeholder='Insertar Fecha de Vencimiento de Habilitación'
-                value={formState.vehicleLicenseExpirationDate ? new Date(formState.vehicleLicenseExpirationDate) : undefined}
-                onSelectDate={handleDatePickerChanges}
-            />
-            <DatePickerField id={`insuranceExpirationDate-${id}`}
+				name='vehicleLicenseExpirationDate'
+				placeholder='Insertar Fecha de Vencimiento de Habilitación'
+				value={
+					formState.vehicleLicenseExpirationDate
+						? new Date(formState.vehicleLicenseExpirationDate)
+						: undefined
+				}
+				onSelectDate={handleDatePickerChanges}
+			/>
+			<DatePickerField
+				id={`insuranceExpirationDate-${id}`}
 				label={'Fecha de Vencimiento de Seguro'}
-                name='insuranceExpirationDate'
-                placeholder='Insertar Fecha de Vencimiento del Seguro'
-                value={formState.insuranceExpirationDate ? new Date(formState.insuranceExpirationDate) : undefined}
-                onSelectDate={handleDatePickerChanges}
-            />
+				name='insuranceExpirationDate'
+				placeholder='Insertar Fecha de Vencimiento del Seguro'
+				value={formState.insuranceExpirationDate ? new Date(formState.insuranceExpirationDate) : undefined}
+				onSelectDate={handleDatePickerChanges}
+			/>
 		</>
 	);
 };

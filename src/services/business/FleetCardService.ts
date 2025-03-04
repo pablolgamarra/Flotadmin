@@ -1,5 +1,5 @@
 import { FleetCard } from '@/models/FleetCard';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
+import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
 import { ISPService } from '@/services/core/spService/ISPService';
 import { SPService } from '@/services/core/spService/SPService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';

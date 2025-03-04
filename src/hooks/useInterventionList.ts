@@ -1,5 +1,5 @@
 import { Intervention } from '@/models/Intervention';
-import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
 import { useEffect, useState } from 'react';
 
 export const useInterventionList = (interventionListService: IInterventionService, vehicleId?: number) => {

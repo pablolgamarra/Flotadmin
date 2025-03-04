@@ -1,7 +1,7 @@
-import { IFleetCardService } from '@/services/business/IFleetCardService';
-import { IInterventionService } from '@/services/business/IInterventionService';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
-import { IVehicleService } from '@/services/business/IVehicleService';
+import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
+import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import { MockFleetCardService } from '@/services/business/MockFleetCardService';
 import { MockInterventionService } from '@/services/business/MockInterventionService';
 import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';

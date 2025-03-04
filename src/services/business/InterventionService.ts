@@ -2,14 +2,14 @@ import { Currency } from '@/common/Currency';
 import { Intervention } from '@/models/Intervention';
 import { InterventionType } from '@/models/InterventionType';
 import { Vehicle } from '@/models/Vehicle';
-import { IInterventionService } from '@/services/business/IInterventionService';
+import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
+import { VehicleService } from '@/services/business/VehicleService';
+import { ISPService } from '@/services/core/spService/ISPService';
+import { SPService } from '@/services/core/spService/SPService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { ISPService } from '../core/spService/ISPService';
-import { SPService } from '../core/spService/SPService';
-import { IInterventionTypeService } from './IInterventionTypeService';
 import { InterventionTypeService } from './InterventionTypeService';
-import { IVehicleService } from './IVehicleService';
-import { VehicleService } from './VehicleService';
 
 export class InterventionService implements IInterventionService {
 	public static readonly serviceKey: ServiceKey<IInterventionService> = ServiceKey.create(

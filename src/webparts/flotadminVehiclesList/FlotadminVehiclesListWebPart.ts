@@ -1,8 +1,8 @@
 import { Version } from '@microsoft/sp-core-library';
 import {
-	type IPropertyPaneConfiguration,
-	PropertyPaneTextField,
-	PropertyPaneToggle,
+    type IPropertyPaneConfiguration,
+    PropertyPaneTextField,
+    PropertyPaneToggle,
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as React from 'react';
@@ -10,12 +10,12 @@ import * as ReactDom from 'react-dom';
 
 import { ErrorVisualizer } from '@/controls/ErrorVisualizer';
 import { FleetCardService } from '@/services/business/FleetCardService';
-import { IFleetCardService } from '@/services/business/IFleetCardService';
-import { IInterventionService } from '@/services/business/IInterventionService';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
+import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
+import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
+import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import { InterventionService } from '@/services/business/InterventionService';
 import { InterventionTypeService } from '@/services/business/InterventionTypeService';
-import { IVehicleService } from '@/services/business/IVehicleService';
 import { MockFleetCardService } from '@/services/business/MockFleetCardService';
 import { MockInterventionService } from '@/services/business/MockInterventionService';
 import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';

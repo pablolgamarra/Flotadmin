@@ -5,7 +5,7 @@ import { useInteractionForm } from '@/hooks/forms/useInteractionForm';
 import { useInterventionTypesList } from '@/hooks/useInterventionTypesList';
 import { InterventionType } from '@/models/InterventionType';
 import { Vehicle } from '@/models/Vehicle';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
 import { DatePicker } from '@fluentui/react';
 import { Dropdown, Field, Option, Radio, RadioGroup, Spinner } from '@fluentui/react-components';
 import { FilePickerField } from '../FilePickerField';

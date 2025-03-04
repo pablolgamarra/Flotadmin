@@ -1,5 +1,5 @@
 import { InterventionType } from '@/models/InterventionType';
-import { IInterventionTypeService } from '@/services/business/IInterventionTypeService';
+import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
 import { ISPService } from '@/services/core/spService/ISPService';
 import { SPService } from '@/services/core/spService/SPService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';

@@ -1,9 +1,9 @@
 import { Currency } from '@/common/Currency';
 import { FleetCard } from '@/models/FleetCard';
 import { Vehicle } from '@/models/Vehicle';
+import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
+import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import { ServiceKey, ServiceScope } from '@microsoft/sp-core-library';
-import { IFleetCardService } from './IFleetCardService';
-import { IVehicleService } from './IVehicleService';
 import { MockFleetCardService } from './MockFleetCardService';
 
 export class MockVehicleService implements IVehicleService {
