@@ -34,3 +34,4 @@ obj
 *.scss.ts
 spfx.validate.md
 spfx.upgrade.md
+package-lock.json
