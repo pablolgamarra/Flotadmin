@@ -31,17 +31,17 @@ export class VehicleService implements IVehicleService {
 			throw new Error(`Error initializing VehicleService -> ${e}`);
 		}
 	}
-
+    
 	public async listAll(): Promise<Vehicle[]> {
-		try {
-			const queryResults = await this._SPService.getListItems('Vehiculos');
+        try {
+            const queryResults = await this._SPService.getListItems('Vehiculos');
 			const fleetCards = await this._fleetCardService.listAll();
-
+            
 			const vehicles = this.parseToVehicle(queryResults, fleetCards);
-
+            
 			return vehicles;
 		} catch (e) {
-			throw new Error(`Error retrieving vehicles: ${e}`);
+            throw new Error(`Error retrieving vehicles: ${e}`);
 		}
 	}
 
@@ -58,6 +58,18 @@ export class VehicleService implements IVehicleService {
 		}
 	}
 
+    public async listAllPaged(pageSize: number/*, page: number*/): Promise<Array<Vehicle[]>> {
+        try {
+            const queryResults = await this._SPService.getListItemsPaged('Vehiculos', pageSize);
+			const fleetCards = await this._fleetCardService.listAll();
+            const vehicles = await Promise.all(queryResults.map(async (item) => {
+                return await this.parseToVehicle(item, fleetCards);
+              }))
+			return vehicles;
+        } catch (e) {
+			throw Error(`Error retrieving vehicles paged-> ${e}`);
+        }
+    }
 	public async create(arg0: Vehicle): Promise<boolean> {
 		try {
 			const vehicleInsert = this.formatPersistanceProps(arg0);

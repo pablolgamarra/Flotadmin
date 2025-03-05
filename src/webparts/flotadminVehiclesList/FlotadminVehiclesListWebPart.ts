@@ -16,10 +16,10 @@ import { IInterventionTypeService } from '@/services/business/interfaces/IInterv
 import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import { InterventionService } from '@/services/business/InterventionService';
 import { InterventionTypeService } from '@/services/business/InterventionTypeService';
-import { MockFleetCardService } from '@/services/business/MockFleetCardService';
-import { MockInterventionService } from '@/services/business/MockInterventionService';
-import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';
-import { MockVehicleService } from '@/services/business/MockVehicleService';
+import { MockFleetCardService } from '@/services/business/mocks/MockFleetCardService';
+import { MockInterventionService } from '@/services/business/mocks/MockInterventionService';
+import { MockInterventionTypeService } from '@/services/business/mocks/MockInterventionTypeService';
+import { MockVehicleService } from '@/services/business/mocks/MockVehicleService';
 import { VehicleService } from '@/services/business/VehicleService';
 import { App } from '@vehiclesList/components/App';
 import * as strings from 'FlotadminVehiclesListWebPartStrings';

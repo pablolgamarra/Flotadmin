@@ -7,5 +7,6 @@ export interface ISPService {
     deleteItem(listName: string, id: number): Promise<boolean>;
     insertDocument?<T extends { Id: number; file: File }>(libraryName: string, item: T): Promise<boolean>;
     getDocument?: (libraryName: string, fileNameURI: string) => Promise<ArrayBuffer | undefined>;
+    getListItemsPaged<T = any>(listName: string, /*pageNumber: number,*/ pageSize: number): Promise<T[][]>;
 }
 

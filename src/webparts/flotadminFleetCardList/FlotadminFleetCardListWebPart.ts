@@ -2,10 +2,10 @@ import { IFleetCardService } from '@/services/business/interfaces/IFleetCardServ
 import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
 import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
 import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
-import { MockFleetCardService } from '@/services/business/MockFleetCardService';
-import { MockInterventionService } from '@/services/business/MockInterventionService';
-import { MockInterventionTypeService } from '@/services/business/MockInterventionTypeService';
-import { MockVehicleService } from '@/services/business/MockVehicleService';
+import { MockFleetCardService } from '@/services/business/mocks/MockFleetCardService';
+import { MockInterventionService } from '@/services/business/mocks/MockInterventionService';
+import { MockInterventionTypeService } from '@/services/business/mocks/MockInterventionTypeService';
+import { MockVehicleService } from '@/services/business/mocks/MockVehicleService';
 import { App, AppProps } from '@fleetCardsList/components/App';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as React from 'react';
