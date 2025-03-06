@@ -74,6 +74,22 @@ export class InterventionService implements IInterventionService {
         }
     }
 
+    public async listAllPaged(pageSize: number, requestedPage: number): Promise<{interventionsPage: Intervention[], count: number}> {
+        try {
+            const vehicles = await this._VehicleService.listAll();
+			const interventionTypes = await this._InterventionTypeService.listAll();
+
+            const { results, totalCount} = await this._SPService.getListItemsPaged('Vehiculos', pageSize, requestedPage);
+            
+            const interventions= await this.parseToIntervention(results, interventionTypes, vehicles);
+
+			return {interventionsPage: interventions, count: totalCount};
+
+        } catch (e) {
+			throw Error(`Error retrieving interventionspaged from page ${requestedPage}-> ${e}`);
+        }
+    }
+
 	public async create(arg0: Intervention): Promise<boolean> {
 		try {
             let budgetList, invoiceList;

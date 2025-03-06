@@ -23,13 +23,13 @@ export class MockInterventionService implements IInterventionService {
 		});
 	}
 	delete(arg0: Intervention): Promise<boolean> {
-		throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.');
 	}
-
+    
 	public async listAll(): Promise<Intervention[]> {
-		const vehicles = await this._vehicleService.listAll();
+        const vehicles = await this._vehicleService.listAll();
 		const interventionTypes = await this._interventionTypeService.listAll();
-
+        
 		const interventions = [
             {
                 Id: 1,
@@ -66,10 +66,14 @@ export class MockInterventionService implements IInterventionService {
             },
         ];
 
+
 		return new Promise((resolve) => {
 			setTimeout(() => resolve(interventions), 1100);
 		});
 	}
+    listAllPaged(arg0: number, arg1: number): Promise<{ interventionsPage: Intervention[]; count: number; }> {
+        throw new Error('Method not implemented.');
+    }
 	listById(): Promise<Intervention> {
 		throw new Error('Method not implemented.');
 	}
