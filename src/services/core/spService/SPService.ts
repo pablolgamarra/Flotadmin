@@ -95,17 +95,14 @@ export class SPService implements ISPService {
     }
   }
 
-  public async getListItemsPaged<T = any>(listName: string, pageSize: number):Promise<T[][]> {
+  public async getListItemsPaged<T = any>(listName: string, pageSize: number, pageNumber: number):Promise<{ results: T[], totalCount: number }> {
     try {
-        const x = [];
-        for await (const items of this._sp.web.lists.getByTitle(listName).items.top(pageSize)) {
-            x.push(items);
-        }
-        console.log(x)
-        
-        return x;
+        const value2Skip = pageSize * (pageNumber - 1);
+        const results = await this._sp.web.lists.getByTitle(listName).items.top(pageSize).skip(value2Skip)();
+        const listInfo = await this._sp.web.lists.getByTitle(listName).select('ItemCount')();
+        return { results, totalCount: listInfo.ItemCount };
     } catch (e) {
-        throw new Error(`Error retrieving paged items from ${listName}: ${e}`)
+        throw new Error(`Error retrieving paged items from ${listName}: ${e}`);
     }
   }
 }
