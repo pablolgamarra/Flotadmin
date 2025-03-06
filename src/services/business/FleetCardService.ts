@@ -22,34 +22,45 @@ export class FleetCardService implements IFleetCardService {
 		}
 	}
 
-	public async listAll(filter?:string): Promise<FleetCard[]> {
+	public async listAll(filter?: string): Promise<FleetCard[]> {
 		try {
-            let queryResults
-            if(filter){
-                queryResults = await this._SPService.getListItemsWithFilter('TarjetasFlota', filter);
-            }else{
-                queryResults = await this._SPService.getListItems('TarjetasFlota');
-            }
+			let queryResults;
 
+			if (filter) {
+				queryResults = await this._SPService.getListItemsWithFilter('TarjetasFlota', filter);
+				const fleetCards = this.parseToFleetCard(queryResults);
+				return fleetCards;
+			}
+
+			queryResults = await this._SPService.getListItems('TarjetasFlota');
 			const fleetCards = this.parseToFleetCard(queryResults);
-
 			return fleetCards;
 		} catch (e) {
 			throw Error(`Error retrieving fleet cards data -> ${e}`);
 		}
 	}
 
-	public async listById(arg0: number): Promise<FleetCard> {
+	public async listById(id: number): Promise<FleetCard> {
 		try {
-			const queryResults = await this._SPService.getListItem('TarjetasFlota', arg0);
-
+			const queryResults = await this._SPService.getListItem('TarjetasFlota', id);
 			const fleetCards = this.parseToFleetCard(queryResults);
-
 			return fleetCards[0];
 		} catch (e) {
 			throw Error(`Error retrieving fleet cards data -> ${e}`);
 		}
 	}
+
+    public async listAllPaged(pageSize: number, requestedPage: number): Promise<{fleetCardsPage: FleetCard[], count: number}> {
+        try {
+            const { results, totalCount} = await this._SPService.getListItemsPaged('TarjetasFlota', pageSize, requestedPage);
+            const fleetCards = this.parseToFleetCard(results);
+
+            return {fleetCardsPage: fleetCards, count: totalCount};
+
+        } catch (e) {
+            throw Error(`Error retrieving vehicles paged from page ${requestedPage}-> ${e}`);
+        }
+    }
 
 	public async create(arg0: FleetCard): Promise<boolean> {
 		try {
@@ -87,7 +98,7 @@ export class FleetCardService implements IFleetCardService {
 				Id: item.Id,
 				CardNumber: item.Title,
 				AssignedValue: item.MontoAsignado,
-                IsActive: item.Activo,
+				IsActive: item.Activo,
 			};
 		});
 	}
@@ -97,7 +108,7 @@ export class FleetCardService implements IFleetCardService {
 			Id: item.Id,
 			Title: item.CardNumber,
 			MontoAsignado: item.AssignedValue,
-            Activo: item.IsActive,
+			Activo: item.IsActive,
 		};
 	}
 }
