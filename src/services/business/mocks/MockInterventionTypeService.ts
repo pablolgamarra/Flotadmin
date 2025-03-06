@@ -12,9 +12,9 @@ export class MockInterventionTypeService implements IInterventionTypeService {
 		serviceScope.whenFinished(() => {});
 	}
 	delete(arg0: InterventionType): Promise<boolean> {
-		throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.');
 	}
-
+    
 	public async listAll(): Promise<InterventionType[]> {
 		const interventionTypes: InterventionType[] = [
 			{
@@ -58,16 +58,19 @@ export class MockInterventionTypeService implements IInterventionTypeService {
 				Description: 'Reemplazo de Filtros',
 			},
 		];
-
+        
 		return new Promise((resolve) => {
 			setTimeout(() => {
-				resolve(interventionTypes);
+                resolve(interventionTypes);
 			}, 1000);
 		});
 	}
 	listById(): Promise<InterventionType> {
 		throw new Error('Method not implemented.');
 	}
+    listAllPaged(arg0: number, arg1: number): Promise<{ interventionTypesPage: InterventionType[]; count: number; }> {
+        throw new Error('Method not implemented.');
+    }
 	create(arg0: InterventionType): Promise<boolean> {
 		throw new Error('Method not implemented.');
 	}
