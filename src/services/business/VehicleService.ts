@@ -61,6 +61,7 @@ export class VehicleService implements IVehicleService {
             const { results, totalCount} = await this._SPService.getListItemsPaged('Vehiculos', pageSize, requestedPage);
 			const fleetCards = await this._fleetCardService.listAll();
             const vehicles = await this.parseToVehicle(results, fleetCards);
+
 			return {vehiclesPage: vehicles, count: totalCount};
 
         } catch (e) {
@@ -118,7 +119,7 @@ export class VehicleService implements IVehicleService {
             Cost: item.CostoAdquisicion,
             CostCurrency: item.MonedaAquisicion as Currency,
             User: item.Usuario,
-            FleetCard: fleetCards.find((card) => card.Id === item.TarjetaFlotaId),
+            FleetCard: fleetCards.find((card) => card.Id === item.TarjetasFlotaId),
             VehicleLicenseExpirationDate: item.VencimientoHabilitacion,
             DinatranExpirationDate: item.VencimientoDinatran,
             InsuranceExpirationDate: item.VencimientoSeguro,
