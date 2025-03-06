@@ -3,7 +3,7 @@
   "solution": {
     "name": "flotadmin-client-side-solution",
     "id": "06503cc0-dee7-408b-b0d6-ff32575a7ef6",
-    "version": "1.0.0.0",
+    "version": "1.0.3.1",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
