@@ -36,12 +36,10 @@ export class VehicleService implements IVehicleService {
         try {
             const queryResults = await this._SPService.getListItems('Vehiculos');
 			const fleetCards = await this._fleetCardService.listAll();
-            
-			const vehicles = this.parseToVehicle(queryResults, fleetCards);
-            
-			return vehicles;
+
+			return this.parseToVehicle(queryResults, fleetCards);
 		} catch (e) {
-            throw new Error(`Error retrieving vehicles: ${e}`);
+            throw new Error(`Error retrieving vehicles -> ${e}`);
 		}
 	}
 
@@ -54,20 +52,19 @@ export class VehicleService implements IVehicleService {
 
 			return vehicle[0];
 		} catch (e) {
-			throw Error(`Error retrieving vehicles by Id -> ${e}`);
+			throw Error(`Error retrieving vehicle by Id -> ${e}`);
 		}
 	}
 
-    public async listAllPaged(pageSize: number/*, page: number*/): Promise<Array<Vehicle[]>> {
+    public async listAllPaged(pageSize: number, requestedPage: number): Promise<{vehiclesPage: Vehicle[], count: number}> {
         try {
-            const queryResults = await this._SPService.getListItemsPaged('Vehiculos', pageSize);
+            const { results, totalCount} = await this._SPService.getListItemsPaged('Vehiculos', pageSize, requestedPage);
 			const fleetCards = await this._fleetCardService.listAll();
-            const vehicles = await Promise.all(queryResults.map(async (item) => {
-                return await this.parseToVehicle(item, fleetCards);
-              }))
-			return vehicles;
+            const vehicles = await this.parseToVehicle(results, fleetCards);
+			return {vehiclesPage: vehicles, count: totalCount};
+
         } catch (e) {
-			throw Error(`Error retrieving vehicles paged-> ${e}`);
+			throw Error(`Error retrieving vehicles paged from page ${requestedPage}-> ${e}`);
         }
     }
 	public async create(arg0: Vehicle): Promise<boolean> {

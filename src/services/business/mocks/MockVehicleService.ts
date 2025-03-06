@@ -130,6 +130,9 @@ export class MockVehicleService implements IVehicleService {
 	listById(): Promise<Vehicle> {
 		throw new Error('Method not implemented.');
 	}
+    listAllPaged(arg0: number, arg1: number): Promise<{ vehiclesPage: Vehicle[]; count: number; }> {
+        throw new Error('Method not implemented.');
+    }
 	create(arg0: Vehicle): Promise<boolean> {
 		throw new Error('Method not implemented.');
 	}
