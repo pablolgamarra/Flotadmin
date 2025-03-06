@@ -14,6 +14,7 @@
 	"requiresCustomScript": false,
 	"supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
 	"supportsThemeVariants": true,
+    "supportsFullBleed": true,
 
 	"preconfiguredEntries": [
 		{
@@ -21,7 +22,7 @@
 			"group": { "default": "Advanced" },
 			"title": { "default": "flotadmin-vehiclesList" },
 			"description": { "default": "flotadmin-vehiclesList description" },
-			"officeFabricIconFontName": "Page",
+			"officeFabricIconFontName": "Car",
 			"properties": {
 				"description": "flotadmin-vehiclesList"
 			}
