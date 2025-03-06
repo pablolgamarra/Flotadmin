@@ -16,7 +16,7 @@ import { AddCircle28Regular } from '@fluentui/react-icons';
 //Styles
 import { DialogMode } from '@/common/DialogMode';
 import { DataProvider } from '@/context/dataContext';
-import { VehiclePagedList } from '@/controls/vehicles/VehiclePagedList';
+import { VehiclePagedList } from '@/controls/vehicles/lists/VehiclePagedList';
 import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
 import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
 import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
@@ -79,45 +79,7 @@ export const App: React.FC<AppProps> = (props) => {
 								/>
 							</Field>
 						</section>
-						{/* <div
-								id='cards-container'
-								className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-gap-4'
-							>
-								{loading ? (
-									<Spinner
-										label='Cargando Vehiculos Registrados'
-										size='tiny'
-									/>
-								) : (
-									vehicles.map((item: Vehicle) => (
-										<VehicleCard
-											key={`${id}-${item.Plate}`}
-											vehicle={item}
-											className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
-										/>
-									))
-								)}
-							</div> */}
 						<VehiclePagedList vehicleService={vehiclesService} />
-						{/* <div
-								id='cards-container'
-								className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-gap-4'
-							>
-								{isLoading ? (
-									<Spinner
-										label='Cargando Vehiculos Registrados'
-										size='tiny'
-									/>
-								) : (
-									vehicleList.map((item: Vehicle) => (
-										<VehicleCard
-											key={`${id}-${item.Plate}`}
-											vehicle={item}
-											className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
-										/>
-									))
-								)}
-							</div> */}
 					</div>
 				</DataProvider>
 			</FluentProvider>
