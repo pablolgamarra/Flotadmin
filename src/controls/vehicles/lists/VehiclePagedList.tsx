@@ -5,7 +5,7 @@ import { useVehiclePagedList } from '@/hooks/useVehiclePagedList';
 import { Vehicle } from '@/models/Vehicle';
 import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import { Spinner, useId } from '@fluentui/react-components';
-import { Pagination } from '@pnp/spfx-controls-react/lib/pagination';
+import { Pagination } from '@pnp/spfx-controls-react';
 
 export interface VehiclePagedListProps {
 	vehicleService: IVehicleService;
