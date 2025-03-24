@@ -8,7 +8,6 @@ import {
 	IdPrefixProvider,
 	SearchBox,
 	Title1,
-	useId,
 	webLightTheme,
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
@@ -16,16 +15,14 @@ import { AddCircle28Regular } from '@fluentui/react-icons';
 //Styles
 import { DialogMode } from '@/common/DialogMode';
 import { DataProvider } from '@/context/dataContext';
-import { FleetCardCard } from '@/controls/fleetCards/card/FleetCardCard';
 import { FleetCardDialog } from '@/controls/fleetCards/dialog/FleetCardDialog';
-import { FleetCard } from '@/models/FleetCard';
 import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
 import { IInterventionService } from '@/services/business/interfaces/IInterventionService';
 import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
 import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import '../../../../assets/dist/tailwind.css';
 
-import { Vehicle } from '@/models/Vehicle';
+import { FleetCardListPaged } from '@/controls/fleetCards/lists/FleetCardListPaged';
 import * as strings from 'FlotadminFleetCardWebPartStrings';
 
 export interface AppProps {
@@ -36,29 +33,9 @@ export interface AppProps {
 }
 
 export const App: React.FC<AppProps> = (props) => {
-	const id = useId('App');
 	const { fleetCardService, interventionsService, interventionTypesService, vehiclesService } = props;
 
 	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
-
-	const [fleetCards, setFleetCards] = React.useState<FleetCard[]>([]);
-
-	const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
-
-	React.useEffect(() => {
-		const getFleetCards = async () => {
-			try {
-				const cardList = await fleetCardService.listAll();
-				setFleetCards(cardList);
-				const vehiclesList = await vehiclesService.listAll();
-				setVehicles(vehiclesList);
-			} catch (e) {
-				console.error(strings.Errors.ErrorQuerying, e);
-			}
-		};
-
-		getFleetCards();
-	}, [setFleetCards]);
 
 	return (
 		<IdPrefixProvider value='Flotadmin-fleet-cards-list'>
@@ -105,19 +82,10 @@ export const App: React.FC<AppProps> = (props) => {
 								/>
 							</Field>
 						</section>
-						<div
-							id='cards-container'
-							className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-px-4 tw-gap-4'
-						>
-							{fleetCards.map((item: FleetCard) => (
-								<FleetCardCard
-									key={`${id}-${item.CardNumber}`}
-									fleetCard={item}
-									linkedVehicle={vehicles.find((v) => item.Id === v.FleetCard?.Id)}
-									className='tw-w-fit hover:tw-shadow-sm tw-h-fit tw-rounded-lg tw-p-4 tw-bg-white tw-cursor-pointer'
-								/>
-							))}
-						</div>
+						<FleetCardListPaged
+							vehicleService={vehiclesService}
+							fleetCardService={fleetCardService}
+						/>
 					</div>
 				</DataProvider>
 			</FluentProvider>
