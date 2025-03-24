@@ -8,7 +8,7 @@ export const useFleetCardPagedList = (
     pageSize: number = 20,
     requestedPage: number = 1,
 ) => {
-    const [FleetCards, setFleetCards] = useState<FleetCard[]>([] as FleetCard[]);
+    const [fleetCards, setFleetCards] = useState<FleetCard[]>([] as FleetCard[]);
     const [totalCount, setTotalCount] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -35,5 +35,5 @@ export const useFleetCardPagedList = (
         getFleetCardsPage(requestedPage);
     }, [getFleetCardsPage]);
 
-    return { FleetCards, totalCount, isLoading, error };
+    return { fleetCards, totalCount, isLoading, error };
 };
