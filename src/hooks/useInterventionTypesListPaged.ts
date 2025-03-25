@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { InterventionType } from '@/models/InterventionType';
 import { IInterventionTypeService } from '@/services/business/interfaces/IInterventionTypeService';
 
-export const useInterventionTypePagedList = (
+export const useInterventionTypesPagedList = (
     InterventionTypeService: IInterventionTypeService,
     pageSize: number = 20,
     requestedPage: number = 1,

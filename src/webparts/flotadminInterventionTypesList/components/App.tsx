@@ -8,7 +8,6 @@ import {
 	IdPrefixProvider,
 	SearchBox,
 	Title1,
-	useId,
 	webLightTheme,
 } from '@fluentui/react-components';
 import { AddCircle28Regular } from '@fluentui/react-icons';
@@ -22,9 +21,8 @@ import { IInterventionTypeService } from '@/services/business/interfaces/IInterv
 import { IVehicleService } from '@/services/business/interfaces/IVehicleService';
 import '../../../../assets/dist/tailwind.css';
 
-import { InterventionTypeCard } from '@/controls/interventionTypes/card/InterventionTypesCard';
 import { InterventionTypeDialog } from '@/controls/interventionTypes/dialog/InterventionTypeDialog';
-import { InterventionType } from '@/models/InterventionType';
+import { InterventionTypesListPaged } from '@/controls/interventionTypes/lists/InterventionTypesListPaged';
 import * as strings from 'FlotadminInterventionTypesListWebPartStrings';
 
 export interface AppProps {
@@ -35,25 +33,9 @@ export interface AppProps {
 }
 
 export const App: React.FC<AppProps> = (props) => {
-	const id = useId('App');
 	const { fleetCardService, interventionsService, interventionTypesService, vehiclesService } = props;
 
 	const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
-
-	const [interventionTypes, setInterventionTypes] = React.useState<InterventionType[]>([]);
-
-	React.useEffect(() => {
-		const getInterventionTypes = async () => {
-			try {
-				const interventionTypesList = await interventionTypesService.listAll();
-				setInterventionTypes(interventionTypesList);
-			} catch (e) {
-				console.error(strings.Errors.ErrorQuerying, e);
-			}
-		};
-
-		getInterventionTypes();
-	}, [setInterventionTypes]);
 
 	return (
 		<IdPrefixProvider value='Flotadmin-intervention-types-list'>
@@ -100,18 +82,7 @@ export const App: React.FC<AppProps> = (props) => {
 								/>
 							</Field>
 						</section>
-						<div
-							id='cards-container'
-							className='tw-grid tw-grid-cols-3 tw-grid-flow-row tw-justify-around tw-justify-items-center tw-overflow-auto tw-mt-6 tw-bg-[#E0F7FA] tw-py-4 tw-px-4 tw-gap-4'
-						>
-							{interventionTypes.map((item: InterventionType) => (
-								<InterventionTypeCard
-									key={`${id}-${item.Id}`}
-									interventionType={item}
-									className='tw-w-fit hover:tw-shadow-sm tw-h-fit'
-								/>
-							))}
-						</div>
+						<InterventionTypesListPaged interventionTypesService={interventionTypesService} />
 					</div>
 				</DataProvider>
 			</FluentProvider>
