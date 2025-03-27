@@ -57,6 +57,7 @@ const parseStateToVehicle = (state: VehicleRegisterFormState): Vehicle => {
 			InsuranceExpirationDate: state.insuranceExpirationDate,
 			VehicleLicenseExpirationDate: state.vehicleLicenseExpirationDate,
 			DinatranExpirationDate: state.dinatranExpirationDate,
+			IsActive: state.isActive,
 		};
 
 		return parsedState;
@@ -96,6 +97,7 @@ export const VehicleDialog: React.FC<React.PropsWithChildren<VehicleDialogProps>
 			insuranceExpirationDate: vehicle.InsuranceExpirationDate,
 			vehicleLicenseExpirationDate: vehicle.VehicleLicenseExpirationDate,
 			dinatranExpirationDate: vehicle.DinatranExpirationDate,
+			isActive: vehicle.IsActive,
 		};
 	} else {
 		initialProps = {} as VehicleRegisterFormState;

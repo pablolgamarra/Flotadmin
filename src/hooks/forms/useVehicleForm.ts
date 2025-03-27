@@ -5,6 +5,7 @@ import {
     OptionOnSelectData,
     RadioGroupOnChangeData,
     SelectionEvents,
+    SwitchOnChangeData,
 } from '@fluentui/react-components';
 
 import { Currency } from '@/common/Currency';
@@ -50,5 +51,10 @@ export const useVehicleForm = (props: useVehicleFormProps) => {
         setFormState({ ...formState, [name!!]: date ? new Date(date) : new Date() });
     }
 
-	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleDatePickerChanges };
+    const handleSwitchChanges = (ev: React.ChangeEvent<HTMLInputElement>, data: SwitchOnChangeData): void => {
+        const checked = data.checked;
+        setFormState({ ...formState, isActive: checked });
+    }
+
+	return { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleDatePickerChanges, handleSwitchChanges};
 };

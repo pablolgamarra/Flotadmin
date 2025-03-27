@@ -127,6 +127,7 @@ export class VehicleService implements IVehicleService {
             InsuratedValueCurrency: item.MonedaValorAsegurado as Currency,
             FireExtinguisherExpirationDate: item.VencimientoExtintor,
             Interventions: item.interventions,
+            IsActive: item.EstaActivo,
         }));
 	}
 
@@ -148,6 +149,7 @@ export class VehicleService implements IVehicleService {
             ValorAsegurado: item.InsuratedValue,
             MonedaValorAsegurado : item.InsuratedValueCurrency as Currency,
             VencimientoExtintor : item.FireExtinguisherExpirationDate,
+            EstaActivo: item.IsActive,
 		};
 	}
 }

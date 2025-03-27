@@ -20,4 +20,5 @@ export interface Vehicle {
     InsuratedValueCurrency: Currency;
     FireExtinguisherExpirationDate: Date;
     Interventions?: Intervention[];
+    IsActive:boolean;
 }

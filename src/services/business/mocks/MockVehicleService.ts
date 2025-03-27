@@ -44,6 +44,7 @@ export class MockVehicleService implements IVehicleService {
                 InsuratedValue: 12000,
                 InsuratedValueCurrency: Currency.Dolar,
                 FireExtinguisherExpirationDate: new Date('2026-05-15'),
+                IsActive: true,
             },
             {
                 Id: 2,
@@ -62,6 +63,7 @@ export class MockVehicleService implements IVehicleService {
                 InsuratedValue: 11000,
                 InsuratedValueCurrency: Currency.Dolar,
                 FireExtinguisherExpirationDate: new Date('2025-03-10'),
+                IsActive: true,
             },
             {
                 Id: 3,
@@ -80,6 +82,7 @@ export class MockVehicleService implements IVehicleService {
                 InsuratedValue: 15000,
                 InsuratedValueCurrency: Currency.Dolar,
                 FireExtinguisherExpirationDate: new Date('2027-07-20'),
+                IsActive: true,
             },
             {
                 Id: 4,
@@ -98,6 +101,7 @@ export class MockVehicleService implements IVehicleService {
                 InsuratedValue: 10000,
                 InsuratedValueCurrency: Currency.Dolar,
                 FireExtinguisherExpirationDate: new Date('2025-11-05'),
+                IsActive: true,
             },
             {
                 Id: 5,
@@ -116,6 +120,7 @@ export class MockVehicleService implements IVehicleService {
                 InsuratedValue: 16000,
                 InsuratedValueCurrency: Currency.Dolar,
                 FireExtinguisherExpirationDate: new Date('2027-01-10'),
+                IsActive: true,
             },
         ];
         

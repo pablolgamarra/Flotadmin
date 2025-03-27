@@ -9,7 +9,7 @@ import { useVehicleForm } from '@/hooks/forms/useVehicleForm';
 import { useFleetCardList } from '@/hooks/useFleetCardList';
 import { FleetCard } from '@/models/FleetCard';
 import { IFleetCardService } from '@/services/business/interfaces/IFleetCardService';
-import { Dropdown, Field, Option, Skeleton, useId } from '@fluentui/react-components';
+import { Dropdown, Field, Option, Skeleton, Switch, useId } from '@fluentui/react-components';
 
 export interface VehicleDataFormProps {
 	fleetCardService: IFleetCardService;
@@ -34,6 +34,7 @@ export interface VehicleRegisterFormState {
 	insuranceExpirationDate: Date;
 	vehicleLicenseExpirationDate: Date;
 	dinatranExpirationDate: Date;
+	isActive: boolean;
 }
 
 export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
@@ -44,7 +45,13 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 	const { isLoading, fleetCardList } = useFleetCardList(fleetCardService);
 
 	//Get event handlers from custom hook
-	const { handleInputChanges, handleDropdownChanges, handleRadioChanges, handleDatePickerChanges } = useVehicleForm({
+	const {
+		handleInputChanges,
+		handleDropdownChanges,
+		handleRadioChanges,
+		handleDatePickerChanges,
+		handleSwitchChanges,
+	} = useVehicleForm({
 		formState,
 		setFormState,
 		fleetCardList,
@@ -52,6 +59,12 @@ export const VehicleRegisterForm: React.FC<VehicleDataFormProps> = (props) => {
 
 	return (
 		<>
+			<Switch
+				id={`isActive-${id}`}
+				checked={formState?.isActive}
+				label={'Activo'}
+				onChange={handleSwitchChanges}
+			/>
 			<InputField
 				id={`plate-${id}`}
 				label={'Chapa'}

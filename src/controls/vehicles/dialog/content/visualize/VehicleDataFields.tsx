@@ -4,6 +4,7 @@ import { Vehicle } from '@/models/Vehicle';
 
 import { InputField } from '@/controls/InputField';
 import { moneyFormat } from '@/helpers/moneyFormat';
+import { Switch } from '@fluentui/react-components';
 export interface VehicleDataFieldsProps {
 	vehicle?: Vehicle;
 }
@@ -13,6 +14,10 @@ export const VehicleDataFields: React.FC<VehicleDataFieldsProps> = (props) => {
 
 	return (
 		<>
+            <Switch 
+                label={'Activo'}
+                checked={vehicle?.IsActive}
+            />
 			<InputField
 				label={'Chapa'}
 				value={vehicle?.Plate}
