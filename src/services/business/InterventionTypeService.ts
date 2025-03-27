@@ -99,6 +99,7 @@ export class InterventionTypeService implements IInterventionTypeService {
 			return {
 				Id: item.Id,
 				Description: item.Title,
+                Observations: item.Observaciones,
 			};
 		});
 	}
@@ -107,6 +108,7 @@ export class InterventionTypeService implements IInterventionTypeService {
 		return {
 			Id: item.Id,
 			Title: item.Description,
+            Observaciones: item.Observations,
 		};
 	}
 }

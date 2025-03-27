@@ -20,42 +20,52 @@ export class MockInterventionTypeService implements IInterventionTypeService {
 			{
 				Id: 1,
 				Description: 'Cambio de Aceite',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 2,
 				Description: 'Revisión de Frenos',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 3,
 				Description: 'Cambio de Neumáticos',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 4,
 				Description: 'Inspección General',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 5,
 				Description: 'Reparación de Motor',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 6,
 				Description: 'Mantenimiento de Aire Acondicionado',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 7,
 				Description: 'Cambio de Batería',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 8,
 				Description: 'Alineación y Balanceo',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 9,
 				Description: 'Revisión del Sistema Eléctrico',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 			{
 				Id: 10,
 				Description: 'Reemplazo de Filtros',
+                Observations: 'Se recomienda realizar cada 5000 km',
 			},
 		];
         

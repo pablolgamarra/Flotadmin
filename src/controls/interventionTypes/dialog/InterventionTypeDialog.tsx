@@ -7,21 +7,21 @@ import { CustomDialog } from '@/controls/CustomDialog';
 import { useDataContext } from '@/hooks/useDataContext';
 import { InterventionType } from '@/models/InterventionType';
 import {
-	Button,
-	DialogActions,
-	DialogTrigger,
-	Slot,
-	Spinner,
-	Toast,
-	ToastBody,
-	Toaster,
-	ToastTitle,
-	useId,
-	useToastController,
+    Button,
+    DialogActions,
+    DialogTrigger,
+    Slot,
+    Spinner,
+    Toast,
+    ToastBody,
+    Toaster,
+    ToastTitle,
+    useId,
+    useToastController,
 } from '@fluentui/react-components';
 import {
-	InterventionTypeRegisterForm,
-	InterventionTypeRegisterFormState,
+    InterventionTypeRegisterForm,
+    InterventionTypeRegisterFormState,
 } from './content/register/InterventionTypeRegisterForm';
 import { InterventionTypeDataVisualizer } from './content/visualize/InterventionTypeDataVisualizer';
 
@@ -41,6 +41,7 @@ const parseStateToInterventionType = (state: InterventionTypeRegisterFormState):
 		const parsedState = {
 			Id: state.id || -1,
 			Description: state.description,
+			Observations: state.observations,
 		};
 
 		return parsedState;
@@ -64,6 +65,7 @@ export const InterventionTypeDialog: React.FC<React.PropsWithChildren<Interventi
 		initialValues = {
 			id: interventionType.Id,
 			description: interventionType.Description,
+			observations: interventionType.Observations,
 		};
 	}
 

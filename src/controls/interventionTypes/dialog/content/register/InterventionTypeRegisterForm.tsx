@@ -7,6 +7,7 @@ import { Checkbox, Field, useId } from '@fluentui/react-components';
 export interface InterventionTypeRegisterFormState {
 	id: number;
 	description: string;
+	observations: string;
 	//active:boolean;
 }
 export interface InterventionTypeRegisterFormProps {
@@ -28,6 +29,15 @@ export const InterventionTypeRegisterForm: React.FC<InterventionTypeRegisterForm
 				label='Descripción'
 				placeholder='Insertar Descripcion'
 				value={formState?.description}
+				type='text'
+				onChange={handleInputChanges}
+			/>
+			<InputField
+				id={`${id}-observations`}
+				name='observation'
+				label='Observaciones'
+				placeholder='Insertar Observaciones'
+				value={formState?.observations}
 				type='text'
 				onChange={handleInputChanges}
 			/>

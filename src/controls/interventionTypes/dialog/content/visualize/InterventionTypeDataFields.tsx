@@ -14,6 +14,9 @@ export const InterventionTypeDataFields: React.FC<IInterventionTypeDataFields> =
 			<Field label={'Descripción'}>
 				<Input value={interventionType?.Description} />
 			</Field>
+			<Field label={'Observaciones'}>
+				<Input value={interventionType?.Observations} />
+			</Field>
 			<Field label={'Activo'}>
 				<Checkbox /*checked={} label={interventionType?.Active}*/ />
 			</Field>
