@@ -27,7 +27,7 @@ export const InterventionTypesListPaged: React.FC<IInterventionTypesListPaged> =
 	if (isLoading) {
 		return (
 			<Spinner
-				label='Cargando Tarjetas Flota...'
+				label='Cargando Tipos de Intervención...'
 				size='tiny'
 			/>
 		);

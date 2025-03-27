@@ -1,7 +1,7 @@
 define([], function () {
 	return {
 		WebPartTitle: {
-			Title: 'Todas Los Tipos de Interacción',
+			Title: 'Todos Los Tipos de Interacción',
 		},
 		SearchBar: {
 			Placeholder: 'Buscar Tipos de Interacción',

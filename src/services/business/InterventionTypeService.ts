@@ -48,7 +48,7 @@ export class InterventionTypeService implements IInterventionTypeService {
 
     public async listAllPaged(pageSize: number, requestedPage: number): Promise<{interventionTypesPage: InterventionType[], count: number}> {
         try {
-            const { results, totalCount} = await this._SPService.getListItemsPaged('Vehiculos', pageSize, requestedPage);
+            const { results, totalCount} = await this._SPService.getListItemsPaged('TiposIntervencion', pageSize, requestedPage);
 			const interventionTypes = this.parseToInterventionType(results);
 
             return {interventionTypesPage: interventionTypes, count: totalCount};
